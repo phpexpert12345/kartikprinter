@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReasonActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/liner_back"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/red"
+     >
+
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bacckkk"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+         />
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Reason"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:gravity="center"
+          />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+            <TextView
+                android:id="@+id/tvrply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your Reply"
+                android:textSize="22sp"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="150dp"
+               android:id="@+id/edt_replyy"
+               android:layout_below="@+id/tvrply"
+               android:layout_marginTop="20dp"
+               android:layout_marginEnd="10dp"
+               android:layout_marginStart="20dp"
+               android:layout_marginBottom="10dp"
+               android:background="@drawable/border"
+               android:layout_marginLeft="20dp"
+               android:layout_marginRight="10dp">
+
+               <EditText
+                   android:id="@+id/edt_reply"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:padding="10dp"
+
+                   android:backgroundTint="#00000000"/>
+           </LinearLayout>
+
+
+            <Button
+                android:id="@+id/replysubmit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="25dp"
+                android:text="Reply"
+                android:background="@color/red"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:layout_below="@+id/edt_replyy"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:visibility="invisible"
+                android:layout_below="@+id/replysubmit"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

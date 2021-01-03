@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_marginTop="1dp"
+    android:background="#fff"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:weightSum="4"
+        android:layout_height="50sp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/date"
+            android:textSize="12sp"
+            android:layout_gravity="center_vertical"
+            android:textStyle="normal"
+            android:gravity="center"
+            android:layout_marginLeft="5sp"
+            android:text="9th May,2019, 20:23"
+            android:layout_weight="1.3"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/payment"
+            android:textSize="12sp"
+            android:text="Cash"
+            android:textStyle="normal"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_weight=".9"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/orderid"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="WEEXDS"
+            android:layout_weight=".9"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/price"
+            android:textSize="12sp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="USD23"
+            android:textStyle="normal"
+            android:layout_weight=".9"
+            android:textColor="@color/black"/>
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

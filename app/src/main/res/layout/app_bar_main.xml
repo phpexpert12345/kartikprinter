@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <LinearLayout
+            android:id="@+id/linear_header"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/green2">
+
+            <RelativeLayout
+                android:id="@+id/sidebar_rl"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:gravity="center_horizontal">
+
+                <View
+                    android:id="@+id/a1"
+                    android:layout_width="40dp"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/white" />
+
+                <View
+                    android:id="@+id/a2"
+                    android:layout_width="40dp"
+                    android:layout_height="5dp"
+                    android:layout_below="@+id/a1"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white" />
+
+                <View
+                    android:id="@+id/a3"
+                    android:layout_width="40dp"
+                    android:layout_height="5dp"
+                    android:layout_below="@+id/a2"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/music_rl"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/music"
+                    android:gravity="center"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/home_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/current_time"
+                    android:layout_width="60dp"
+                    android:layout_height="37dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/notification_rl"
+                    android:gravity="center"
+                    android:text="16:21"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/refresh"
+                    android:layout_width="48sp"
+                    android:layout_height="48sp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_refresh_black_24dp" />
+
+                <Button
+                    android:id="@+id/notification_rl"
+                    android:layout_width="30sp"
+                    android:layout_height="30sp"
+                    android:visibility="gone"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/notification" />
+                <ImageView
+                    android:id="@+id/change_lang"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/multimedia"
+                    android:visibility="visible" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/content_main" />
+
+    <!--    <android.support.design.widget.FloatingActionButton-->
+    <!--        android:id="@+id/fab"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="bottom|end"-->
+    <!--        android:layout_margin="@dimen/fab_margin"-->
+    <!--        app:srcCompat="@android:drawable/ic_dialog_email"-->
+    <!--        android:visibility="gone"/>-->
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

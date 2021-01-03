@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:id="@+id/ordernumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:textSize="22sp"
+            android:text="Decline Reason"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight=".3"
+            android:background="@drawable/cancel"
+            android:layout_marginTop="3dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0"
+        android:layout_marginTop="2dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+
+        <EditText
+            android:id="@+id/edt_reason"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:hint="Write notes for customer.."
+            android:padding="15dp"/>
+
+        <Button
+            android:id="@+id/submit_reason"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="submit"
+            android:background="@color/green"
+            android:layout_margin="15dp"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Adddriver"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/liner_back"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/red"
+        android:weightSum="2">
+
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="5dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bacckkk"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_weight="0.2"
+            android:layout_marginLeft="10dp" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Add Rider"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_weight="1.5"
+            android:padding="5dp"/>
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/iv_profile"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/pimage"
+                        android:padding="5dp"
+                        android:background="@drawable/border_black"/>
+
+                    <ImageView
+                        android:id="@+id/imageselector"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignBaseline="@+id/iv_profile"
+                        android:layout_alignEnd="@id/iv_profile"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginEnd="-22dp"
+                        android:layout_marginBottom="0dp"
+                        android:src="@drawable/camera"
+                        android:layout_alignRight="@id/iv_profile"
+                        android:layout_marginRight="-22dp" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/iv_licence"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/limage"
+                        android:padding="5dp"
+                        android:background="@drawable/border_black"/>
+
+                    <ImageView
+                        android:id="@+id/imageselectorlicence"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignBaseline="@+id/iv_licence"
+                        android:layout_alignEnd="@id/iv_licence"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginEnd="-22dp"
+                        android:layout_marginBottom="0dp"
+                        android:src="@drawable/camera"
+                        android:layout_alignRight="@id/iv_licence"
+                        android:layout_marginRight="-22dp" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_first"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/riderfirstname"
+                android:layout_marginTop="20dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelPadding="2dp"
+                app:met_floatingLabelTextSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:inputType="text"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_last"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/riderlast"
+                android:layout_marginTop="20dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelPadding="2dp"
+                app:met_floatingLabelTextSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:inputType="text" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_emailll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/rideremail"
+                android:layout_marginTop="20dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelPadding="2dp"
+                app:met_floatingLabelTextSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:inputType="textEmailAddress"/>
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:hint="@string/ridermobile"
+                android:maxLength="15"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelPadding="2dp"
+                app:met_floatingLabelTextSize="15sp"
+                android:inputType="number"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_license"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/riderlicense"
+                android:layout_marginTop="20dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelPadding="2dp"
+                app:met_floatingLabelTextSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:inputType="text"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_country"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/ridercountry"
+                android:layout_marginTop="20dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelPadding="2dp"
+                app:met_floatingLabelTextSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:maxLength="25"
+                android:inputType="text"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_city"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/ridercity"
+                android:layout_marginTop="20dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelPadding="2dp"
+                app:met_floatingLabelTextSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:maxLength="25"
+                android:inputType="text"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_postcode"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/riderpoastcode"
+                android:layout_marginTop="20dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelPadding="2dp"
+                app:met_floatingLabelTextSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:inputType="text" />
+
+
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="15dp"
+                android:padding="10dp"
+                android:gravity="top"
+                android:hint="Full address"
+                android:inputType="text"/>
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_vechiletype"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/vechile"
+                android:layout_marginTop="20dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelPadding="2dp"
+                app:met_floatingLabelTextSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:inputType="text" />
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_vechilebrand"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/vechileband"
+                android:layout_marginTop="20dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelPadding="2dp"
+                app:met_floatingLabelTextSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:inputType="text"/>
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_vechilemodel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/vechilemodel"
+                android:layout_marginTop="20dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelPadding="2dp"
+                app:met_floatingLabelTextSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:inputType="text" />
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edt_vechileyear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/vechileyear"
+                android:layout_marginTop="20dp"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelPadding="2dp"
+                app:met_floatingLabelTextSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:maxLength="4"
+                android:inputType="number"/>
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/red"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/submit"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

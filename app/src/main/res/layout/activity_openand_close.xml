@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/linearback"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/green2"
+        android:weightSum="2">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="25sp"
+            android:layout_height="25sp"
+            android:background="@drawable/back"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open and Close"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:layout_gravity="center"
+            android:layout_weight="1.8"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp">
+
+            <TextView
+                android:id="@+id/resto_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/restrostatus"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+
+        </RelativeLayout>
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="3"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <RadioButton
+                android:id="@+id/radio_open"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Open"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/radio_close"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Close"
+                android:layout_weight="1"
+                />
+
+            <RadioButton
+                android:id="@+id/radio_busy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Busy"
+                android:layout_weight="1"
+                />
+
+        </RadioGroup>
+
+
+        <TextView
+            android:id="@+id/esti_title_deli"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="Estimated time of delivery"
+            android:layout_marginTop="15dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:weightSum="2"
+            android:gravity="center"
+            android:layout_marginTop="5dp">
+
+            <EditText
+                android:id="@+id/edt_time1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=""
+                android:inputType="numberDecimal"
+                android:background="@drawable/spinner_border"
+                android:gravity="center"
+                android:layout_margin="2dp"
+                android:maxLength="2"/>
+
+            <EditText
+                android:id="@+id/edt_time2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=""
+                android:inputType="numberDecimal"
+                android:background="@drawable/spinner_border"
+                android:gravity="center"
+                android:layout_margin="2dp"
+                android:maxLength="2"/>
+        </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/esti_title_pickup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="Estimated pickup time"
+            android:layout_marginTop="15dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:weightSum="2"
+            android:gravity="center"
+            android:layout_marginTop="5dp">
+
+            <EditText
+                android:id="@+id/edt_time3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=""
+                android:inputType="numberDecimal"
+                android:background="@drawable/spinner_border"
+                android:gravity="center"
+                android:layout_margin="2dp"
+                android:maxLength="2"/>
+
+            <EditText
+                android:id="@+id/edt_time4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text=""
+                android:inputType="numberDecimal"
+                android:background="@drawable/spinner_border"
+                android:gravity="center"
+                android:layout_margin="2dp"
+                android:maxLength="2"/>
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/buttonsubmitt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/submit"
+            android:layout_marginTop="10dp"
+            android:background="@color/green2"
+            android:textColor="@color/white"/>
+
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/acceptorder"
+        android:layout_margin="40dp" />
+
+</LinearLayout>

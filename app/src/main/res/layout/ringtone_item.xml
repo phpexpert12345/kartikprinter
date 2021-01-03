@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="@dimen/_40sdp"
+    android:padding="@dimen/_5sdp"
+    android:id="@+id/linear_ringtone"
+    android:layout_margin="@dimen/_20sdp">
+<androidx.appcompat.widget.AppCompatRadioButton
+    android:layout_width="wrap_content"
+    android:gravity="center"
+    android:scaleX="1.4"
+    android:scaleY="1.4"
+    android:clickable="false"
+    android:buttonTint="@color/red"
+    android:layout_height="wrap_content"
+    android:id="@+id/radio_ringtone"
+    />
+    <ImageView
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:src="@drawable/ic_play"
+        android:id="@+id/img_play"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:gravity="center"/>
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:layout_width="@dimen/_130sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:gravity="center"
+        android:scaleX="1.5"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:id="@+id/seekbar_ringtone"
+        android:scaleY="1.5"
+        android:layout_marginStart="@dimen/_25sdp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:textSize="25sp"
+        android:gravity="center"
+       android:visibility="gone"
+        android:textColor="@color/colorPrimary"
+        android:text="Ringtone 1"
+        android:id="@+id/txt_ringtone_name"/>
+</LinearLayout>

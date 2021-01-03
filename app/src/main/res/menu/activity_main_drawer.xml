@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/grp1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_allorders"
+            android:icon="@drawable/alllorder"
+            android:title="All Orders" />
+
+    </group>
+
+        <group
+            android:id="@+id/grp21"
+            android:checkableBehavior="single">
+
+            <item
+                android:id="@+id/nav_history"
+                android:icon="@drawable/table_booking"
+                android:title="Order History" />
+        </group>
+
+<!--        <group-->
+<!--            android:id="@+id/grp11"-->
+<!--            android:checkableBehavior="single">-->
+<!--            <item-->
+<!--                android:id="@+id/nav_setDiscount"-->
+<!--                android:icon="@drawable/ordersupport"-->
+<!--                android:title="Discount" />-->
+<!--        </group>-->
+
+<!--    <group
+        android:id="@+id/grp2"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_tablebooking"
+            android:icon="@drawable/table_booking"
+            android:title="Table Bookings" />
+    </group>-->
+
+    <group
+        android:id="@+id/grp3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_odersupport"
+            android:icon="@drawable/ordersupport"
+            android:title="Order Complaints" />
+          </group>
+
+    <group
+        android:id="@+id/grp4"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_openclose"
+            android:icon="@drawable/chat"
+            android:title="Open/Close" />
+    </group>
+
+<!--        <group-->
+<!--            android:id="@+id/grp11"-->
+<!--            android:checkableBehavior="single">-->
+
+<!--            <item-->
+<!--                android:id="@+id/nav_add_driver"-->
+<!--                android:icon="@drawable/add_rider"-->
+<!--                android:title="Add Rider" />-->
+<!--        </group>-->
+
+
+<!--        <group-->
+<!--            android:id="@+id/grp12"-->
+<!--            android:checkableBehavior="single">-->
+
+<!--            <item-->
+<!--                android:id="@+id/nav_manage_driver"-->
+<!--                android:icon="@drawable/manage_rider"-->
+<!--                android:title="Manage Rider" />-->
+<!--        </group>-->
+
+    <group
+        android:id="@+id/grp5"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/chat"
+            android:title="Help &amp; Chat" />
+    </group>
+
+<!--    <group-->
+<!--        android:id="@+id/grp6"-->
+<!--        android:checkableBehavior="single">-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_aboutus"-->
+<!--            android:icon="@drawable/aboutus"-->
+<!--            android:title="About us" />-->
+<!--    </group>-->
+
+<!--    <group-->
+<!--        android:id="@+id/grp7"-->
+<!--        android:checkableBehavior="single">-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_privacy"-->
+<!--            android:icon="@drawable/privacy"-->
+<!--            android:title="Privacy &amp; Policy" />-->
+<!--    </group>-->
+
+<!--    <group-->
+<!--        android:id="@+id/grp8"-->
+<!--        android:checkableBehavior="single">-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_terms"-->
+<!--            android:icon="@drawable/terms"-->
+<!--            android:title="Terms &amp; Conditions" />-->
+<!--    </group>-->
+
+<!--    <group-->
+<!--        android:id="@+id/grp9"-->
+<!--        android:checkableBehavior="single">-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_faqs"-->
+<!--            android:icon="@drawable/faqq"-->
+<!--            android:title="FAQs" />-->
+<!--    </group>-->
+
+    <group
+        android:id="@+id/grp10"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
+            android:title="Logout" />
+    </group>
+        <group
+        android:id="@+id/grp11"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_update_ringtone"
+            android:icon="@drawable/ic_ringtone"
+            android:title="Update Ringtone" />
+    </group>
+
+    </group>
+</menu>
