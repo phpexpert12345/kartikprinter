@@ -104,11 +104,12 @@
 
                             <RelativeLayout
                                 android:id="@+id/print"
-                                android:layout_width="100sp"
+                                android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_margin="10dp"
+                                android:visibility="visible"
                                 android:layout_marginLeft="50dp"
-                                android:layout_weight="1"
+                                android:layout_weight="3"
                                 android:background="@drawable/rounded_border_green">
 
                                 <TextView
@@ -126,9 +127,10 @@
 
                             <RelativeLayout
                                 android:id="@+id/printwithsmall"
-                                android:layout_width="@dimen/_80sdp"
+                                android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_margin="10dp"
+                                android:visibility="gone"
                                 android:layout_weight="1"
                                 android:background="@drawable/rounded_border_green">
 
@@ -151,6 +153,7 @@
                                 android:layout_height="40dp"
                                 android:layout_margin="10dp"
                                 android:layout_weight="1"
+                                android:visibility="gone"
                                 android:background="@drawable/rounded_border_green">
 
                                 <TextView
@@ -316,7 +319,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="40dp"
                                     android:drawableStart="@drawable/ic_call_black_24dp"
-                                    android:drawableTint="@color/red"
                                     android:fontFamily="@font/opensans"
                                     android:drawablePadding="@dimen/_10sdp"
                                     android:gravity="center_vertical"

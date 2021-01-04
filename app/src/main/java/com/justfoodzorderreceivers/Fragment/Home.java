@@ -241,7 +241,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 
         processingTv.setText(parseLanguage.getParseString("Processing"));
         allorder.setText(parseLanguage.getParseString("All_Order"));
-        booking.setText(parseLanguage.getParseString("Booking"));
+        booking.setText(parseLanguage.getParseString("Order_Complaints"));
 
         stringList = new ArrayList<TimeModel>();
         stringList.clear();
@@ -1700,7 +1700,14 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
             holder.tv_date.setText(pp.get(position).getOrder_date());
 //            holder.tv_status.setText(pp.get(position).getOrder_status_msg());
             holder.tv_status.setTextColor(Color.parseColor(pp.get(position).getorder_status_color_code()));
-            holder.tv_amount.setText(Activity_Splash.currency_symbol + pp.get(position).getordPrice());
+            String price=pp.get(position).getordPrice();
+            if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
+                holder.tv_amount.setText(price);
+            }
+            else {
+                holder.tv_amount.setText(Activity_Splash.currency_symbol+price);
+            }
+//            holder.tv_amount.setText(Activity_Splash.currency_symbol + pp.get(position).getordPrice());
             holder.tv_time.setText(pp.get(position).getOrder_time());
             holder.foodtype.setText(pp.get(position).getPayment_mode());
             Picasso.get().load(pp.get(position).getorder_type_img()).into(holder.iv_order);

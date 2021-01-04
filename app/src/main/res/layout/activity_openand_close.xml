@@ -88,6 +88,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Busy"
+                android:maxLines="1"
+                android:maxLength="9"
+                android:ellipsize="end"
                 android:layout_weight="1"
                 />
 

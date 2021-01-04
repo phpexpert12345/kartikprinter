@@ -305,13 +305,14 @@ public class Activity_Booking extends AppCompatActivity implements PrinterObserv
         printText.setText(parseLanguage.getParseString("Take_Print_keyword"));
         btn_accept.setText(parseLanguage.getParseString("AcceptButton"));
         btn_decline.setText(parseLanguage.getParseString("DeclineButton"));
-        if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
-            total.setText(getString(R.string.total));
-        }
-        else {
-            total.setText("Total");
-        }
-//        total.setText(parseLanguage.getParseString("Total"));
+//        if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
+//            total.setText(getString(R.string.total));
+//        }
+//        else {
+//            total.setText("Total");
+//        }
+        total.setText(parseLanguage.getParseString("Total"));
+
         btn_markComplete.setText(parseLanguage.getParseString("Mark_As_Completed"));
 
         //  takeprint1 = (LinearLayout) findViewById(R.id.takeprint);
@@ -320,6 +321,7 @@ public class Activity_Booking extends AppCompatActivity implements PrinterObserv
         printwithbig = (RelativeLayout) findViewById(R.id.printwithbig);
         String print_small=parseLanguage.getParseString("Take_print_small");
         String print_big= parseLanguage.getParseString("Take_print_big");
+        btn_change_orderstatus.setText(parseLanguage.getParseString("Change_Order_Status"));
         if(print_small.equalsIgnoreCase("No Response")){
             if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
                 printTextwithsmall.setText(getString(R.string.take_print_small));
@@ -1307,9 +1309,7 @@ public class Activity_Booking extends AppCompatActivity implements PrinterObserv
                             btn_status.setText(parseLanguage.getParseString("Accepted"));
                             btn_accept.setVisibility(View.GONE);
                             btn_decline.setVisibility(View.GONE);
-                            if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
-                                btn_change_orderstatus.setText(getString(R.string.change_order_status));
-                            }
+
                             btn_change_orderstatus.setVisibility(View.VISIBLE);
                             btn_track_order.setVisibility(View.GONE);
                             btn_markComplete.setVisibility(View.VISIBLE);
@@ -2529,8 +2529,6 @@ public class Activity_Booking extends AppCompatActivity implements PrinterObserv
             txtmobile.setAlign(CommonEnum.ALIGN_MIDDLE);
             escCmd.append(escCmd.getTextCmd(txtmobile, restaurant_mobile_number));
             escCmd.append(escCmd.getLFCRCmd());
-
-
             TextSetting txt_reastudash = new TextSetting();
             txt_reastudash.setAlign(CommonEnum.ALIGN_MIDDLE);
             escCmd.append(escCmd.getTextCmd(txt_reastudash, "--------------------------------"));
@@ -2540,28 +2538,22 @@ public class Activity_Booking extends AppCompatActivity implements PrinterObserv
             txtOrderType.setAlign(CommonEnum.ALIGN_MIDDLE);
             txtOrderType.setBold(SettingEnum.Enable);
             escCmd.append(escCmd.getTextCmd(txtOrderType, OrderType));
-
             escCmd.append(escCmd.getLFCRCmd());
             escCmd.append(escCmd.getLFCRCmd());
-
             TextSetting txtOrderNo = new TextSetting();
             txtOrderNo.setAlign(CommonEnum.ALIGN_MIDDLE);
             txtOrderNo.setBold(SettingEnum.Enable);
             escCmd.append(escCmd.getTextCmd(txtOrderNo, order_reference_number));
             escCmd.append(escCmd.getLFCRCmd());
             escCmd.append(escCmd.getLFCRCmd());
-
             TextSetting orderDate = new TextSetting();
             orderDate.setAlign(CommonEnum.ALIGN_MIDDLE);
             escCmd.append(escCmd.getTextCmd(orderDate, RequestAtDate + " / " + RequestAtTime));
             escCmd.append(escCmd.getLFCRCmd());
-
-
         /*    TextSetting orderTime = new TextSetting();
             orderTime.setAlign(CommonEnum.ALIGN_MIDDLE);
             escCmd.append(escCmd.getTextCmd(orderTime,  RequestAtTime));
             escCmd.append(escCmd.getLFCRCmd());*/
-
             TextSetting orderReadyAt = new TextSetting();
             orderReadyAt.setAlign(CommonEnum.ALIGN_MIDDLE);
             if(collectionTime.equalsIgnoreCase("null")){
@@ -2589,6 +2581,7 @@ public class Activity_Booking extends AppCompatActivity implements PrinterObserv
 
                 TextSetting txt_customerNote = new TextSetting();
                 txt_customerNote.setAlign(CommonEnum.ALIGN_LEFT);
+                txt_customerNote.setBold(SettingEnum.Enable);
                 String customer_note=parseLanguage.getParseString("Customer_note");
                 if(customer_note.equalsIgnoreCase("No Response")){
                     if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
@@ -2663,28 +2656,21 @@ public class Activity_Booking extends AppCompatActivity implements PrinterObserv
                 escCmd.append(escCmd.getTextCmd(txt_backorders, back_order+":" + number_of_customer_order));
                 escCmd.append(escCmd.getLFCRCmd());
             }
-
-
             TextSetting txt_PayOptionStatus = new TextSetting();
             txt_PayOptionStatus.setAlign(CommonEnum.ALIGN_MIDDLE);
             txt_PayOptionStatus.setBold(SettingEnum.Enable);
             escCmd.append(escCmd.getTextCmd(txt_PayOptionStatus, PayOptionStatus));
             escCmd.append(escCmd.getLFCRCmd());
-
-
             TextSetting txtpaystatusdash = new TextSetting();
             txtpaystatusdash.setAlign(CommonEnum.ALIGN_MIDDLE);
             escCmd.append(escCmd.getTextCmd(txtpaystatusdash, "--------------------------------"));
             escCmd.append(escCmd.getLFCRCmd());
-
-
             TextSetting txtitemname = new TextSetting();
             txtitemname.setAlign(CommonEnum.ALIGN_LEFT);
+            txtitemname.setBold(SettingEnum.Enable);
             escCmd.append(escCmd.getTextCmd(txtitemname, parseLanguage.getParseString("Item_Name")+"       " +parseLanguage.getParseString("Price")));
             escCmd.append(escCmd.getLFCRCmd());
             escCmd.append(escCmd.getLFCRCmd());
-
-
             TextSetting textSetting3 = new TextSetting();
             textSetting3.setAlign(CommonEnum.ALIGN_MIDDLE);
             for (int i = 0; i < item_name.size(); i++) {

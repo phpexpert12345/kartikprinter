@@ -1,5 +1,6 @@
 package com.justfoodzorderreceivers;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -28,6 +29,7 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RingtoneAdapter.Ringto
     List<RingtoneItem>ringtoneItems;
     private static MediaPlayer mediaPlayer;
     Context context;
+    ProgressDialog progressDialog;
 
     public int getSelected_position() {
         return selected_position;
@@ -72,6 +74,7 @@ holder.linear_ringtone.setOnClickListener(new View.OnClickListener() {
           notifyDataSetChanged();
       }
       else {
+          progressDialog = progressDialog.show(context, "", "Please wait...", false, false);
           new PlayVideoAsynck(holder).execute(ringtoneItems.get(pos).ring_tone_url);
 //        playVideo(context,ringtoneItems.get(pos).ring_tone_url);
           notifyDataSetChanged();
@@ -123,6 +126,7 @@ public PlayVideoAsynck(RingtoneViewHolder ringtoneViewHolder){
                     killMediaPlayer(ringtoneViewHolder);
                 }
             });
+
             mediaPlayer.start();
             return null;
         }
@@ -142,6 +146,9 @@ if(mediaPlayer!=null) {
     Log.i("currentposition", percent + "");
     ringtoneViewHolder.appCompatSeekBar.setProgress((int) percent);
     ringtoneViewHolder.img_play.setImageResource(R.drawable.ic_pause);
+    if(progressDialog!=null && progressDialog.isShowing()){
+        progressDialog.dismiss();
+    }
     handler.postDelayed(this, 300);
 }
 
