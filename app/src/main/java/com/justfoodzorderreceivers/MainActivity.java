@@ -2,6 +2,7 @@ package com.justfoodzorderreceivers;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -27,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.core.view.GravityCompat;
@@ -758,16 +760,8 @@ progressDialog.dismiss();
 
         }
         else if (id == R.id.nav_logout) {
+ShowlogoutDialog();
 
-            Intent i = new Intent(MainActivity.this,LoginActivity.class);
-            i.putExtra("lang",myPref.getCustomer_default_langauge());
-            SharedPreferences.Editor editor =sharedPreferences.edit();
-            editor.putString("restaurant_id","");
-            editor.commit();
-            myPref.logOut();
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(i);
-            finish();
         }
         else if(id==R.id.nav_update_ringtone){
             Intent i = new Intent(MainActivity.this, UpdateRingtone.class);
@@ -777,6 +771,44 @@ progressDialog.dismiss();
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void ShowlogoutDialog(){
+        String message="";
+        String okay="";
+        String cancel ="";
+        if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
+            message=getString(R.string.are_you_sure_logout);
+            okay=getString(R.string.okay);
+            cancel=getString(R.string.cancel);
+        }
+        else {
+            message="Are you sure you want to logout?";
+            okay ="Ok";
+            cancel="Cancel";
+        }
+        AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this).setMessage(message).setPositiveButton(okay, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent i = new Intent(MainActivity.this,LoginActivity.class);
+                i.putExtra("lang",myPref.getCustomer_default_langauge());
+                SharedPreferences.Editor editor =sharedPreferences.edit();
+                editor.putString("restaurant_id","");
+                editor.commit();
+                myPref.logOut();
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                finish();
+
+            }
+        }).setNegativeButton(cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+
     }
 
 

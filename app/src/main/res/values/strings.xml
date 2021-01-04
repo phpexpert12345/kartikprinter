@@ -7,8 +7,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity__splash">Activity_Splash</string>
-
-
     <string name="selectpicuptime">Select delivery/pickup time for this order</string>
     <string name="changestatus">Change status of the Order</string>
     <string name="accepted">Back</string>
@@ -78,6 +76,9 @@
     <string name="write_notes_customer">Schreiben Sie Notizen für Kunden ..</string>
     <string name="decline_reason">Grund ablehnen</string>
     <string name="change_order_status">Auftragsstatus ändern</string>
-
+    <string name="are_you_sure_logout">Sind Sie sicher, dass Sie sich abmelden möchten?</string>
+    <string name="okay">in Ordnung</string>
+    <string name="cancel">Stornieren</string>
+    <string name="are_you_sure_delete">Sind Sie sicher, dass Sie diese Beschwerde löschen möchten?</string>
 
 </resources>
