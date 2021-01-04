@@ -339,6 +339,7 @@ public class Activity_Booking extends AppCompatActivity implements PrinterObserv
 
         // rl_dyingtable = (RelativeLayout) findViewById(R.id.rl_dyingtable);
         authPreference = new AuthPreference(this);
+        printwithbig.setVisibility(View.GONE);
 
 
         printwithbig.setOnClickListener(new View.OnClickListener() {
@@ -3998,6 +3999,7 @@ if(food_available.equalsIgnoreCase("No Response")){
 
             TextSetting textSetting5 = new TextSetting();
             textSetting5.setAlign(CommonEnum.ALIGN_LEFT);
+            textSetting5.setBold(SettingEnum.Enable);
             String total=parseLanguage.getParseString("Total");
             switch (OrderPrice.length()) {
                 case 2:

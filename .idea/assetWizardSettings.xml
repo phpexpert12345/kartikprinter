@@ -28,9 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_money" />
-                            <entry key="sourceFile" value="C:\Users\punee\AndroidStudioProjects\lieferadealorderreceiver" />
+                            <entry key="outputName" value="ic_food_delivery" />
+                            <entry key="sourceFile" value="C:\Users\punee\Downloads\food-delivery.svg" />
                           </map>
                         </option>
                       </PersistentState>

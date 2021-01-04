@@ -21,7 +21,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:src="@drawable/bacckkk"
-            android:tint="@color/black" />
+             />
 
 
         <TextView
@@ -273,15 +273,15 @@
 
                         <TextView
                             android:id="@+id/tv_ordertype"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_address"
-                            android:layout_marginRight="15dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
                             android:drawablePadding="@dimen/_15sdp"
-                            android:drawableStart="@drawable/ic_delivery"
                             android:fontFamily="@font/opensans"
-                            android:gravity="center_vertical" />
+                            android:gravity="center_vertical"
+                            app:drawableStartCompat="@drawable/ic_food_delivery" />
 
                         <TextView
                             android:id="@+id/tv_payment_type"
