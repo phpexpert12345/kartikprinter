@@ -10,18 +10,18 @@
     <LinearLayout
         android:id="@+id/linearback"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/green2"
         android:weightSum="2">
 
         <ImageView
             android:id="@+id/iv_back"
-            android:layout_width="25sp"
-            android:layout_height="25sp"
-            android:background="@drawable/back"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+           android:src="@drawable/ic_back"
             android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="@dimen/_8sdp"
+
             />
 
         <TextView

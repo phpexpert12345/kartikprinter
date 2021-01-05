@@ -18,12 +18,11 @@
         <ImageView
             android:id="@+id/back"
             android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/bacckkk"
+            android:layout_height="21dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-           />
+            android:background="@drawable/bacckkk" />
 
 
         <ImageView

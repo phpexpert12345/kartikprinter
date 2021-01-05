@@ -15,11 +15,13 @@ public class CustomComboAdapter extends RecyclerView.Adapter<CustomComboAdapter.
     private Context context;
     private ArrayList<Model_OrderComboItemExtra> model_orderComboItemOptions;
     private String currencySymbol;
+    MyPref myPref;
 
     public CustomComboAdapter(Context context, ArrayList<Model_OrderComboItemExtra> model_orderComboItemOptions, String currencySymbol) {
         this.context = context;
         this.model_orderComboItemOptions = model_orderComboItemOptions;
         this.currencySymbol = currencySymbol;
+        myPref = new MyPref(context);
 
     }
 
@@ -37,7 +39,11 @@ public class CustomComboAdapter extends RecyclerView.Adapter<CustomComboAdapter.
 
         holder.txt_itemqty.setText(model_orderComboItemOptions.get(position).getComboExtraItemQuantity() + " " + "×" + " " + model_orderComboItemOptions.get(position).getComboExtraItemName());
 //        holder.txt_item.setText(model_orderComboItemOptions.get(position).getComboExtraItemPrice());
-        holder.txt_itemPRice.setText(currencySymbol+" "+model_orderComboItemOptions.get(position).getComboExtraItemPrice());
+        String combo_price=model_orderComboItemOptions.get(position).getComboExtraItemPrice();
+        if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
+            combo_price=combo_price.replace(".", ",");
+        }
+        holder.txt_itemPRice.setText(currencySymbol+" "+combo_price);
     }
 
     @Override

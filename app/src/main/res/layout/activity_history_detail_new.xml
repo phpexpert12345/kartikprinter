@@ -16,11 +16,11 @@
 
         <ImageView
             android:id="@+id/back"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/bacckkk"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:src="@drawable/ic_back_black"
              />
 
 

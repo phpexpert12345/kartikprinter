@@ -111,6 +111,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -1666,6 +1667,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
         Context context;
 
         List<OrderList> pp;
+        DecimalFormat decimalformat=new DecimalFormat("##,00");
 
         public OrderListView(Context c, ArrayList<OrderList> p) {
             this.context = c;
@@ -1702,7 +1704,8 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
             holder.tv_status.setTextColor(Color.parseColor(pp.get(position).getorder_status_color_code()));
             String price=pp.get(position).getordPrice();
             if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
-                holder.tv_amount.setText(price);
+                price=price.replace(".", ",");
+                holder.tv_amount.setText(Activity_Splash.currency_symbol+price);
             }
             else {
                 holder.tv_amount.setText(Activity_Splash.currency_symbol+price);

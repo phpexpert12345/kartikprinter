@@ -95,7 +95,6 @@ public class Activity_Booking extends AppCompatActivity implements PrinterObserv
             vat, total, tv_ready, dyiningtale, tv_no_drinkItems, tv_meal;
     RelativeLayout rl_ins;
     ProgressDialog progressDialog;
-
     RequestQueue requestQueue;
     RecyclerView recycler_fooditem, recycler_drinktem, rcmeal;
     ArrayList<FoodItemList> drinkItemLists, meallist;
@@ -1147,14 +1146,26 @@ public class Activity_Booking extends AppCompatActivity implements PrinterObserv
                             rl_foodcost.setVisibility(View.GONE);
                         } else {
                             rl_foodcost.setVisibility(View.VISIBLE);
-                            food_costprice.setText(Currency + " " + FoodCosts);
+                            if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
+                                FoodCosts = FoodCosts.replace(".", ",");
+                                food_costprice.setText(Currency + " " + FoodCosts);
+                            }
+                            else {
+                                food_costprice.setText(Currency + " " + FoodCosts);
+                            }
                         }
 
                         if (DiscountPrice.equals("") || DiscountPrice.equals(null) || DiscountPrice.equals("Null") || DiscountPrice.equals("null") || DiscountPrice.equals("0.00")) {
                             rl_totol_discount.setVisibility(View.GONE);
                         } else {
                             rl_totol_discount.setVisibility(View.VISIBLE);
-                            totaldiscount_price.setText("-" + Currency + " " + DiscountPrice);
+                            if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
+                                DiscountPrice = DiscountPrice.replace(".", ",");
+                                totaldiscount_price.setText("-" + Currency + " " + DiscountPrice);
+                            }
+                            else {
+                                totaldiscount_price.setText("-" + Currency + " " + DiscountPrice);
+                            }
                         }
 
 
@@ -1344,7 +1355,13 @@ public class Activity_Booking extends AppCompatActivity implements PrinterObserv
                             rl_subtotal.setVisibility(View.GONE);
                         } else {
                             rl_subtotal.setVisibility(View.VISIBLE);
-                            tv_subtotal.setText(Currency + " " + subTotal);
+                            if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
+                                subTotal = subTotal.replace(".", ",");
+                                tv_subtotal.setText(Currency + " " + subTotal);
+                            }
+                            else {
+                                tv_subtotal.setText(Currency + " " + subTotal);
+                            }
                         }
 
                         if (DeliveryCharge.equals("") || DeliveryCharge.equals(null) || DeliveryCharge.equals("Null") || DeliveryCharge.equals("null") || DeliveryCharge.equals("0.00")) {
@@ -1374,7 +1391,13 @@ public class Activity_Booking extends AppCompatActivity implements PrinterObserv
                             rl_ridertrip.setVisibility(View.GONE);
                         } else {
                             rl_ridertrip.setVisibility(View.VISIBLE);
-                            drivertip.setText("+" + Currency + " " + extraTipAddAmount);
+                            if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
+                                extraTipAddAmount = extraTipAddAmount.replace(".", ",");
+                                drivertip.setText("+" + Currency + " " + extraTipAddAmount);
+                            }
+                            else {
+                                drivertip.setText("+" + Currency + " " + extraTipAddAmount);
+                            }
                         }
 
 
@@ -1382,21 +1405,39 @@ public class Activity_Booking extends AppCompatActivity implements PrinterObserv
                             rl_packgingcost.setVisibility(View.GONE);
                         } else {
                             rl_packgingcost.setVisibility(View.VISIBLE);
-                            tv_packagingfee.setText("+" + Currency + " " + PackageFees);
+                            if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
+                                PackageFees = PackageFees.replace(".", ",");
+                                tv_packagingfee.setText("+" + Currency + " " + PackageFees);
+                            }
+                            else {
+                                tv_packagingfee.setText("+" + Currency + " " + PackageFees);
+                            }
                         }
 
                         if (VatTax.equals("") || VatTax.equals(null) || VatTax.equals("Null") || VatTax.equals("null") || VatTax.equals("0.00")) {
                             rl_vattax.setVisibility(View.GONE);
                         } else {
                             rl_vattax.setVisibility(View.VISIBLE);
-                            vat.setText("+" + Currency + " " + VatTax);
+                            if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
+                                VatTax = VatTax.replace(".", ",");
+                                vat.setText("+" + Currency + " " + VatTax);
+                            }
+                            else {
+                                vat.setText("+" + Currency + " " + VatTax);
+                            }
                         }
 
                         if (OrderPrice.equals("") || OrderPrice.equals(null) || OrderPrice.equals("Null") || OrderPrice.equals("null") || OrderPrice.equals("0.00")) {
                             rl_total.setVisibility(View.GONE);
                         } else {
                             rl_total.setVisibility(View.VISIBLE);
-                            total.setText(Currency + " " + OrderPrice);
+                            if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
+                                OrderPrice = OrderPrice.replace(".", ",");
+                                total.setText(Currency + " " + OrderPrice);
+                            }
+                            else {
+                                total.setText(Currency + " " + OrderPrice);
+                            }
                         }
 
 
@@ -1463,8 +1504,11 @@ public class Activity_Booking extends AppCompatActivity implements PrinterObserv
             } else {
                 viewHolder.tv_foodname.setText(anujs.get(i).getquantity() + " " + "×" + " " + anujs.get(i).getItemsName() + " (" + anujs.get(i).getItem_size() + ")");
             }
-
-            viewHolder.tv_foodprice.setText(anujs.get(i).getCurrency() + " " + anujs.get(i).getmenuprice());
+            String menu_price=anujs.get(i).getmenuprice();
+if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
+    menu_price=menu_price.replace(".", ",");
+}
+            viewHolder.tv_foodprice.setText(anujs.get(i).getCurrency() + " " +menu_price);
 
             ArrayList<Model_OrderComboItemExtra> model_orderComboItemExtras = prepareDataForExtraTopping(anujs.get(i).getExtraTopping());
             if (model_orderComboItemExtras.size() > 0) {

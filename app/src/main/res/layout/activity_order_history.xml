@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/liner_back"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/green2"
         >
 
@@ -18,12 +18,12 @@
         <ImageView
             android:layout_centerVertical="true"
             android:id="@+id/back"
-            android:layout_width="30sp"
-            android:layout_height="30dp"
-            android:background="@drawable/bacckkk"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:src="@drawable/ic_back"
             android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="@dimen/_8sdp"
+
             />
 
 
