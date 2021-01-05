@@ -169,7 +169,6 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/opensans"
                             android:gravity="center"
-                            android:text="Sunil verma"
                             android:textColor="#2F9333"
                             android:textSize="12dp"
                             android:textStyle="bold"

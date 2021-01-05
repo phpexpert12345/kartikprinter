@@ -439,10 +439,10 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
                                                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
 
                                                 // Setting Dialog Title
-                                                alertDialog.setTitle("Harperskebab Order Receiver");
+//                                                alertDialog.setTitle("Harperskebab Order Receiver");
 
                                                 // Setting Dialog Message
-                                                alertDialog.setMessage("Are you sure want to mark this order complete");
+                                                alertDialog.setMessage(parseLanguage.getParseString("Order_Complete_Alert"));
 
                                                 alertDialog.setPositiveButton(parseLanguage.getParseString("YESText"), new DialogInterface.OnClickListener() {
                                                     public void onClick(final DialogInterface dialog, int which) {
@@ -1726,26 +1726,28 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
                 holder.liner_new.setVisibility(View.GONE);
                 holder.view_color.setBackgroundResource(R.drawable.orange);
             }
-            if (pp.get(position).getOrder_status_msg().equalsIgnoreCase("Cancelled")) {
+           else  if (pp.get(position).getOrder_status_msg().equalsIgnoreCase("Cancelled")) {
+                holder.tv_status.setText(parseLanguage.getParseString("Cancelled"));
                 holder.liner_new.setVisibility(View.GONE);
                 holder.view_color.setBackgroundResource(R.drawable.orange);
             }
 
-            if (pp.get(position).getOrder_status_msg().equalsIgnoreCase("Delivered")) {
+           else  if (pp.get(position).getOrder_status_msg().equalsIgnoreCase("Delivered")) {
                 holder.tv_status.setText(parseLanguage.getParseString("Delivered"));
                 holder.liner_new.setVisibility(View.GONE);
                 holder.view_color.setBackgroundResource(R.drawable.green);
             }
 
-            if (pp.get(position).getOrder_status_msg().equalsIgnoreCase("Kitchen")) {
-                holder.tv_status.setText(parseLanguage.getParseString("Kitchen"));
+           else  if (pp.get(position).getOrder_status_msg().equalsIgnoreCase("Kitchen")) {
+                holder.tv_status.setText(parseLanguage.getParseString("Processing"));
                 holder.view_color.setBackgroundResource(R.drawable.yellow);
             }
-            if (
+           else  if (
                     pp.get(position).getOrder_status_msg().contains("Confirmed")) {
                 holder.tv_status.setText(parseLanguage.getParseString("Confirmed"));
                 holder.view_color.setBackgroundResource(R.drawable.blue);
             }
+
 
 
             holder.linear_list.setOnClickListener(new View.OnClickListener() {

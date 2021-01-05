@@ -434,12 +434,12 @@ import java.util.jar.Pack200;
                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(Activity_Booking.this);
 
                 // Setting Dialog Title
-                alertDialog.setTitle("Harperskebab Order Receiver");
+//                alertDialog.setTitle("Harperskebab Order Receiver");
 
                 // Setting Dialog Message
                 alertDialog.setMessage("Are you sure to decline order?");
 
-                alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                alertDialog.setPositiveButton(parseLanguage.getParseString("YESText"), new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, int which) {
 
                         // Write your code here to invoke YES event
@@ -484,7 +484,7 @@ import java.util.jar.Pack200;
                     }
 
                 });
-                alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                alertDialog.setNegativeButton(parseLanguage.getParseString("NOText"), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
                         dialog.cancel();
@@ -558,12 +558,12 @@ import java.util.jar.Pack200;
                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(Activity_Booking.this);
 
                 // Setting Dialog Title
-                alertDialog.setTitle("Harperskebab Order Receiver");
+//                alertDialog.setTitle("Harperskebab Order Receiver");
 
                 // Setting Dialog Message
-                alertDialog.setMessage("Are you sure want to mark this order complete");
+                alertDialog.setMessage(parseLanguage.getParseString("Order_Complete_Alert"));
 
-                alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                alertDialog.setPositiveButton(parseLanguage.getParseString("YESText"), new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, int which) {
 
                         ordermark_complete();
@@ -572,7 +572,7 @@ import java.util.jar.Pack200;
                     }
 
                 });
-                alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                alertDialog.setNegativeButton(parseLanguage.getParseString("NOText"), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
                         dialog.cancel();
@@ -946,6 +946,7 @@ import java.util.jar.Pack200;
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
 
                         status = jsonObject1.getString("status");
+                        Log.i("status", status);
                         int orderid = jsonObject1.getInt("orderid");
                         orderidd = orderid;
                         PaymentMethod = jsonObject1.getString("PaymentMethod");
@@ -1021,11 +1022,13 @@ import java.util.jar.Pack200;
                             for (int ii = 0; ii < jsonArray1.length(); ii++) {
                                 JSONObject jsonObject12 = jsonArray1.getJSONObject(ii);
                                 String ItemsName = jsonObject12.getString("ItemsName");
+                                Log.i("name", ItemsName+" item");
                                 String quantity = jsonObject12.getString("quantity");
                                 String menuprice = jsonObject12.getString("menuprice");
                                 String item_sizea = jsonObject12.getString("item_size");
                                 String instructions = jsonObject12.getString("instructions");
                                 String ExtraTopping = jsonObject12.getString("ExtraTopping");
+                                Log.i("name", ExtraTopping+" topping");
                                 String Currencyy = jsonObject12.getString("Currency");
 
 
@@ -1078,7 +1081,12 @@ import java.util.jar.Pack200;
                                         Model_OrderComboItemOption model_orderComboItemOption = new Model_OrderComboItemOption();
                                         JSONObject j21 = (JSONObject) orderComboItemOption.get(i1);
                                         String comboOptionName = j21.getString("ComboOptionName");
+                                        if(comboOptionName.contains("null")){
+                                            comboOptionName=comboOptionName.replace("null", "");
+                                        }
+//                                        Log.i("name", comboOptionName);
                                         String comboOptionItemName = j21.getString("ComboOptionItemName");
+                                        Log.i("name", comboOptionItemName);
                                         String comboOptionItemSizeName = j21.getString("ComboOptionItemSizeName");
 
                                         model_orderComboItemOption.setComboOptionItemName(comboOptionItemName);
@@ -1091,6 +1099,7 @@ import java.util.jar.Pack200;
                                             Model_OrderComboItemExtra model_orderComboItemExtra = new Model_OrderComboItemExtra();
                                             JSONObject jsonObject2 = orderComboItemOption1.getJSONObject(i2);
                                             String comboExtraItemName = jsonObject2.getString("ComboExtraItemName");
+
                                             String comboExtraItemQuantity = jsonObject2.getString("ComboExtraItemQuantity");
                                             String comboExtraItemPrice = jsonObject2.getString("ComboExtraItemPrice");
                                             model_orderComboItemExtra.setComboExtraItemName(comboExtraItemName);
@@ -1235,7 +1244,7 @@ import java.util.jar.Pack200;
 //                        btn_status.setText(status);
 
                         if (status.equalsIgnoreCase("KITCHEN")) {
-                            btn_status.setText(parseLanguage.getParseString("Kitchen"));
+                            btn_status.setText(parseLanguage.getParseString("Processing"));
                             btn_accept.setVisibility(View.GONE);
                             btn_decline.setVisibility(View.GONE);
                             orderclosed.setVisibility(View.GONE);
@@ -1504,6 +1513,7 @@ import java.util.jar.Pack200;
 
 
             if (anujs.get(i).getItem_size().equals("")) {
+
                 viewHolder.tv_foodname.setText(anujs.get(i).getquantity() + " " + "×" + " " + anujs.get(i).getItemsName());
             } else {
                 viewHolder.tv_foodname.setText(anujs.get(i).getquantity() + " " + "×" + " " + anujs.get(i).getItemsName() + " (" + anujs.get(i).getItem_size() + ")");
@@ -1689,8 +1699,14 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
 
 //            viewHolder.tv_foodname.setText(model_combos.get(i).getQuantity() + " " + "×" + " " + model_combos.get(i).getItemsName());
             viewHolder.tv_foodname.setText(model_combos.get(0).getOrderComboItemOption().get(i).getComboOptionName());
+            String item_size_name=model_combos.get(0).getOrderComboItemOption().get(i).getComboOptionItemSizeName();
+            if(!item_size_name.equalsIgnoreCase("null")){
+                viewHolder.tv_foodprice.setText(model_combos.get(0).getOrderComboItemOption().get(i).getComboOptionItemName() + " - " + item_size_name);
+            }
+            else {
+                viewHolder.tv_foodprice.setText(model_combos.get(0).getOrderComboItemOption().get(i).getComboOptionItemName());
+            }
 
-            viewHolder.tv_foodprice.setText(model_combos.get(0).getOrderComboItemOption().get(i).getComboOptionItemName() + " - " + model_combos.get(0).getOrderComboItemOption().get(i).getComboOptionItemSizeName());
 
 
             CustomComboAdapter mAdapter = new CustomComboAdapter(context, model_combos.get(0).getOrderComboItemOption().get(i).getOrderComboItemExtra(), model_combos.get(0).getCurrency());

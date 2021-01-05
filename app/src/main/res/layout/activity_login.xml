@@ -53,7 +53,7 @@
                     android:layout_width="100sp"
                     android:layout_height="100sp"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/icon"
+                    android:background="@drawable/life_logo"
                     android:visibility="visible" />
 
                 <TextView
