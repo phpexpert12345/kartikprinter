@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -212,7 +213,14 @@ public class Status_Change_Activity extends AppCompatActivity {
                 }
                 Toast.makeText(Status_Change_Activity.this, message, Toast.LENGTH_SHORT).show();
             }
-        }) ;
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> maps=new HashMap<>();
+                maps.put("lang_code", myPref.getCustomer_default_langauge());
+            return maps;
+            }
+        } ;
         requestQueue.add(stringRequest);
     }
 

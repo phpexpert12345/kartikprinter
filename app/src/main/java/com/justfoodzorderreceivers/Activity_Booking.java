@@ -93,7 +93,7 @@ import java.util.jar.Pack200;
             deleiveryaddress, tv_no_foodItems, steak2, regardpoint, gifcardprice, tv_Servicecost, tv_servicetax_price, paybywallet,
             totaldiscount_price, tv_instructions, tv_accpetdate,
             drivertip, food_costprice, tv_discount, tv_subtotal, tv_deliveryfee, tv_packagingfee,
-            vat, total, tv_ready, dyiningtale, tv_no_drinkItems, tv_meal;
+            vat, total, tv_ready, dyiningtale, tv_no_drinkItems, tv_meal, total_txt;
     RelativeLayout rl_ins;
     ProgressDialog progressDialog;
     RequestQueue requestQueue;
@@ -286,6 +286,7 @@ import java.util.jar.Pack200;
         tv_meal = (TextView) findViewById(R.id.tv_meal);
 
         total = (TextView) findViewById(R.id.tv_total);
+        total_txt=findViewById(R.id.total);
         ordernumber = (TextView) findViewById(R.id.ordernumber);
         dyiningtale = (TextView) findViewById(R.id.dyiningtale);
         btn_status = (Button) findViewById(R.id.btn_status);
@@ -300,6 +301,7 @@ import java.util.jar.Pack200;
         orderclosed = (Button) findViewById(R.id.orderclosed);
 
 
+
         orderclosed.setText(parseLanguage.getParseString("Order_Complete"));
         summaryText.setText(parseLanguage.getParseString("Summary"));
         printText.setText(parseLanguage.getParseString("Take_Print_keyword"));
@@ -311,7 +313,7 @@ import java.util.jar.Pack200;
 //        else {
 //            total.setText("Total");
 //        }
-        total.setText(parseLanguage.getParseString("Total"));
+        total_txt.setText(parseLanguage.getParseString("Total"));
 
         btn_markComplete.setText(parseLanguage.getParseString("Mark_As_Completed"));
 
@@ -1358,17 +1360,18 @@ import java.util.jar.Pack200;
                             rl_subtotal.setVisibility(View.VISIBLE);
                             if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
                                 subTotal = subTotal.replace(".", ",");
-                                tv_subtotal.setText(Currency + " " + subTotal);
+
                             }
-                            else {
-                                tv_subtotal.setText(Currency + " " + subTotal);
-                            }
+                            tv_subtotal.setText(Currency + " " + subTotal);
                         }
 
                         if (DeliveryCharge.equals("") || DeliveryCharge.equals(null) || DeliveryCharge.equals("Null") || DeliveryCharge.equals("null") || DeliveryCharge.equals("0.00")) {
                             rl_deleiverycharge.setVisibility(View.GONE);
                         } else {
                             rl_deleiverycharge.setVisibility(View.VISIBLE);
+                            if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
+                                DeliveryCharge=DeliveryCharge.replace(".", ",");
+                            }
                             tv_deliveryfee.setText("+" + Currency + " " + DeliveryCharge);
                         }
 
@@ -1513,10 +1516,7 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
 
             ArrayList<Model_OrderComboItemExtra> model_orderComboItemExtras = prepareDataForExtraTopping(anujs.get(i).getExtraTopping());
             if (model_orderComboItemExtras.size() > 0) {
-
-
                 CustomComboAdapter mAdapter = new CustomComboAdapter(context, model_orderComboItemExtras,Currency);
-
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                 viewHolder.recyler_combolist.setLayoutManager(mLayoutManager);
                 viewHolder.recyler_combolist.setItemAnimator(new DefaultItemAnimator());
