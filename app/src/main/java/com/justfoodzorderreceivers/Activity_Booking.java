@@ -363,13 +363,13 @@ import java.util.jar.Pack200;
             @Override
             public void onClick(View v) {
 
-                doConnect();
-
-                try {
-                    PrintOrderReceipt();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+//                doConnect();
+//
+//                try {
+////                    PrintOrderReceipt();
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
 
 
             }
@@ -2556,7 +2556,7 @@ if(model_combos.get(i).getOrderComboItemOption().size()>0){
 
         switch (BaseApplication.getInstance().getCurrentCmdType()) {
             case BaseEnum.CMD_ESC:
-                PrintOrderReceipt();
+//                PrintOrderReceipt();
                 break;
             default:
                 break;
@@ -2872,7 +2872,7 @@ if(model_combos.get(i).getOrderComboItemOption().size()>0){
                     escCmd.append(escCmd.getLFCRCmd());
                 } else {
                     escCmd.append(escCmd.getLFCRCmd());
-                    escCmd.append(escCmd.getLFCRCmd());
+//                    escCmd.append(escCmd.getLFCRCmd());
                 }
 
 

@@ -54,12 +54,15 @@
 
     <group
         android:id="@+id/grp4"
-        android:checkableBehavior="single">
+        android:checkableBehavior="single"
+        >
 
         <item
             android:id="@+id/nav_openclose"
             android:icon="@drawable/chat"
-            android:title="Open/Close" />
+
+            android:title="Open/Close"
+            />
     </group>
 
 <!--        <group-->

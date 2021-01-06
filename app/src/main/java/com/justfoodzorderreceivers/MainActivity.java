@@ -37,6 +37,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -155,7 +156,8 @@ public class MainActivity extends AppCompatActivity
        // menu.findItem(R.id.nav_setDiscount).setTitle(parseLanguage.getParseString("Discount"));
         menu.findItem(R.id.nav_odersupport).setTitle(parseLanguage.getParseString("Order_Complaints"));
         menu.findItem(R.id.nav_history).setTitle(parseLanguage.getParseString("Order_History"));
-        menu.findItem(R.id.nav_openclose).setTitle(parseLanguage.getParseString("Open_CloseText"));
+        menu.findItem(R.id.nav_openclose).setTitle(parseLanguage.getParseString("Open_CloseText")).setVisible(false);
+
         menu.findItem(R.id.nav_chat).setTitle(parseLanguage.getParseString("Help_Chat"));
        // menu.findItem(R.id.nav_faqs).setTitle(parseLanguage.getParseString("FAQs"));
         menu.findItem(R.id.nav_logout).setTitle(parseLanguage.getParseString("Logout"));
@@ -260,17 +262,17 @@ public class MainActivity extends AppCompatActivity
 
                 if(myPref.getIsOnline().equalsIgnoreCase("")){
 
-                    getDeliveryON("1","");
+                    getDeliveryON("1",sharedPreferences.getString("restaurant_id",""));
                 }
                 if(myPref.getIsOnline().equalsIgnoreCase("1")) {
 
-                    getDeliveryON("0","");
+                    getDeliveryON("0",sharedPreferences.getString("restaurant_id",""));
 
                 }
 
                 if(myPref.getIsOnline().equalsIgnoreCase("0")) {
 
-                    getDeliveryON("1","");
+                    getDeliveryON("1",sharedPreferences.getString("restaurant_id",""));
 
                 }
 
@@ -283,17 +285,17 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
 
                 if(myPref.getIsRideAccepted().equalsIgnoreCase("")){
-                    getPickup("1","");
+                    getPickup("1",sharedPreferences.getString("restaurant_id",""));
                 }
                 if(myPref.getIsRideAccepted().equalsIgnoreCase("1")) {
 
-                    getPickup("0","");
+                    getPickup("0",sharedPreferences.getString("restaurant_id",""));
 
                 }
 
                 if(myPref.getIsRideAccepted().equalsIgnoreCase("0")) {
 
-                    getPickup("1","");
+                    getPickup("1",sharedPreferences.getString("restaurant_id",""));
 
                 }
             }
@@ -303,17 +305,17 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 if(myPref.getMode().equalsIgnoreCase("")){
 
-                    getMode("1","");
+                    getMode("1",sharedPreferences.getString("restaurant_id",""));
                 }
                 if(myPref.getMode().equalsIgnoreCase("1")) {
 
-                    getMode("0","");
+                    getMode("0",sharedPreferences.getString("restaurant_id",""));
 
                 }
 
                 if(myPref.getMode().equalsIgnoreCase("0")) {
 
-                    getMode("1","");
+                    getMode("1",sharedPreferences.getString("restaurant_id",""));
 
                 }
             }
@@ -442,6 +444,28 @@ public class MainActivity extends AppCompatActivity
                 try {
                     JSONObject json=new JSONObject(s);
                     if(json.has("RingTone")){
+                        String pickup=json.optString("Pickup");
+                        String home_delivery=json.optString("HomeDelivery");
+                        int OrderAcceptanceEnable=json.optInt("OrderAcceptanceEnable");
+                        if(OrderAcceptanceEnable==0){
+                            switch_mode.setImageResource(R.drawable.off);
+                        }
+                        else if(OrderAcceptanceEnable==1){
+                            switch_mode.setImageResource(R.drawable.on);
+                        }
+                        if(home_delivery.equalsIgnoreCase("0")){
+                            switch_button_delivery.setImageResource(R.drawable.off);
+                        }
+                        else if(home_delivery.equalsIgnoreCase("1")){
+                            switch_button_delivery.setImageResource(R.drawable.on);
+                        }
+                        if(pickup.equalsIgnoreCase("0")){
+                            switch_button_pickup.setImageResource(R.drawable.off);
+                        }
+                        else if(pickup.equalsIgnoreCase("1")){
+                            switch_button_pickup.setImageResource(R.drawable.on);
+                        }
+
                         String ringtone_url=json.optString("RingTone");
                         player = MediaPlayer.create(MainActivity.this, Uri.parse(ringtone_url));
                         player1 = MediaPlayer.create(MainActivity.this, Uri.parse(ringtone_url));
@@ -599,13 +623,18 @@ public class MainActivity extends AppCompatActivity
                 progressDialog.dismiss();
                 try {
                     JSONObject jsonObject=new JSONObject(s);
-                    myPref.setMode(accepatance_enabled);
-                    if(accepatance_enabled.equalsIgnoreCase("1")){
-                        switch_mode.setImageResource(R.drawable.off);
-                    }else {
-                        switch_mode.setImageResource(R.drawable.on);
+                    if(jsonObject.has("OrderAcceptanceEnable")){
+                        String OrderAcceptanceEnable=jsonObject.optString("OrderAcceptanceEnable");
+                        myPref.setMode(OrderAcceptanceEnable);
+                        if(OrderAcceptanceEnable.equalsIgnoreCase("1")){
+                            switch_mode.setImageResource(R.drawable.on);
+                        }else {
+                            switch_mode.setImageResource(R.drawable.off);
 
+                        }
                     }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -625,6 +654,10 @@ progressDialog.dismiss();
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                6000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
     }
 
