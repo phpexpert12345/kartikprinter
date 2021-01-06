@@ -1189,14 +1189,16 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
                             rchome3.setVisibility(View.VISIBLE);
 
                         } else if (error.equals("1")) {
+                            Log.i("name",error);
                             String error_msg = jsonObject1.getString("error_msg");
                             linear_message.setVisibility(View.VISIBLE);
                             rchome3.setVisibility(View.GONE);
                             error_msgTxt.setText(error_msg);
                         } else {
+                            Log.i("name","error_msg");
                             String error_msg = jsonObject1.getString("error_msg");
                             linear_message.setVisibility(View.GONE);
-                            rchome3.setVisibility(View.VISIBLE);
+                            rchome3.setVisibility(View.GONE);
                             error_msgTxt.setText(error_msg);
                         }
 

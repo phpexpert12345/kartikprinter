@@ -1086,7 +1086,7 @@ import java.util.jar.Pack200;
                                         if(comboOptionName.contains("null")){
                                             comboOptionName=comboOptionName.replace("null", "");
                                         }
-                                        if(!comboOptionName.contains("section") && !comboOptionName.contains("Section")){
+
                                             String comboOptionItemName = j21.getString("ComboOptionItemName");
                                             Log.i("name", comboOptionItemName);
                                             String comboOptionItemSizeName = j21.getString("ComboOptionItemSizeName");
@@ -1114,7 +1114,7 @@ import java.util.jar.Pack200;
                                         }
 //                                        Log.i("name", comboOptionName);
 
-                                    }
+
                                 }
 
 
@@ -2975,14 +2975,13 @@ if(model_combos.get(i).getOrderComboItemOption().size()>0){
                     txt_comboDescribe.setAlign(CommonEnum.ALIGN_LEFT);
                     escCmd.append(escCmd.getTextCmd(txt_comboDescribe, model_combo.getItemsDescriptionName()));
                     escCmd.append(escCmd.getLFCRCmd());
-
                     TextSetting textSetting31 = new TextSetting();
-                    textSetting31.setAlign(CommonEnum.ALIGN_MIDDLE);
-
+                    textSetting31.setAlign(CommonEnum.ALIGN_LEFT);
+                    escCmd.append(escCmd.getTextCmd(textSetting31,model_combo.getOrderComboItemOption().get(0).getComboOptionName()));
+                    escCmd.append(escCmd.getLFCRCmd());
+//                    Toast.makeText(this, model_combo.getOrderComboItemOption().get(0).getComboOptionName(), Toast.LENGTH_SHORT).show();
                     ArrayList<Model_OrderComboItemOption> orderComboItemOption = model_combo.getOrderComboItemOption();
                     for (int i = 0; i < orderComboItemOption.size(); i++) {
-
-
                         textSetting3.setAlign(CommonEnum.ALIGN_LEFT);
                         textSetting3.setBold(SettingEnum.Enable);
                         escCmd.append(escCmd.getTextCmd(textSetting3, orderComboItemOption.get(i).getComboOptionItemName()));
