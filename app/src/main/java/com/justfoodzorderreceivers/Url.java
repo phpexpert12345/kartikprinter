@@ -44,5 +44,6 @@ public class Url {
     public static String ringtone_list=base_url+"phpexpert_ringtone.php";
     public static String ringtone_update=base_url+"phpexpert_order_update_ringtone.php";
     public static String website_url="https://www.lieferadeal.de/impressum/";
+    public static String auto_off_url=base_url+"phpexpert_OrderPad_order_auto_update.php";
 
 }

@@ -1021,7 +1021,7 @@ import java.util.jar.Pack200;
                             tv_no_foodItems.setVisibility(View.GONE);
                             tv_no_foodItems.setTextColor(getResources().getColor(R.color.green));
                             ArrayList<FoodItemList> foodItemLists = new ArrayList<>();
-                            for (int ii = 0; ii < jsonArray1.length(); ii++) {
+                            for (int ii = 0; ii < jsonArray1. length(); ii++) {
                                 JSONObject jsonObject12 = jsonArray1.getJSONObject(ii);
                                 String ItemsName = jsonObject12.getString("ItemsName");
                                 Log.i("name", ItemsName+" item");
@@ -1032,14 +1032,12 @@ import java.util.jar.Pack200;
                                 String ExtraTopping = jsonObject12.getString("ExtraTopping");
                                 Log.i("name", ExtraTopping+" topping");
                                 String Currencyy = jsonObject12.getString("Currency");
-
-
-                                item_size.add(item_sizea);
                                 item_name.add(ItemsName);
                                 item_price.add(menuprice);
                                 item_quant.add(quantity);
                                 item_instruction.add(instructions);
                                 extra_toping.add(ExtraTopping);
+                                item_size.add(item_sizea);
 
                                 foodItemLists.add(new FoodItemList(ItemsName, quantity, menuprice, item_sizea, ExtraTopping, Currency));
                             }
@@ -1090,18 +1088,15 @@ import java.util.jar.Pack200;
                                             String comboOptionItemName = j21.getString("ComboOptionItemName");
                                             Log.i("name", comboOptionItemName);
                                             String comboOptionItemSizeName = j21.getString("ComboOptionItemSizeName");
-
                                             model_orderComboItemOption.setComboOptionItemName(comboOptionItemName);
                                             model_orderComboItemOption.setComboOptionItemSizeName(comboOptionItemSizeName);
                                             model_orderComboItemOption.setComboOptionName(comboOptionName);
-
                                             JSONArray orderComboItemOption1 = j21.getJSONArray("OrderComboItemExtra");
                                             ArrayList<Model_OrderComboItemExtra> model_orderComboItemExtras = new ArrayList<>();
                                             for (int i2 = 0; i2 < orderComboItemOption1.length(); i2++) {
                                                 Model_OrderComboItemExtra model_orderComboItemExtra = new Model_OrderComboItemExtra();
                                                 JSONObject jsonObject2 = orderComboItemOption1.getJSONObject(i2);
                                                 String comboExtraItemName = jsonObject2.getString("ComboExtraItemName");
-
                                                 String comboExtraItemQuantity = jsonObject2.getString("ComboExtraItemQuantity");
                                                 String comboExtraItemPrice = jsonObject2.getString("ComboExtraItemPrice");
                                                 model_orderComboItemExtra.setComboExtraItemName(comboExtraItemName);
@@ -2631,7 +2626,6 @@ if(model_combos.get(i).getOrderComboItemOption().size()>0){
                 escCmd.append(escCmd.getTextCmd(orderReadyAt, parseLanguage.getParseString("Order_ready_at") + collectionTime));
             }
             escCmd.append(escCmd.getLFCRCmd());
-            escCmd.append(escCmd.getLFCRCmd());
 
             TextSetting text12 = new TextSetting();
             text12.setAlign(CommonEnum.ALIGN_BOTH_SIDES);
@@ -2737,8 +2731,7 @@ if(model_combos.get(i).getOrderComboItemOption().size()>0){
             TextSetting txtitemname = new TextSetting();
             txtitemname.setAlign(CommonEnum.ALIGN_LEFT);
             txtitemname.setBold(SettingEnum.Enable);
-            escCmd.append(escCmd.getTextCmd(txtitemname, parseLanguage.getParseString("Item_Name")+"       " +parseLanguage.getParseString("Price")));
-            escCmd.append(escCmd.getLFCRCmd());
+            escCmd.append(escCmd.getTextCmd(txtitemname, parseLanguage.getParseString("Item_Name")));
             escCmd.append(escCmd.getLFCRCmd());
             TextSetting textSetting3 = new TextSetting();
             textSetting3.setAlign(CommonEnum.ALIGN_MIDDLE);
@@ -2748,81 +2741,89 @@ if(model_combos.get(i).getOrderComboItemOption().size()>0){
                 if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
                     price=price.replace(".", ",");
                 }
-                switch (item_quant.get(i).length() + item_name.get(i).length() + item_price.get(i).length()) {
-                    case 6:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "                     " + Currency + price));
-                        break;
-                    case 7:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "                    " + Currency + price));
-                        break;
-                    case 8:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "                   " + Currency + price));
-                        break;
-                    case 9:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "                  " + Currency + price));
-                        break;
-                    case 10:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "                 " + Currency + price));
-                        break;
-                    case 11:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "                " + Currency + price));
-                        break;
-                    case 12:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "               " + Currency + price));
-                        break;
-                    case 13:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "              " + Currency + price));
-                        break;
-                    case 14:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "             " + Currency + price));
-                        break;
-                    case 15:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "            " + Currency + price));
-                        break;
-                    case 16:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "           " + Currency + price));
-                        break;
-                    case 17:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "          " + Currency + price));
-                        break;
-                    case 18:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "         " + Currency + price));
-                        break;
-                    case 19:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "        " + Currency + price));
-                        break;
-                    case 20:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "       " + Currency + price));
-                        break;
-                    case 21:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "      " + Currency + price));
-                        break;
-                    case 22:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "     " + Currency + price));
-                        break;
-                    case 23:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "    " + Currency + price));
-                        break;
-                    case 24:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "   " + Currency + price));
-                        break;
-                    case 25:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "  " + Currency + price));
-                        break;
-                    case 26:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + " " + Currency + price));
-                        break;
-                    case 27:
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "" + Currency + price));
-                        break;
-                }
-
+                escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + " " +Currency + price));
                 escCmd.append(escCmd.getLFCRCmd());
+//                escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "" + Currency + price));
+//                switch (item_quant.get(i).length() + item_name.get(i).length() + item_price.get(i).length()) {
+//                    case 6:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "                     " + Currency + price));
+//                        break;
+//                    case 7:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "                    " + Currency + price));
+//                        break;
+//                    case 8:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "                   " + Currency + price));
+//                        break;
+//                    case 9:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "                  " + Currency + price));
+//                        break;
+//                    case 10:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "                 " + Currency + price));
+//                        break;
+//                    case 11:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "                " + Currency + price));
+//                        break;
+//                    case 12:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "               " + Currency + price));
+//                        break;
+//                    case 13:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "              " + Currency + price));
+//                        break;
+//                    case 14:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "             " + Currency + price));
+//                        break;
+//                    case 15:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "            " + Currency + price));
+//                        break;
+//                    case 16:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "           " + Currency + price));
+//                        break;
+//                    case 17:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "          " + Currency + price));
+//                        break;
+//                    case 18:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "         " + Currency + price));
+//                        break;
+//                    case 19:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "        " + Currency + price));
+//                        break;
+//                    case 20:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "       " + Currency + price));
+//                        break;
+//                    case 21:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "      " + Currency + price));
+//                        break;
+//                    case 22:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "     " + Currency + price));
+//                        break;
+//                    case 23:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "    " + Currency + price));
+//                        break;
+//                    case 24:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "   " + Currency + price));
+//                        break;
+//                    case 25:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "  " + Currency + price));
+//                        break;
+//                    case 26:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + " " + Currency + price));
+//                        break;
+//                    case 27:
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "" + Currency + price));
+//                        break;
+//                }
 
-                if (!item_size.get(i).equalsIgnoreCase("")) {
-                    escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_size.get(i)));
-                    escCmd.append(escCmd.getLFCRCmd());
+//
+                if(item_size.size()>0) {
+
+                    if (!item_size.get(i).equalsIgnoreCase("")) {
+                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_size.get(i)));
+                        escCmd.append(escCmd.getLFCRCmd());
+                    }
                 }
+                if(extra_toping.size()>0){
+
+
                 if (!extra_toping.get(i).equalsIgnoreCase("")) {
 
                     ArrayList<Model_OrderComboItemExtra> model_orderComboItemExtras = prepareDataForExtraTopping(extra_toping.get(i));
@@ -2830,39 +2831,85 @@ if(model_combos.get(i).getOrderComboItemOption().size()>0){
                         String comboExtraItemQuantity = model_orderComboItemExtras.get(i1).getComboExtraItemQuantity();
                         String comboExtraItemName = model_orderComboItemExtras.get(i1).getComboExtraItemName();
                         String comboExtraItemPrice = model_orderComboItemExtras.get(i1).getComboExtraItemPrice();
-                        if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
-                            comboExtraItemPrice=comboExtraItemPrice.replace(".", ",");
+                        if (myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
+                            comboExtraItemPrice = comboExtraItemPrice.replace(".", ",");
                         }
-                        switch (comboExtraItemQuantity.length()+comboExtraItemName.length()+comboExtraItemPrice.length())
-                        {
-                             case 5: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "                      " + Currency+comboExtraItemPrice)); break;
-                             case 6: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "                     " + Currency+comboExtraItemPrice)); break;
-                             case 7: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "                    " + Currency+comboExtraItemPrice)); break;
-                             case 8: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "                   " + Currency+comboExtraItemPrice)); break;
-                             case 9: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "                  " + Currency+comboExtraItemPrice)); break;
-                            case 10: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "                 " + Currency+comboExtraItemPrice)); break;
-                            case 11: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "                " + Currency+comboExtraItemPrice)); break;
-                            case 12: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "               " + Currency+comboExtraItemPrice)); break;
-                            case 13: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "              " + Currency+comboExtraItemPrice)); break;
-                            case 14: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "             " + Currency+comboExtraItemPrice)); break;
-                            case 15: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "            " + Currency+comboExtraItemPrice)); break;
-                            case 16: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "           " + Currency+comboExtraItemPrice)); break;
-                            case 17: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "          " + Currency+comboExtraItemPrice)); break;
-                            case 18: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "         " + Currency+comboExtraItemPrice)); break;
-                            case 19: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "        " + Currency+comboExtraItemPrice)); break;
-                            case 20: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "       " + Currency+comboExtraItemPrice)); break;
-                            case 21: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "      " + Currency+comboExtraItemPrice)); break;
-                            case 22: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "     " + Currency+comboExtraItemPrice)); break;
-                            case 23: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "    " + Currency+comboExtraItemPrice)); break;
-                            case 24: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "   " + Currency+comboExtraItemPrice)); break;
-                            case 25: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "  " + Currency+comboExtraItemPrice)); break;
-                            case 26: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + " " + Currency+comboExtraItemPrice)); break;
-                            case 27: escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName+ ":" + "" + Currency+comboExtraItemPrice)); break;
+                        switch (comboExtraItemQuantity.length() + comboExtraItemName.length() + comboExtraItemPrice.length()) {
+                            case 5:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "                      " + Currency + comboExtraItemPrice));
+                                break;
+                            case 6:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "                     " + Currency + comboExtraItemPrice));
+                                break;
+                            case 7:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "                    " + Currency + comboExtraItemPrice));
+                                break;
+                            case 8:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "                   " + Currency + comboExtraItemPrice));
+                                break;
+                            case 9:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "                  " + Currency + comboExtraItemPrice));
+                                break;
+                            case 10:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "                 " + Currency + comboExtraItemPrice));
+                                break;
+                            case 11:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "                " + Currency + comboExtraItemPrice));
+                                break;
+                            case 12:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "               " + Currency + comboExtraItemPrice));
+                                break;
+                            case 13:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "              " + Currency + comboExtraItemPrice));
+                                break;
+                            case 14:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "             " + Currency + comboExtraItemPrice));
+                                break;
+                            case 15:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "            " + Currency + comboExtraItemPrice));
+                                break;
+                            case 16:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "           " + Currency + comboExtraItemPrice));
+                                break;
+                            case 17:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "          " + Currency + comboExtraItemPrice));
+                                break;
+                            case 18:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "         " + Currency + comboExtraItemPrice));
+                                break;
+                            case 19:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "        " + Currency + comboExtraItemPrice));
+                                break;
+                            case 20:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "       " + Currency + comboExtraItemPrice));
+                                break;
+                            case 21:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "      " + Currency + comboExtraItemPrice));
+                                break;
+                            case 22:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "     " + Currency + comboExtraItemPrice));
+                                break;
+                            case 23:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "    " + Currency + comboExtraItemPrice));
+                                break;
+                            case 24:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "   " + Currency + comboExtraItemPrice));
+                                break;
+                            case 25:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "  " + Currency + comboExtraItemPrice));
+                                break;
+                            case 26:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + " " + Currency + comboExtraItemPrice));
+                                break;
+                            case 27:
+                                escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "" + Currency + comboExtraItemPrice));
+                                break;
                         }
 
-                        escCmd.append(escCmd.getLFCRCmd());
+//                        escCmd.append(escCmd.getLFCRCmd());
 
                     }
+                }
 
                 }
 
@@ -2871,9 +2918,10 @@ if(model_combos.get(i).getOrderComboItemOption().size()>0){
                     escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_instruction.get(i)));
                     escCmd.append(escCmd.getLFCRCmd());
                 } else {
-                    escCmd.append(escCmd.getLFCRCmd());
+//                    escCmd.append(escCmd.getLFCRCmd());
 //                    escCmd.append(escCmd.getLFCRCmd());
                 }
+                escCmd.append(escCmd.getLFCRCmd());
 
 
             }
@@ -2885,123 +2933,139 @@ if(model_combos.get(i).getOrderComboItemOption().size()>0){
                     Model_Combo model_combo = model_combos.get(m);
                     TextSetting txt_backorders = new TextSetting();
                     txt_backorders.setAlign(CommonEnum.ALIGN_LEFT);
-                    switch (model_combo.getQuantity().length() + model_combo.getItemsName().length() + model_combo.getMenuprice().length()) {
+                    escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName()+ "        "+Currency + model_combo.getMenuprice()));
+//                    TextSetting menu_price=new TextSetting();
+//                    menu_price.setAlign(CommonEnum.ALIGN_RIGHT);
+//                    escCmd.append(escCmd.getTextCmd(menu_price,Currency + model_combo.getMenuprice()));
 
-                        case 2:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                          " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 3:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                         " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 4:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                        " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 5:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                       " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 6:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                      " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 7:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                     " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 8:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                    " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 9:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                   " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 10:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                  " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 11:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                 " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 12:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 13:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "               " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 14:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "              " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 15:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "             " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 16:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "            " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 17:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "           " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 18:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "          " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 19:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "         " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 20:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "        " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 21:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "       " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 22:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "      " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 23:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "     " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 24:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "    " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 25:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "   " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 26:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "  " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 27:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + " " + Currency + model_combo.getMenuprice()));
-                            break;
-                        case 28:
-                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + Currency + model_combo.getMenuprice()));
-                            break;
-                    }
+//                    switch (model_combo.getQuantity().length() + model_combo.getItemsName().length() + model_combo.getMenuprice().length()) {
+//
+//                        case 2:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                          " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 3:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                         " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 4:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                        " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 5:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                       " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 6:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                      " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 7:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                     " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 8:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                    " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 9:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                   " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 10:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                  " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 11:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                 " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 12:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "                " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 13:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "               " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 14:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "              " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 15:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "             " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 16:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "            " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 17:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "           " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 18:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "          " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 19:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "         " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 20:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "        " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 21:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "       " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 22:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "      " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 23:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "     " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 24:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "    " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 25:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "   " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 26:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + "  " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 27:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + " " + Currency + model_combo.getMenuprice()));
+//                            break;
+//                        case 28:
+//                            escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName() + Currency + model_combo.getMenuprice()));
+//                            break;
+//                    }
                     escCmd.append(escCmd.getLFCRCmd());
-
                     TextSetting txt_comboDescribe = new TextSetting();
                     txt_comboDescribe.setAlign(CommonEnum.ALIGN_LEFT);
                     escCmd.append(escCmd.getTextCmd(txt_comboDescribe, model_combo.getItemsDescriptionName()));
                     escCmd.append(escCmd.getLFCRCmd());
                     TextSetting textSetting31 = new TextSetting();
                     textSetting31.setAlign(CommonEnum.ALIGN_LEFT);
-                    escCmd.append(escCmd.getTextCmd(textSetting31,model_combo.getOrderComboItemOption().get(0).getComboOptionName()));
-                    escCmd.append(escCmd.getLFCRCmd());
+                    String combo_option_name=model_combo.getOrderComboItemOption().get(0).getComboOptionName();
+                    if(combo_option_name!=null){
+                        if(!combo_option_name.equalsIgnoreCase("null")) {
+                        escCmd.append(escCmd.getTextCmd(textSetting31, combo_option_name));
+                        escCmd.append(escCmd.getLFCRCmd());
+                    }
+                    }
+//
 //                    Toast.makeText(this, model_combo.getOrderComboItemOption().get(0).getComboOptionName(), Toast.LENGTH_SHORT).show();
                     ArrayList<Model_OrderComboItemOption> orderComboItemOption = model_combo.getOrderComboItemOption();
                     for (int i = 0; i < orderComboItemOption.size(); i++) {
                         textSetting3.setAlign(CommonEnum.ALIGN_LEFT);
                         textSetting3.setBold(SettingEnum.Enable);
-                        escCmd.append(escCmd.getTextCmd(textSetting3, orderComboItemOption.get(i).getComboOptionItemName()));
-                        escCmd.append(escCmd.getLFCRCmd());
+                        String option_name=orderComboItemOption.get(i).getComboOptionItemName();
+                        if(!option_name.equalsIgnoreCase("null")) {
+                            escCmd.append(escCmd.getTextCmd(textSetting3, option_name));
+                            escCmd.append(escCmd.getLFCRCmd());
+                        }
                         Model_OrderComboItemOption model_orderComboItemOption = orderComboItemOption.get(i);
                         if (!model_orderComboItemOption.getComboOptionItemSizeName().equalsIgnoreCase("")) {
                             textSetting3.setAlign(CommonEnum.ALIGN_LEFT);
-                            escCmd.append(escCmd.getTextCmd(textSetting3, model_orderComboItemOption.getComboOptionItemSizeName()));
-                            escCmd.append(escCmd.getLFCRCmd());
-                            escCmd.append(escCmd.getLFCRCmd());
+                            String option_size=model_orderComboItemOption.getComboOptionItemSizeName();
+                            if(!option_size.equalsIgnoreCase("null")) {
+                                escCmd.append(escCmd.getTextCmd(textSetting3, option_size));
+                                escCmd.append(escCmd.getLFCRCmd());
+//                                escCmd.append(escCmd.getLFCRCmd());
+                            }
                         }
                         for (int i1 = 0; i1 < model_orderComboItemOption.getOrderComboItemExtra().size(); i1++) {
                             String comboExtraItemName = model_orderComboItemOption.getOrderComboItemExtra().get(i1).getComboExtraItemName();
                             String comboExtraItemPrice = model_orderComboItemOption.getOrderComboItemExtra().get(i1).getComboExtraItemPrice();
                             String comboExtraItemQuantity = model_orderComboItemOption.getOrderComboItemExtra().get(i1).getComboExtraItemQuantity();
-
                             if (myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
                                 comboExtraItemPrice = comboExtraItemPrice.replace(".", ",");
                             }
                             textSetting3.setAlign(CommonEnum.ALIGN_LEFT);
+//                            escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "                   " + Currency + comboExtraItemPrice));
 
                             switch (comboExtraItemQuantity.length() + comboExtraItemName.length() + comboExtraItemPrice.length()) {
                                 case 9:
@@ -3054,9 +3118,9 @@ if(model_combos.get(i).getOrderComboItemOption().size()>0){
 
                             if (i == (model_orderComboItemOption.getOrderComboItemExtra().size() - 1)) {
                                 escCmd.append(escCmd.getLFCRCmd());
-                                escCmd.append(escCmd.getLFCRCmd());
+//                                escCmd.append(escCmd.getLFCRCmd());
                             } else {
-                                escCmd.append(escCmd.getLFCRCmd());
+//                                escCmd.append(escCmd.getLFCRCmd());
                             }
                         }
 
@@ -3195,52 +3259,52 @@ if(food_available.equalsIgnoreCase("No Response")){
             }
 
 
-            if (!(FoodCosts.equals("") || FoodCosts.equals(null) || FoodCosts.equals("Null") || FoodCosts.equals("null") || FoodCosts.equals("0.00"))) {
-
-                TextSetting textSetting4 = new TextSetting();
-                textSetting4.setAlign(CommonEnum.ALIGN_LEFT);
-                String food_cost=parseLanguage.getParseString("Food_Cost");
-                if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
-                    FoodCosts=FoodCosts.replace(".", ",");
-                }
-                switch (FoodCosts.length()) {
-                    case 12:
-                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":  " + Currency + FoodCosts));
-                        break;
-                    case 11:
-                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":  " + Currency + FoodCosts));
-                        break;
-                    case 10:
-                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":  " + Currency + FoodCosts));
-                        break;
-                    case 9:
-                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":   " + Currency + FoodCosts));
-                        break;
-                    case 8:
-                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":    " + Currency + FoodCosts));
-                        break;
-                    case 7:
-                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":   " + Currency + FoodCosts));
-                        break;
-                    case 6:
-                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":   " + Currency + FoodCosts));
-                        break;
-                    case 5:
-                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":   " + Currency + FoodCosts));
-                        break;
-                    case 4:
-                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":    " + Currency + FoodCosts));
-                        break;
-                    case 3:
-                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":   " + Currency + FoodCosts));
-                        break;
-
-                }
-
-                escCmd.append(escCmd.getLFCRCmd());
-
-
-            }
+//            if (!(FoodCosts.equals("") || FoodCosts.equals(null) || FoodCosts.equals("Null") || FoodCosts.equals("null") || FoodCosts.equals("0.00"))) {
+//
+//                TextSetting textSetting4 = new TextSetting();
+//                textSetting4.setAlign(CommonEnum.ALIGN_LEFT);
+//                String food_cost=parseLanguage.getParseString("Food_Cost");
+//                if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
+//                    FoodCosts=FoodCosts.replace(".", ",");
+//                }
+//                switch (FoodCosts.length()) {
+//                    case 12:
+//                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":  " + Currency + FoodCosts));
+//                        break;
+//                    case 11:
+//                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":  " + Currency + FoodCosts));
+//                        break;
+//                    case 10:
+//                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":  " + Currency + FoodCosts));
+//                        break;
+//                    case 9:
+//                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":   " + Currency + FoodCosts));
+//                        break;
+//                    case 8:
+//                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":    " + Currency + FoodCosts));
+//                        break;
+//                    case 7:
+//                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":   " + Currency + FoodCosts));
+//                        break;
+//                    case 6:
+//                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":   " + Currency + FoodCosts));
+//                        break;
+//                    case 5:
+//                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":   " + Currency + FoodCosts));
+//                        break;
+//                    case 4:
+//                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":    " + Currency + FoodCosts));
+//                        break;
+//                    case 3:
+//                        escCmd.append(escCmd.getTextCmd(textSetting4, food_cost+":   " + Currency + FoodCosts));
+//                        break;
+//
+//                }
+//
+//                escCmd.append(escCmd.getLFCRCmd());
+//
+//
+//            }
 
             if (!(PayByLoyality.equals("") || PayByLoyality.equals(null) || PayByLoyality.equals("Null") || PayByLoyality.equals("null") || PayByLoyality.equals("0.00"))) {
 
