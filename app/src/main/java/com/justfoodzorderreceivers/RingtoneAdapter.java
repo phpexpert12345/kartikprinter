@@ -37,14 +37,15 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RingtoneAdapter.Ringto
     }
 
     int selected_position =-1;
-    public RingtoneAdapter(List<RingtoneItem>ringtoneItems){
+    public RingtoneAdapter(List<RingtoneItem>ringtoneItems,MyPref myPref){
         this.ringtoneItems=ringtoneItems;
+        this.myPref=myPref;
     }
     @NonNull
     @Override
     public RingtoneViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         this.context=parent.getContext();
-        myPref = new MyPref(context);
+
         return new RingtoneViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.ringtone_item,null));
     }
 

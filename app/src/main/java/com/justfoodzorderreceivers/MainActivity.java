@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity
         myPref = new MyPref(MainActivity.this);
         parseLanguage = new ParseLanguage(myPref.getBookingData(),MainActivity.this);
         requestQueue = Volley.newRequestQueue(this);
-        getRestroinformation();
+        //getRestroinformation();
 //        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
 //        player.setLooping(true);
 
@@ -448,6 +448,13 @@ public class MainActivity extends AppCompatActivity
                         String pickup=json.optString("Pickup");
                         String home_delivery=json.optString("HomeDelivery");
                         int OrderAcceptanceEnable=json.optInt("OrderAcceptanceEnable");
+                        String Language_Enable=json.optString("Language_Enable");
+                        if(Language_Enable.equalsIgnoreCase("Yes")){
+                            lang_button.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            lang_button.setVisibility(View.GONE);
+                        }
                         if(OrderAcceptanceEnable==0){
                             switch_mode.setImageResource(R.drawable.off);
                         }
@@ -499,6 +506,7 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         isNet=isNetworkConnected();
+        getRestroinformation();
     }
 
     private void blink() {

@@ -1517,6 +1517,7 @@ import java.util.jar.Pack200;
 
                 viewHolder.tv_foodname.setText(anujs.get(i).getquantity() + " " + "×" + " " + anujs.get(i).getItemsName());
             } else {
+                Log.i("logic",anujs.get(i).getquantity()+ " " + "×" + " " + anujs.get(i).getItemsName() + " (" + anujs.get(i).getItem_size() + ")");
                 viewHolder.tv_foodname.setText(anujs.get(i).getquantity() + " " + "×" + " " + anujs.get(i).getItemsName() + " (" + anujs.get(i).getItem_size() + ")");
             }
             String menu_price=anujs.get(i).getmenuprice();

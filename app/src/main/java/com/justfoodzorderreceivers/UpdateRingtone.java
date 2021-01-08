@@ -149,7 +149,8 @@ if(ringtoneAdapter!=null){
     }
     public void setRingtoneAdapter(){
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
-         ringtoneAdapter=new RingtoneAdapter(ringtoneItemList);
+
+         ringtoneAdapter=new RingtoneAdapter(ringtoneItemList,myPref);
         recycle_ringtone.setAdapter(ringtoneAdapter);
         recycle_ringtone.setLayoutManager(layoutManager);
     }

@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="3dp"
@@ -22,7 +22,7 @@
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:fontFamily="@font/opensans"
-            android:maxLines="2"
+            android:maxLines="3"
             android:singleLine="false"
             android:text="dd"
             android:textSize="15sp"

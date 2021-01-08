@@ -24,7 +24,7 @@ public class MyPref {
 
     public void setRingtone_url(String ringtone_url) {
         this.ringtone_url = ringtone_url;
-        sharedPreferences.edit().putString("ringtone_url", mode).apply();
+        sharedPreferences.edit().putString("ringtone_url", ringtone_url).apply();
     }
 
     private String ringtone_url;
