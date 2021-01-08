@@ -449,6 +449,9 @@ public class MainActivity extends AppCompatActivity
                         String home_delivery=json.optString("HomeDelivery");
                         int OrderAcceptanceEnable=json.optInt("OrderAcceptanceEnable");
                         String Language_Enable=json.optString("Language_Enable");
+                        myPref.setIsRideAccepted(pickup);
+                        myPref.setIsOnline(home_delivery);
+                        myPref.setMode(OrderAcceptanceEnable+"");
                         if(Language_Enable.equalsIgnoreCase("Yes")){
                             lang_button.setVisibility(View.VISIBLE);
                         }
@@ -462,16 +465,16 @@ public class MainActivity extends AppCompatActivity
                             switch_mode.setImageResource(R.drawable.on);
                         }
                         if(home_delivery.equalsIgnoreCase("0")){
-                            switch_button_delivery.setImageResource(R.drawable.off);
-                        }
-                        else if(home_delivery.equalsIgnoreCase("1")){
                             switch_button_delivery.setImageResource(R.drawable.on);
                         }
+                        else if(home_delivery.equalsIgnoreCase("1")){
+                            switch_button_delivery.setImageResource(R.drawable.off);
+                        }
                         if(pickup.equalsIgnoreCase("0")){
-                            switch_button_pickup.setImageResource(R.drawable.off);
+                            switch_button_pickup.setImageResource(R.drawable.on);
                         }
                         else if(pickup.equalsIgnoreCase("1")){
-                            switch_button_pickup.setImageResource(R.drawable.on);
+                            switch_button_pickup.setImageResource(R.drawable.off);
                         }
 
                         String ringtone_url=json.optString("RingTone");
@@ -594,7 +597,7 @@ public class MainActivity extends AppCompatActivity
                     if(jsonObject.has("HomeDelivery")){
                         String home_delivery=jsonObject.optString("HomeDelivery");
                         myPref.setIsOnline(home_delivery);
-                        if(home_delivery.equalsIgnoreCase("1")){
+                        if(home_delivery.equalsIgnoreCase("0")){
                             switch_button_delivery.setImageResource(R.drawable.on);
                         }
                         else {
@@ -697,7 +700,7 @@ progressDialog.dismiss();
                     if(jsonObject.has("Pickup")){
                         String pickup=jsonObject.optString("Pickup");
                         myPref.setIsRideAccepted(pickup);
-                        if(pickup.equalsIgnoreCase("1")){
+                        if(pickup.equalsIgnoreCase("0")){
                             switch_button_pickup.setImageResource(R.drawable.on);
                         }else {
 
