@@ -212,50 +212,51 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-        if(myPref.getIsOnline().equalsIgnoreCase("")){
-            switch_button_delivery.setImageResource(R.drawable.on);
-        }
-        if(myPref.getIsOnline().equalsIgnoreCase("1")) {
+//        if(myPref.getIsOnline().equalsIgnoreCase("")){
+//            switch_button_delivery.setImageResource(R.drawable.on);
+//        }
+//        if(myPref.getIsOnline().equalsIgnoreCase("1")) {
+//
+//            switch_button_delivery.setImageResource(R.drawable.on);
+//
+//        }
+//
+//        if(myPref.getIsOnline().equalsIgnoreCase("0")) {
+//
+//            switch_button_delivery.setImageResource(R.drawable.off);
+//
+//        }
+//        if(myPref.getMode().equalsIgnoreCase("")){
+//            switch_mode.setImageResource(R.drawable.on);
+//        }
+//        if(myPref.getMode().equalsIgnoreCase("1")) {
+//
+//            switch_mode.setImageResource(R.drawable.on);
+//
+//        }
+//
+//        if(myPref.getMode().equalsIgnoreCase("0")) {
+//
+//            switch_mode.setImageResource(R.drawable.off);
+//
+//        }
 
-            switch_button_delivery.setImageResource(R.drawable.on);
 
-        }
+//        if(myPref.getIsRideAccepted().equalsIgnoreCase("")){
+//            switch_button_pickup.setImageResource(R.drawable.on);
+//        }
+//        if(myPref.getIsRideAccepted().equalsIgnoreCase("1")) {
+//
+//            switch_button_pickup.setImageResource(R.drawable.on);
+//
+//        }
+//
+//        if(myPref.getIsRideAccepted().equalsIgnoreCase("0")) {
+//
+//            switch_button_pickup.setImageResource(R.drawable.off);
+//
+//        }
 
-        if(myPref.getIsOnline().equalsIgnoreCase("0")) {
-
-            switch_button_delivery.setImageResource(R.drawable.off);
-
-        }
-        if(myPref.getMode().equalsIgnoreCase("")){
-            switch_mode.setImageResource(R.drawable.on);
-        }
-        if(myPref.getMode().equalsIgnoreCase("1")) {
-
-            switch_mode.setImageResource(R.drawable.on);
-
-        }
-
-        if(myPref.getMode().equalsIgnoreCase("0")) {
-
-            switch_mode.setImageResource(R.drawable.off);
-
-        }
-
-
-        if(myPref.getIsRideAccepted().equalsIgnoreCase("")){
-            switch_button_pickup.setImageResource(R.drawable.on);
-        }
-        if(myPref.getIsRideAccepted().equalsIgnoreCase("1")) {
-
-            switch_button_pickup.setImageResource(R.drawable.on);
-
-        }
-
-        if(myPref.getIsRideAccepted().equalsIgnoreCase("0")) {
-
-            switch_button_pickup.setImageResource(R.drawable.off);
-
-        }
         switch_button_delivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -469,6 +470,7 @@ public class MainActivity extends AppCompatActivity
                         String ringtone_url=json.optString("RingTone");
                         player = MediaPlayer.create(MainActivity.this, Uri.parse(ringtone_url));
                         player1 = MediaPlayer.create(MainActivity.this, Uri.parse(ringtone_url));
+                        myPref.setRingtone_url(ringtone_url);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -581,13 +583,24 @@ public class MainActivity extends AppCompatActivity
                 try {
                     JSONObject jsonObject = new JSONObject(response);
 
-                    myPref.setIsOnline(HomeDelivery);
-                    if(HomeDelivery.equalsIgnoreCase("1")){
-                        switch_button_delivery.setImageResource(R.drawable.off);
-                    }else {
-                        switch_button_delivery.setImageResource(R.drawable.on);
-
+                    if(jsonObject.has("HomeDelivery")){
+                        String home_delivery=jsonObject.optString("HomeDelivery");
+                        myPref.setIsOnline(home_delivery);
+                        if(home_delivery.equalsIgnoreCase("1")){
+                            switch_button_delivery.setImageResource(R.drawable.on);
+                        }
+                        else {
+                            switch_button_delivery.setImageResource(R.drawable.off);
+                        }
                     }
+
+
+//                    if(HomeDelivery.equalsIgnoreCase("1")){
+//                        switch_button_delivery.setImageResource(R.drawable.off);
+//                    }else {
+//                        switch_button_delivery.setImageResource(R.drawable.on);
+//
+//                    }
 
 
                 } catch (JSONException e) {
@@ -673,14 +686,21 @@ progressDialog.dismiss();
                 progressDialog.cancel();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.has("Pickup")){
+                        String pickup=jsonObject.optString("Pickup");
+                        myPref.setIsRideAccepted(pickup);
+                        if(pickup.equalsIgnoreCase("1")){
+                            switch_button_pickup.setImageResource(R.drawable.on);
+                        }else {
 
-                    myPref.setIsRideAccepted(Pickup);
-                    if(Pickup.equalsIgnoreCase("1")){
-                        switch_button_pickup.setImageResource(R.drawable.off);
-                    }else {
+                            switch_button_pickup.setImageResource(R.drawable.off);
+                        }
 
-                        switch_button_pickup.setImageResource(R.drawable.on);
                     }
+
+
+
+
 
 
                 } catch (JSONException e) {

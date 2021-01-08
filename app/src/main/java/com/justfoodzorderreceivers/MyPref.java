@@ -16,6 +16,20 @@ public class MyPref {
     private String isOnline;
     private String onBooking;
 
+    public String getRingtone_url() {
+        ringtone_url=sharedPreferences.getString("ringtone_url","");
+        return ringtone_url;
+
+    }
+
+    public void setRingtone_url(String ringtone_url) {
+        this.ringtone_url = ringtone_url;
+        sharedPreferences.edit().putString("ringtone_url", mode).apply();
+    }
+
+    private String ringtone_url;
+
+
     public String getMode() {
         this.mode=sharedPreferences.getString("mode", "");
         return mode;

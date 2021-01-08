@@ -27,9 +27,10 @@ import java.util.List;
 
 public class RingtoneAdapter extends RecyclerView.Adapter<RingtoneAdapter.RingtoneViewHolder> {
     List<RingtoneItem>ringtoneItems;
-    private static MediaPlayer mediaPlayer;
+     MediaPlayer mediaPlayer;
     Context context;
     ProgressDialog progressDialog;
+    MyPref myPref;
 
     public int getSelected_position() {
         return selected_position;
@@ -43,6 +44,7 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RingtoneAdapter.Ringto
     @Override
     public RingtoneViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         this.context=parent.getContext();
+        myPref = new MyPref(context);
         return new RingtoneViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.ringtone_item,null));
     }
 
@@ -50,13 +52,20 @@ public class RingtoneAdapter extends RecyclerView.Adapter<RingtoneAdapter.Ringto
     public void onBindViewHolder(@NonNull final RingtoneViewHolder holder, int position) {
 final RingtoneItem ringtoneItem=ringtoneItems.get(position);
 String name=ringtoneItem.ring_tone_url.substring(ringtoneItem.ring_tone_url.lastIndexOf("/")+1);
-if(selected_position==position){
-    holder.img_play.setImageResource(R.drawable.ic_pause);
+if(myPref.getRingtone_url().equalsIgnoreCase(ringtoneItem.ring_tone_url)){
     holder.radio_ringtone.setChecked(true);
 }
-else {
-    holder.img_play.setImageResource(R.drawable.ic_play  );
+else{
     holder.radio_ringtone.setChecked(false);
+}
+if(selected_position>=0) {
+    if (selected_position == position) {
+        holder.img_play.setImageResource(R.drawable.ic_pause);
+        holder.radio_ringtone.setChecked(true);
+    } else {
+        holder.img_play.setImageResource(R.drawable.ic_play);
+        holder.radio_ringtone.setChecked(false);
+    }
 }
 holder.linear_ringtone.setTag(position);
 holder.linear_ringtone.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +177,7 @@ if(mediaPlayer!=null) {
 //        });
 //        mediaPlayer.start();
     }
-    private static void killMediaPlayer( RingtoneViewHolder ringtoneViewHolder) {
+    public   void killMediaPlayer( RingtoneViewHolder ringtoneViewHolder) {
         if (mediaPlayer != null) {
             try {
                 mediaPlayer.reset();

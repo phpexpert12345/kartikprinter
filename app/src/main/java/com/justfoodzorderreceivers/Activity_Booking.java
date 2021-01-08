@@ -1688,34 +1688,36 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+            if(i==0) {
 
-            viewHolder.txt_comboname.setText(model_combos.get(i).getQuantity() + " × " + model_combos.get(i).getItemsName());
-            viewHolder.txt_combodiscription.setText(model_combos.get(i).getItemsDescriptionName());
-                viewHolder.txt_comboprince.setText(model_combos.get(i).getCurrency() + " " + model_combos.get(i).getMenuprice());
-
-
-//            viewHolder.tv_foodname.setText(model_combos.get(i).getQuantity() + " " + "×" + " " + model_combos.get(i).getItemsName());
-            if(model_combos.get(i).getOrderComboItemOption().size()>0) {
-                viewHolder.tv_foodname.setText(model_combos.get(i).getOrderComboItemOption().get(0).getComboOptionName());
-                String item_size_name = model_combos.get(i).getOrderComboItemOption().get(0).getComboOptionItemSizeName();
-                if (!item_size_name.equalsIgnoreCase("null")) {
-                    viewHolder.tv_foodprice.setText(model_combos.get(i).getOrderComboItemOption().get(0).getComboOptionItemName() + " - " + item_size_name);
-                } else {
-                    viewHolder.tv_foodprice.setText(model_combos.get(i).getOrderComboItemOption().get(0).getComboOptionItemName());
-                }
+                viewHolder.txt_comboname.setText(model_combos.get(0).getQuantity() + " × " + model_combos.get(0).getItemsName());
+                viewHolder.txt_combodiscription.setText(model_combos.get(0).getItemsDescriptionName());
+                viewHolder.txt_comboprince.setText(model_combos.get(0).getCurrency() + " " + model_combos.get(0).getMenuprice());
+            }
+            else{
+                viewHolder.rel_combodetails.setVisibility(View.GONE);
             }
 
 
-if(model_combos.get(i).getOrderComboItemOption().size()>0){
+//            viewHolder.tv_foodname.setText(model_combos.get(i).getQuantity() + " " + "×" + " " + model_combos.get(i).getItemsName());
+            if(model_combos.get(0).getOrderComboItemOption().size()>0) {
+                viewHolder.tv_foodname.setText(model_combos.get(0).getOrderComboItemOption().get(i).getComboOptionName());
+                String item_size_name = model_combos.get(0).getOrderComboItemOption().get(i).getComboOptionItemSizeName();
+                if (!item_size_name.equalsIgnoreCase("null")) {
+                    viewHolder.tv_foodprice.setText(model_combos.get(0).getOrderComboItemOption().get(i).getComboOptionItemName() + " - " + item_size_name);
+                } else {
+                    viewHolder.tv_foodprice.setText(model_combos.get(0).getOrderComboItemOption().get(i).getComboOptionItemName());
+                }
+            }
+            CustomComboAdapter mAdapter = new CustomComboAdapter(context, model_combos.get(0).getOrderComboItemOption().get(i).getOrderComboItemExtra(), model_combos.get(0).getCurrency());
 
-    for (int m=0;m<model_combos.get(i).getOrderComboItemOption().size();m++){
-        CustomComboAdapter mAdapter = new CustomComboAdapter(context, model_combos.get(i).getOrderComboItemOption().get(m).getOrderComboItemExtra(), model_combos.get(0).getCurrency());
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        viewHolder.recyler_combolist.setLayoutManager(mLayoutManager);
-        viewHolder.recyler_combolist.setItemAnimator(new DefaultItemAnimator());
-        viewHolder.recyler_combolist.setAdapter(mAdapter);
-    }
-}
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+            viewHolder.recyler_combolist.setLayoutManager(mLayoutManager);
+            viewHolder.recyler_combolist.setItemAnimator(new DefaultItemAnimator());
+            viewHolder.recyler_combolist.setAdapter(mAdapter);
+
+
+
 
 
 
@@ -1723,7 +1725,7 @@ if(model_combos.get(i).getOrderComboItemOption().size()>0){
 
         @Override
         public int getItemCount() {
-            return model_combos.size();
+            return model_combos.get(0).getOrderComboItemOption().size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
