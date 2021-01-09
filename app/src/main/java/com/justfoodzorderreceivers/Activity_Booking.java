@@ -3032,12 +3032,14 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
                     escCmd.append(escCmd.getLFCRCmd());
                     TextSetting textSetting31 = new TextSetting();
                     textSetting31.setAlign(CommonEnum.ALIGN_LEFT);
-                    String combo_option_name=model_combo.getOrderComboItemOption().get(0).getComboOptionName();
-                    if(combo_option_name!=null){
-                        if(!combo_option_name.equalsIgnoreCase("null")) {
-                        escCmd.append(escCmd.getTextCmd(textSetting31, combo_option_name));
-                        escCmd.append(escCmd.getLFCRCmd());
-                    }
+                    if(model_combo.getOrderComboItemOption().size()>0) {
+                        String combo_option_name = model_combo.getOrderComboItemOption().get(0).getComboOptionName();
+                        if (combo_option_name != null) {
+                            if (!combo_option_name.equalsIgnoreCase("null")) {
+                                escCmd.append(escCmd.getTextCmd(textSetting31, combo_option_name));
+                                escCmd.append(escCmd.getLFCRCmd());
+                            }
+                        }
                     }
 //
 //                    Toast.makeText(this, model_combo.getOrderComboItemOption().get(0).getComboOptionName(), Toast.LENGTH_SHORT).show();
