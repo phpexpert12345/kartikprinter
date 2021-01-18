@@ -415,6 +415,9 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 
 
                     orderListViewToday = new OrderListView(getActivity(), orderLists);
+                    if(orderLists.size()>0){
+                        getorderdetails(orderLists.get(0).getOrderid(),"1");
+                    }
                     linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
                     rchome.setLayoutManager(linearLayoutManager);
                     rchome.setAdapter(orderListViewToday);
@@ -2120,7 +2123,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
             public void run() {
                 handler.post(new Runnable() {
                     public void run() {
-                        TodayOrderRepeatList();
+//                        TodayOrderRepeatList();
 
                         if (isNet) {
                             if (player1 != null) {
@@ -2140,7 +2143,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
         };
 
 
-        t.schedule(mTimerTask, 1000, 10000);
+        t.schedule(mTimerTask, 4000, 10000);
 
     }
 
@@ -2356,6 +2359,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
             public void onResponse(String s) {
                 progressDialog.dismiss();
 Log.i("logic",s);
+//                TodayOrderRepeatList();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -2443,6 +2447,7 @@ progressDialog.dismiss();
 
     public void getorderdetails(final String orderID, final String error_msg) {
         item_name = new ArrayList<>();
+        item_size=new ArrayList<>();
         item_instruction = new ArrayList<>();
         drink_instruction = new ArrayList<>();
         meal_instruction = new ArrayList<>();
@@ -2459,6 +2464,7 @@ progressDialog.dismiss();
         meal_extra_toping = new ArrayList<>();
 
         item_name.clear();
+        item_size.clear();
         item_instruction.clear();
         drink_instruction.clear();
         meal_instruction.clear();
@@ -2541,8 +2547,8 @@ progressDialog.dismiss();
                         authPreference.setDriverLastName(DriverLastName);
                         authPreference.setDriverMobileNo(DriverMobileNo);
                         authPreference.setDriverPhoto(DriverPhoto);
-
-                        JSONArray jsonArray1 = jsonObject.optJSONArray("OrderFoodItem");
+                        model_combos=new ArrayList<>();
+                        JSONArray jsonArray1 = jsonObject1.optJSONArray("OrderFoodItem");
                         if(jsonArray1!=null) {
                             if (jsonArray1.length() == 0) {
                                 // tv_no_foodItems.setVisibility(View.GONE);
@@ -2553,12 +2559,14 @@ progressDialog.dismiss();
 
                                 for (int ii = 0; ii < jsonArray1.length(); ii++) {
                                     JSONObject jsonObject12 = jsonArray1.getJSONObject(ii);
+                                    Model_Combo model_combo = new Model_Combo();
                                     String ItemsName = jsonObject12.getString("ItemsName");
                                     String quantity = jsonObject12.getString("quantity");
                                     String menuprice = jsonObject12.getString("menuprice");
                                     String instructions = jsonObject12.getString("instructions");
                                     String item_sizea = jsonObject12.getString("item_size");
                                     String ExtraTopping = jsonObject12.getString("ExtraTopping");
+
                                     String Currencyy = jsonObject12.getString("Currency");
 
 
@@ -2568,7 +2576,6 @@ progressDialog.dismiss();
                                     item_quant.add(quantity);
                                     item_instruction.add(instructions);
                                     extra_toping.add(ExtraTopping);
-
                                     foodItemLists.add(new FoodItemList(ItemsName, quantity, menuprice, item_sizea, ExtraTopping, Currency));
                                 }
 
@@ -2620,7 +2627,9 @@ progressDialog.dismiss();
                             } else {
                                 //        tv_meal.setText("Meal Menu");
                                 //      tv_meal.setTextColor(getResources().getColor(R.color.red));
+                                model_combos = new ArrayList<>();
                                 for (int ii = 0; ii < OrderMealItem.length(); ii++) {
+                                    Model_Combo model_combo = new Model_Combo();
                                     JSONObject j2 = OrderMealItem.getJSONObject(ii);
                                     String ItemsName = j2.getString("ItemsName");
                                     String quantity = j2.getString("quantity");
@@ -2630,12 +2639,58 @@ progressDialog.dismiss();
                                     String ExtraTopping = j2.getString("ExtraTopping");
                                     String Currencyyy = j2.getString("Currency");
 
+                                    model_combo.setItemsName(ItemsName);
+                                    model_combo.setQuantity(quantity);
+                                    model_combo.setMenuprice(menuprice);
+                                    model_combo.setCurrency(Currency);
+                                    model_combo.setMenuprice(j2.getString("menuprice"));
+                                    model_combo.setItemsDescriptionName(j2.getString("ItemsDescriptionName"));
 
+                                    JSONArray orderComboItemOption = j2.getJSONArray("OrderComboItemOption");
+                                    ArrayList<Model_OrderComboItemOption> model_orderComboItemOptions = new ArrayList<>();
+
+                                    if (orderComboItemOption.length()>0) {
+                                        for (int i1 = 0; i1 < orderComboItemOption.length(); i1++) {
+                                            Model_OrderComboItemOption model_orderComboItemOption = new Model_OrderComboItemOption();
+                                            JSONObject j21 = (JSONObject) orderComboItemOption.get(i1);
+                                            String comboOptionName = j21.getString("ComboOptionName");
+                                            if(comboOptionName.contains("null")){
+                                                comboOptionName=comboOptionName.replace("null", "");
+                                            }
+
+                                            String comboOptionItemName = j21.getString("ComboOptionItemName");
+                                            Log.i("name", comboOptionItemName);
+                                            String comboOptionItemSizeName = j21.getString("ComboOptionItemSizeName");
+                                            model_orderComboItemOption.setComboOptionItemName(comboOptionItemName);
+                                            model_orderComboItemOption.setComboOptionItemSizeName(comboOptionItemSizeName);
+                                            model_orderComboItemOption.setComboOptionName(comboOptionName);
+                                            JSONArray orderComboItemOption1 = j21.getJSONArray("OrderComboItemExtra");
+                                            ArrayList<Model_OrderComboItemExtra> model_orderComboItemExtras = new ArrayList<>();
+                                            for (int i2 = 0; i2 < orderComboItemOption1.length(); i2++) {
+                                                Model_OrderComboItemExtra model_orderComboItemExtra = new Model_OrderComboItemExtra();
+                                                JSONObject jsonObject2 = orderComboItemOption1.getJSONObject(i2);
+                                                String comboExtraItemName = jsonObject2.getString("ComboExtraItemName");
+                                                String comboExtraItemQuantity = jsonObject2.getString("ComboExtraItemQuantity");
+                                                String comboExtraItemPrice = jsonObject2.getString("ComboExtraItemPrice");
+                                                model_orderComboItemExtra.setComboExtraItemName(comboExtraItemName);
+                                                model_orderComboItemExtra.setComboExtraItemPrice(comboExtraItemPrice);
+                                                model_orderComboItemExtra.setComboExtraItemQuantity(comboExtraItemQuantity);
+                                                model_orderComboItemExtras.add(model_orderComboItemExtra);
+                                            }
+                                            model_orderComboItemOption.setOrderComboItemExtra(model_orderComboItemExtras);
+                                            model_orderComboItemOptions.add(model_orderComboItemOption);
+                                        }
+//                                        Log.i("name", comboOptionName);
+
+
+                                    }
                                     meal_item_name.add(ItemsName);
                                     meal_item_price.add(menuprice);
                                     meal_item_quant.add(quantity);
                                     meal_instruction.add(instructions);
                                     meal_extra_toping.add(ExtraTopping);
+                                    model_combo.setOrderComboItemOption(model_orderComboItemOptions);
+                                    model_combos.add(model_combo);
                                     meallist.add(new FoodItemList(ItemsName, quantity, menuprice, item_size, ExtraTopping, Currency));
                                 }
                                 //     Activity_Booking.MealListView mealListView = new Activity_Booking.MealListView(Activity_Booking.this, meallist);
@@ -2890,7 +2945,9 @@ progressDialog.dismiss();
                     }
                     try {
                         Log.i("reas","orderdetails");
-                        player.stop();
+                        if(player!=null) {
+                            player.stop();
+                        }
                         findBT();
                         openBT();
                         sendData();
@@ -2988,17 +3045,19 @@ progressDialog.dismiss();
             escCmd.append(escCmd.getLFCRCmd());*/
             TextSetting orderReadyAt = new TextSetting();
             orderReadyAt.setAlign(CommonEnum.ALIGN_MIDDLE);
-            if(collectionTime.equalsIgnoreCase("null")){
-                escCmd.append(escCmd.getTextCmd(orderReadyAt, parseLanguage.getParseString("Order_ready_at")));
-            }
-            else {
-                escCmd.append(escCmd.getTextCmd(orderReadyAt, parseLanguage.getParseString("Order_ready_at") + collectionTime));
+            escCmd.append(escCmd.getTextCmd(orderReadyAt, parseLanguage.getParseString("Order_ready_at")));
+            escCmd.append(escCmd.getLFCRCmd());
+            if(!collectionTime.equalsIgnoreCase("null")) {
+                TextSetting textcollection = new TextSetting();
+                textcollection.setAlign(CommonEnum.ALIGN_MIDDLE);
+                escCmd.append(escCmd.getTextCmd(textcollection,collectionTime));
+                escCmd.append(escCmd.getLFCRCmd());
             }
             escCmd.append(escCmd.getLFCRCmd());
 
             TextSetting text12 = new TextSetting();
             text12.setAlign(CommonEnum.ALIGN_BOTH_SIDES);
-            escCmd.append(escCmd.getTextCmd(text12, parseLanguage.getParseString("Payment_Type") +"   "+ PaymentMethod));
+            escCmd.append(escCmd.getTextCmd(text12, parseLanguage.getParseString("Payment_Type") +" : "+ PaymentMethod));
             escCmd.append(escCmd.getLFCRCmd());
 
 
@@ -3104,14 +3163,27 @@ progressDialog.dismiss();
             escCmd.append(escCmd.getLFCRCmd());
             TextSetting textSetting3 = new TextSetting();
             textSetting3.setAlign(CommonEnum.ALIGN_MIDDLE);
+            TextSetting text_name = new TextSetting();
+            text_name.setAlign(CommonEnum.ALIGN_RIGHT);
             for (int i = 0; i < item_name.size(); i++) {
                 textSetting3.setAlign(CommonEnum.ALIGN_LEFT);
                 String price=item_price.get(i);
                 if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
                     price=price.replace(".", ",");
                 }
-                escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + " " +Currency + price));
+                escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + " "));
+
                 escCmd.append(escCmd.getLFCRCmd());
+                if(item_size.size()>0) {
+
+                    if (!item_size.get(i).equalsIgnoreCase("")) {
+                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_size.get(i)));
+                        escCmd.append(escCmd.getLFCRCmd());
+                    }
+                }
+                escCmd.append(escCmd.getTextCmd(text_name,Currency + price));
+                escCmd.append(escCmd.getLFCRCmd() );
+                escCmd.append(escCmd.getLFCRCmd() );
 //                escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "" + Currency + price));
 //                switch (item_quant.get(i).length() + item_name.get(i).length() + item_price.get(i).length()) {
 //                    case 6:
@@ -3183,13 +3255,13 @@ progressDialog.dismiss();
 //                }
 
 //
-                if(item_size.size()>0) {
-
-                    if (!item_size.get(i).equalsIgnoreCase("")) {
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_size.get(i)));
-                        escCmd.append(escCmd.getLFCRCmd());
-                    }
-                }
+//                if(item_size.size()>0) {
+//
+//                    if (!item_size.get(i).equalsIgnoreCase("")) {
+//                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_size.get(i)));
+//                        escCmd.append(escCmd.getLFCRCmd());
+//                    }
+//                }
                 if(extra_toping.size()>0){
 
 
@@ -3275,7 +3347,7 @@ progressDialog.dismiss();
                                     break;
                             }
 
-//                        escCmd.append(escCmd.getLFCRCmd());
+                        escCmd.append(escCmd.getLFCRCmd());
 
                         }
                     }
@@ -3493,7 +3565,7 @@ progressDialog.dismiss();
                             }
                         }
 
-
+escCmd.append(escCmd.getLFCRCmd());
                     }
                 }
             }

@@ -961,6 +961,7 @@ import java.util.jar.Pack200;
                         number_of_customer_order = jsonObject1.getString("number_of_customer_order");
                         subTotal = jsonObject1.getString("subTotal");
                         DeliveryCharge = jsonObject1.getString("DeliveryCharge");
+                        Log.i("reason",DeliveryCharge+"");
                         PackageFees = jsonObject1.getString("PackageFees");
                         FoodCosts = jsonObject1.getString("FoodCosts");
                         DiscountPrice = jsonObject1.getString("DiscountPrice");
@@ -2622,17 +2623,20 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
             escCmd.append(escCmd.getLFCRCmd());*/
             TextSetting orderReadyAt = new TextSetting();
             orderReadyAt.setAlign(CommonEnum.ALIGN_MIDDLE);
-            if(collectionTime.equalsIgnoreCase("null")){
-                escCmd.append(escCmd.getTextCmd(orderReadyAt, parseLanguage.getParseString("Order_ready_at")));
-            }
-            else {
-                escCmd.append(escCmd.getTextCmd(orderReadyAt, parseLanguage.getParseString("Order_ready_at") + collectionTime));
-            }
+            escCmd.append(escCmd.getTextCmd(orderReadyAt, parseLanguage.getParseString("Order_ready_at")));
             escCmd.append(escCmd.getLFCRCmd());
+            if(!collectionTime.equalsIgnoreCase("null")) {
+                TextSetting textcollection = new TextSetting();
+                textcollection.setAlign(CommonEnum.ALIGN_MIDDLE);
+                escCmd.append(escCmd.getTextCmd(textcollection,collectionTime));
+                escCmd.append(escCmd.getLFCRCmd());
+            }
+
+
 
             TextSetting text12 = new TextSetting();
             text12.setAlign(CommonEnum.ALIGN_BOTH_SIDES);
-            escCmd.append(escCmd.getTextCmd(text12, parseLanguage.getParseString("Payment_Type") +"   "+ PaymentMethod));
+            escCmd.append(escCmd.getTextCmd(text12, parseLanguage.getParseString("Payment_Type") +" : "+ PaymentMethod));
             escCmd.append(escCmd.getLFCRCmd());
 
 
@@ -2731,6 +2735,7 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
             txtpaystatusdash.setAlign(CommonEnum.ALIGN_MIDDLE);
             escCmd.append(escCmd.getTextCmd(txtpaystatusdash, "--------------------------------"));
             escCmd.append(escCmd.getLFCRCmd());
+            escCmd.append(escCmd.getLFCRCmd());
             TextSetting txtitemname = new TextSetting();
             txtitemname.setAlign(CommonEnum.ALIGN_LEFT);
             txtitemname.setBold(SettingEnum.Enable);
@@ -2738,14 +2743,28 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
             escCmd.append(escCmd.getLFCRCmd());
             TextSetting textSetting3 = new TextSetting();
             textSetting3.setAlign(CommonEnum.ALIGN_MIDDLE);
+            TextSetting text_name = new TextSetting();
+            text_name.setAlign(CommonEnum.ALIGN_RIGHT);
+            escCmd.append(escCmd.getLFCRCmd());
             for (int i = 0; i < item_name.size(); i++) {
                 textSetting3.setAlign(CommonEnum.ALIGN_LEFT);
                 String price=item_price.get(i);
                 if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
                     price=price.replace(".", ",");
                 }
-                escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + " " +Currency + price));
+                escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + " "));
+
                 escCmd.append(escCmd.getLFCRCmd());
+                if(item_size.size()>0) {
+
+                    if (!item_size.get(i).equalsIgnoreCase("")) {
+                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_size.get(i)));
+                        escCmd.append(escCmd.getLFCRCmd());
+                    }
+                }
+                escCmd.append(escCmd.getTextCmd(text_name,Currency + price));
+                escCmd.append(escCmd.getLFCRCmd() );
+                escCmd.append(escCmd.getLFCRCmd() );
 //                escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_quant.get(i) + " X " + item_name.get(i) + ":" + "" + Currency + price));
 //                switch (item_quant.get(i).length() + item_name.get(i).length() + item_price.get(i).length()) {
 //                    case 6:
@@ -2817,13 +2836,7 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
 //                }
 
 //
-                if(item_size.size()>0) {
 
-                    if (!item_size.get(i).equalsIgnoreCase("")) {
-                        escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_size.get(i)));
-                        escCmd.append(escCmd.getLFCRCmd());
-                    }
-                }
                 if(extra_toping.size()>0){
 
 
@@ -2909,7 +2922,7 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
                                 break;
                         }
 
-//                        escCmd.append(escCmd.getLFCRCmd());
+                        escCmd.append(escCmd.getLFCRCmd());
 
                     }
                 }
@@ -2918,13 +2931,14 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
 
 
                 if (!item_instruction.get(i).equalsIgnoreCase("")) {
+                    Log.i("reason",item_instruction.get(i));
                     escCmd.append(escCmd.getTextCmd(textSetting3, "" + item_instruction.get(i)));
                     escCmd.append(escCmd.getLFCRCmd());
                 } else {
 //                    escCmd.append(escCmd.getLFCRCmd());
 //                    escCmd.append(escCmd.getLFCRCmd());
                 }
-                escCmd.append(escCmd.getLFCRCmd());
+//                escCmd.append(escCmd.getLFCRCmd());
 
 
             }
@@ -3070,7 +3084,7 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
                                 comboExtraItemPrice = comboExtraItemPrice.replace(".", ",");
                             }
                             textSetting3.setAlign(CommonEnum.ALIGN_LEFT);
-//                            escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "                   " + Currency + comboExtraItemPrice));
+//                            escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "                   " + Currency + comboExtraItemPrice));xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxz
 
                             switch (comboExtraItemQuantity.length() + comboExtraItemName.length() + comboExtraItemPrice.length()) {
                                 case 9:
@@ -3119,20 +3133,15 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
                                     escCmd.append(escCmd.getTextCmd(textSetting3, "" + comboExtraItemQuantity + " X " + comboExtraItemName + ":" + "    " + Currency + comboExtraItemPrice));
                                     break;
                             }
-
-
-                            if (i == (model_orderComboItemOption.getOrderComboItemExtra().size() - 1)) {
-                                escCmd.append(escCmd.getLFCRCmd());
-//                                escCmd.append(escCmd.getLFCRCmd());
-                            } else {
-//                                escCmd.append(escCmd.getLFCRCmd());
-                            }
                         }
 
 
                     }
+                    escCmd.append(escCmd.getLFCRCmd());
                 }
+                escCmd.append(escCmd.getLFCRCmd());
             }
+
 
 
             if (!discountOfferFreeItems.equals("")) {
@@ -3176,7 +3185,6 @@ if(food_available.equalsIgnoreCase("No Response")){
                         escCmd.append(escCmd.getTextCmd(txt_backorders, food_available+":" + discountOfferFreeItems));
                         break;
                 }
-                escCmd.append(escCmd.getLFCRCmd());
                 escCmd.append(escCmd.getLFCRCmd());
             }
 
@@ -3719,50 +3727,56 @@ if(food_available.equalsIgnoreCase("No Response")){
                     DeliveryCharge=DeliveryCharge.replace(".", ",");
                 }
                 String delivery_charge=parseLanguage.getParseString("Delivery_Charge");
-                switch (DeliveryCharge.length()) {
-                    case 2:
-                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
-                        break;
-                    case 3:
-                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
-                        break;
-                    case 4:
-                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
-                        break;
-                    case 5:
-                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
-                        break;
-                    case 6:
-                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
-                        break;
-                    case 7:
-                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
-                        break;
-                    case 8:
-                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
-                        break;
-                    case 9:
-                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
-                        break;
-                    case 10:
-                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
-                        break;
-                    case 11:
-                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
-                        break;
-                    case 12:
-                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
-                        break;
-                    case 13:
-                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
-                        break;
-                    case 14:
-                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
-                        break;
-                    case 15:
-                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
-                        break;
-                }
+                escCmd.append(escCmd.getTextCmd(textextratip,delivery_charge+":"));
+                escCmd.append(escCmd.getLFCRCmd());
+                TextSetting delivery_price=new TextSetting();
+                delivery_price.setAlign(CommonEnum.ALIGN_RIGHT);
+                escCmd.append(escCmd.getTextCmd(delivery_price,Currency + DeliveryCharge));
+
+//                switch (DeliveryCharge.length()) {
+//                    case 2:
+//                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
+//                        break;
+//                    case 3:
+//                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
+//                        break;
+//                    case 4:
+//                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
+//                        break;
+//                    case 5:
+//                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
+//                        break;
+//                    case 6:
+//                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
+//                        break;
+//                    case 7:
+//                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
+//                        break;
+//                    case 8:
+//                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
+//                        break;
+//                    case 9:
+//                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
+//                        break;
+//                    case 10:
+//                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
+//                        break;
+//                    case 11:
+//                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
+//                        break;
+//                    case 12:
+//                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
+//                        break;
+//                    case 13:
+//                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
+//                        break;
+//                    case 14:
+//                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
+//                        break;
+//                    case 15:
+//                        escCmd.append(escCmd.getTextCmd(textextratip, delivery_charge+":             " + Currency + DeliveryCharge));
+//                        break;
+//                }
 
                 escCmd.append(escCmd.getLFCRCmd());
             }
@@ -4153,6 +4167,7 @@ if(food_available.equalsIgnoreCase("No Response")){
 
                 escCmd.append(escCmd.getLFCRCmd());
             }
+            escCmd.append(escCmd.getLFCRCmd());
 
 
             TextSetting textSetting5 = new TextSetting();
