@@ -100,6 +100,9 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
     implementation 'com.google.firebase:firebase-analytics'
+    implementation ('io.socket:socket.io-client:1.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
 
 //    implementation(name:'app-debug', ext:'aar')
 }

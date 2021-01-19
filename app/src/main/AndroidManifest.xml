@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
         android:name=".BaseApplication"
@@ -94,6 +96,21 @@
             </intent-filter>
         </service>
         <activity android:name=".UpdateRingtone" android:screenOrientation="portrait"/>
+        <receiver android:name=".Utils.BootBroadcastReceiver"
+            android:label="StartMyServiceAtBootReceiver"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter android:directBootAware="true">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.action.REBOOT"/>
+            </intent-filter>
+
+        </receiver>
+        <service android:name=".Utils.StartActivityService"
+            android:enabled="true"/>
+
+
     </application>
 
 

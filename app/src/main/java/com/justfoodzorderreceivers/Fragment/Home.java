@@ -415,9 +415,9 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 
 
                     orderListViewToday = new OrderListView(getActivity(), orderLists);
-                    if(orderLists.size()>0){
-                        getorderdetails(orderLists.get(0).getOrderid(),"1");
-                    }
+//                    if(orderLists.size()>0){
+//                        getorderdetails(orderLists.get(0).getOrderid(),"1");
+//                    }
                     linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
                     rchome.setLayoutManager(linearLayoutManager);
                     rchome.setAdapter(orderListViewToday);
