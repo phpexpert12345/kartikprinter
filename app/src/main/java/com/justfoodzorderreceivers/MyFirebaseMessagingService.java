@@ -16,7 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 
 
-
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
@@ -80,51 +80,57 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
     public void onMessageReceived(RemoteMessage remoteMessage) {
-
-
-
-        notificationManager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            setupChannels();
+if(remoteMessage.getData()!=null){
+    String orderId=remoteMessage.getData().get("orderid");
+    if(orderId!=null){
+        if(BaseApplication.isActivityVisible()){
+            broadcastIntent(orderId);
         }
+        else {
+            Intent intent = new Intent(this, MainActivity.class);
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("orderId",orderId);
+            intent.putExtra("type", "from_notification");
+            PendingIntent pendingIntent=PendingIntent.getActivity(this,25,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+            notificationManager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                setupChannels();
+            }
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID);
+
+                    notificationBuilder.setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle("New Order")
+                    .setContentText("Click to print order")
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingIntent);
+
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
 
 
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(R.raw.christmasbells);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID)
-//                .setSmallIcon(R.drawable.notification_one)
-                .setSound(defaultSoundUri)
-                .setContentTitle(remoteMessage.getNotification().getTitle())
-                .setContentText(remoteMessage.getNotification().getBody())
-                .setAutoCancel(true);
 
-        sendNotification(""+remoteMessage.getNotification().getBody());
+        }
+    }
+
+}
+
+
+//        sendNotification(""+remoteMessage.getNotification().getBody());
 
     }
 
 
-    private void sendNotification(String messageBody) {
-        Log.e("qw","ca");
-
-        MainActivity.player.start();
-        System.out.println("your type:"+messageBody);
-        Intent intent = new Intent(this, MainActivity.class);
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Harperskebab Order Receiver")
-                .setContentText(messageBody)
-                .setAutoCancel(true)
-
-                .setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+    private void broadcastIntent(String orderId) {
+        if(BaseApplication.isActivityVisible()) {
+            Intent intent = new Intent();
+            intent.setAction("newOrder");
+            Bundle b = new Bundle();
+            b.putString("orderId", orderId);
+            b.putString("type","from_broadcast");
+            intent.putExtras(b);
+            sendBroadcast(intent);
+        }
     }
 
 

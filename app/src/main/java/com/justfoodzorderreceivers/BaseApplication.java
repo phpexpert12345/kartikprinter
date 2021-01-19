@@ -16,6 +16,25 @@ public class BaseApplication extends Application {
     public static BaseApplication instance = null;
     private RTPrinter rtPrinter;
    public static Socket socket;
+    private static boolean activityVisible;
+    public static boolean isActivityVisible() {
+        return activityVisible;
+    }
+
+    public static void activityResumed() {
+        activityVisible = true;
+    }
+
+    public static void activityPaused() {
+        activityVisible = false;
+    }
+
+    public static void activityStart() {
+        activityVisible = true;
+    }
+    public static void activityStop() {
+        activityVisible = false;
+    }
 
     @BaseEnum.CmdType
     private int currentCmdType = BaseEnum.CMD_ESC;
@@ -74,4 +93,5 @@ public class BaseApplication extends Application {
     public void setCurrentConnectType(@BaseEnum.ConnectType int currentConnectType) {
         this.currentConnectType = currentConnectType;
     }
+
 }

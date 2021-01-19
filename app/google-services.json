@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "1070284257253",
-    "firebase_url": "https://printer-app-4112f.firebaseio.com",
-    "project_id": "printer-app-4112f",
-    "storage_bucket": "printer-app-4112f.appspot.com"
+    "project_number": "945562441325",
+    "project_id": "kartikprinter-7c8a5",
+    "storage_bucket": "kartikprinter-7c8a5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1070284257253:android:1db84ebb8b251a410c210c",
+        "mobilesdk_app_id": "1:945562441325:android:18f31a678fd54bd0da1164",
         "android_client_info": {
           "package_name": "com.justfoodzorderreceivers"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1070284257253-1eu2ukmmsci83f3dskfkfa05uv6hqgii.apps.googleusercontent.com",
+          "client_id": "945562441325-n42q81fph38p9skcoe5rdtsvsg751kd6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAVBrtlcr3MLnwFcG7b-MGsjaPuEvZIqgg"
+          "current_key": "AIzaSyBvRBrFkXcw84UluKlIuKTmcY4Ekb9TIbg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1070284257253-1eu2ukmmsci83f3dskfkfa05uv6hqgii.apps.googleusercontent.com",
+              "client_id": "945562441325-n42q81fph38p9skcoe5rdtsvsg751kd6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

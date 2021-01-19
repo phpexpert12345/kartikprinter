@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -199,7 +200,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 //            number_of_items_order, subTotal, DeliveryCharge, PackageFees, FoodCosts, DiscountPrice, VatTax,
 //            OrderPrice, PayByLoyality, GiftCardPay, ServiceFees, extraTipAddAmount, WalletPay, SalesTaxAmount,
 //            RequestAtDate, RequestAtTime, OrderAcceptedDate, OrderAcceptedTime, order_status_color_code,
-//            order_reference_number, collectionTime, Table_Booking_Number, DriverFirstName, DriverLastName,
+//            order_reference_nfindBT()umber, collectionTime, Table_Booking_Number, DriverFirstName, DriverLastName,
 //            DriverMobileNo, DriverPhoto, rider_id, PayOptionStatus, restaurant_name, restaurant_address,
 //            website_copy_right_text, instruction_note, number_of_customer_order, restaurant_mobile_number, discountOfferFreeItems, customer_email;
 //
@@ -415,9 +416,10 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 
 
                     orderListViewToday = new OrderListView(getActivity(), orderLists);
-//                    if(orderLists.size()>0){
+                    if(orderLists.size()>0){
+                        Log.i("reason",orderLists.get(0).getOrderid());
 //                        getorderdetails(orderLists.get(0).getOrderid(),"1");
-//                    }
+                    }
                     linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
                     rchome.setLayoutManager(linearLayoutManager);
                     rchome.setAdapter(orderListViewToday);
@@ -2188,6 +2190,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
         alertDialog.setButton(parseLanguage.getParseString("OKText"), new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
+
 
 //                alertDialog.dismiss();
 //                Toast.makeText(getApplicationContext(),"You clicked on OK", Toast.LENGTH_SHORT).show();
@@ -5328,6 +5331,8 @@ dialog.dismiss();
         builder.create().show();
 
     }
+
+
 }
 
 

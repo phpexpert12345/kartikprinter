@@ -16,12 +16,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -110,8 +115,8 @@ public class LoginActivity extends Activity {
                     edtpassword.setError("Please enter Email id");
                     edtpassword.requestFocus();
                 } else {
+getToken();
 
-                    getLogin();
                 }
             }
         });
@@ -176,7 +181,7 @@ public class LoginActivity extends Activity {
         }, 2000);
     }
 
-    public void getLogin() {
+    public void getLogin(String token) {
         progressDialog = progressDialog.show(LoginActivity.this, "", parseLanguage.getParseString("Please_wait"), false, false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.login_url, new Response.Listener<String>() {
             @Override
@@ -255,7 +260,7 @@ public class LoginActivity extends Activity {
                 params.put("CustomerCareEmailAddress", "" + edtemail.getText().toString());
                 params.put("lang_code", myPref.getCustomer_default_langauge());
                 params.put("CustomerCarePassword", "" + edtpassword.getText().toString());
-                params.put("customer_care_device_id", myPref.getFirebaseTokenId());
+                params.put("customer_care_device_id", token);
                 params.put("device_platform", "Android");
                 Log.e("pa", "" + params);
                 return params;
@@ -263,6 +268,29 @@ public class LoginActivity extends Activity {
         };
         requestQueue.add(stringRequest);
     }
+    public void getToken(){
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("reason", "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+                        if(token!=null){
+                            getLogin(token);
+                        }
+
+                        // Log and toast
+
+                    }
+                });
+    }
+
 
     public void getParseLanuage(String lang) {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Url.languagefile+"?lang_code=" + lang, new Response.Listener<String>() {
