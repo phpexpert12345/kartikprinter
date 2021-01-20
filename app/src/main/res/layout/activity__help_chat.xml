@@ -105,7 +105,6 @@
 
 
             <LinearLayout
-                android:id="@+id/whhatsapp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal"
@@ -268,7 +267,6 @@
             </LinearLayout>
 
             <View
-                android:id="@+id/vvv"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/black"

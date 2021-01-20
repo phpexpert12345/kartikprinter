@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -19,7 +18,6 @@
             android:weightSum="5">
 
             <LinearLayout
-                android:id="@+id/ll_main"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal">
@@ -154,7 +152,6 @@
 
 
                 <RelativeLayout
-                    android:id="@+id/rldrink"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_weight="1"
@@ -171,7 +168,6 @@
                         android:background="@drawable/drink" />
 
                     <TextView
-                        android:id="@+id/tv5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/iv_drink"
@@ -249,7 +245,6 @@
 
 
                 <ImageView
-                    android:id="@+id/image"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
                     android:layout_gravity="center"

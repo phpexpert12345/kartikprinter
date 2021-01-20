@@ -1,21 +1,13 @@
 <resources>
     <string name="app_name">lieferadeal.de</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity__splash">Activity_Splash</string>
     <string name="selectpicuptime">Select delivery/pickup time for this order</string>
     <string name="changestatus">Change status of the Order</string>
     <string name="accepted">Back</string>
     <string name="confirm_order">Confirm Order</string>
     <string name="change_ststus">Change Status</string>
     <string name="dddd">Notification will be sent customer and driver alerted (if using the driver system)</string>
-    <string name="title_activity_track__order_">Map</string>
     <string name="title_activity_track_order_activity">Map</string>
-    <string name="loding">Loading</string>
     <string name="restrostatus">Restaurant  status :</string>
     <string name="submit">Submit</string>
     <string name="download">Download</string>
@@ -29,18 +21,14 @@
     <string name="enter_your_pin">Enter Your Pin</string>
 
 
-    <string name="drawer_open">Open</string>
-    <string name="drawer_close">Close</string>
     <string name="riderfirstname">Rider First Name</string>
     <string name="riderlast">Rider Last Name</string>
     <string name="rideremail">Rider Email Address</string>
     <string name="ridermobile">Rider Mobile Number</string>
     <string name="riderlicense">Rider License Number</string>
     <string name="ridercountry">Rider Country</string>
-    <string name="riderstate">Rider County</string>
     <string name="ridercity">Rider City</string>
     <string name="riderpoastcode">Rider Post Code</string>
-    <string name="rideraddress">Rider Address</string>
     <string name="vechile">Rider Vehicle Type</string>
     <string name="vechileband">Rider Vehicle Brand</string>
     <string name="vechilemodel">Rider Vehicle Model</string>
@@ -52,17 +40,13 @@
     <string name="privacy_policy">Datenschutz-Bestimmungen</string>
     <string name="update_ringtone">Klingelton aktualisieren</string>
     <string name="auto_self">Auto / Selbst-Modus</string>
-    <string name="delivered">Geliefert</string>
-    <string name="pending">steht aus</string>
     <string name="take_print_small">Nehmen Sie Kleingedrucktes</string>
     <string name="big_print">Nehmen Sie großen Druck</string>
     <string name="order_ringtone">Klingelton für Standardreihenfolge festlegen</string>
     <string name="submit_german">einreichen</string>
-    <string name="please_wait">Warten Sie mal..</string>
     <string name="terms_condition">Geschäftsbedingungen</string>
     <string name="make_difference">Wir versuchen, die Umwelt zu verbessern, in der Sie, Ihre Familie und Kinder leben und arbeiten</string>
     <string name="check_internet">Bitte überprüfen Sie Ihre Netzwerkverbindung</string>
-    <string name="total">Gesamt</string>
     <string name="order_history">Bestellverlauf</string>
     <string name="order_time">Bestellzeitpunkt</string>
     <string name="order_id">Auftragsnummer</string>
@@ -75,7 +59,6 @@
     <string name="customer_note">Kundenhinweis</string>
     <string name="write_notes_customer">Schreiben Sie Notizen für Kunden ..</string>
     <string name="decline_reason">Grund ablehnen</string>
-    <string name="change_order_status">Auftragsstatus ändern</string>
     <string name="are_you_sure_logout">Sind Sie sicher, dass Sie sich abmelden möchten?</string>
     <string name="okay">in Ordnung</string>
     <string name="cancel">Stornieren</string>

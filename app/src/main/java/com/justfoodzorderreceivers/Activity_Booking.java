@@ -266,8 +266,6 @@ import java.util.jar.Pack200;
         tv_deliveryon = (TextView) findViewById(R.id.tv_deliveryon);
         tv_instructions = (TextView) findViewById(R.id.tv_instructions);
         tvDilerveryinstructions = (TextView) findViewById(R.id.tvDilerveryinstructions);
-        deleiveryaddress = (TextView) findViewById(R.id.deleiveryaddress);
-        steak2 = (TextView) findViewById(R.id.steak2);
         food_costprice = (TextView) findViewById(R.id.food_costprice);
         tv_servicetax_price = (TextView) findViewById(R.id.tv_servicetax_price);
         paybywallet = (TextView) findViewById(R.id.paybywallet);

@@ -58,7 +58,6 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/takeprint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -244,7 +243,6 @@
                     android:layout_marginBottom="5dp">
 
                     <RelativeLayout
-                        android:id="@+id/orderDetails"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp">
@@ -303,7 +301,6 @@
 
 
                         <LinearLayout
-                            android:id="@+id/call"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_payment_type">
@@ -331,7 +328,6 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
-                                android:id="@+id/calldriver_card"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
@@ -504,7 +500,6 @@
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
-                android:id="@+id/rating_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -514,7 +509,6 @@
                 android:visibility="gone">
 
                 <LinearLayout
-                    android:id="@+id/driver_rating_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -546,7 +540,6 @@
                                 android:src="@drawable/star_ic" />
 
                             <TextView
-                                android:id="@+id/driver_star_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
@@ -560,7 +553,6 @@
                             android:background="@color/black" />
 
                         <TextView
-                            android:id="@+id/driver_status_tv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -573,7 +565,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/order_rating_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -604,7 +595,6 @@
                                 android:src="@drawable/star_ic" />
 
                             <TextView
-                                android:id="@+id/order_star_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
@@ -618,7 +608,6 @@
                             android:background="@color/black" />
 
                         <TextView
-                            android:id="@+id/order_status_tv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -631,7 +620,6 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/rate_person_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
@@ -642,7 +630,6 @@
                     android:visibility="visible" />
 
                 <Button
-                    android:id="@+id/rate_order_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"

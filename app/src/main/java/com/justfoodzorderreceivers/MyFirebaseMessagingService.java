@@ -52,33 +52,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String CHANNEL_ID = "channel_id01";
     MyPref myPref;
-    @Override
-    public void onNewToken(String s) {
-        super.onNewToken(s);
-
-        Log.d("NEW_TOKEN",s);
-        // storeRegIdInPref(s);
-
-        // sending reg id to your server
-        sendRegistrationToServer(s);
-
-        // Notify UI that registration has completed, so the progress indicator can be hidden.
-        Intent registrationComplete = new Intent(REGISTRATION_COMPLETE);
-        registrationComplete.putExtra("token", s);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
-    }
-
-    private void sendRegistrationToServer(final String token) {
-        // sending gcm token to server
-        Log.e(TAG, "sendRegistrationToServer: " + token);
-    }
-
-
-
-    @RequiresApi(api = Build.VERSION_CODES.O_MR1)
-    @Override
-
-
     public void onMessageReceived(RemoteMessage remoteMessage) {
 if(remoteMessage.getData()!=null){
     String orderId=remoteMessage.getData().get("orderid");
@@ -87,6 +60,8 @@ if(remoteMessage.getData()!=null){
             broadcastIntent(orderId);
         }
         else {
+            String title=remoteMessage.getData().get("title");
+            String text=remoteMessage.getData().get("text");
             Intent intent = new Intent(this, MainActivity.class);
 
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -100,8 +75,8 @@ if(remoteMessage.getData()!=null){
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID);
 
                     notificationBuilder.setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("New Order")
-                    .setContentText("Click to print order")
+                    .setContentTitle(title)
+                    .setContentText(text)
                     .setAutoCancel(true)
                     .setContentIntent(pendingIntent);
 

@@ -4,9 +4,7 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-    <group
-        android:id="@+id/grp1"
-        android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_allorders"
             android:icon="@drawable/alllorder"
@@ -14,9 +12,7 @@
 
     </group>
 
-        <group
-            android:id="@+id/grp21"
-            android:checkableBehavior="single">
+        <group android:checkableBehavior="single">
 
             <item
                 android:id="@+id/nav_history"
@@ -43,18 +39,14 @@
             android:title="Table Bookings" />
     </group>-->
 
-    <group
-        android:id="@+id/grp3"
-        android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_odersupport"
             android:icon="@drawable/ordersupport"
             android:title="Order Complaints" />
           </group>
 
-    <group
-        android:id="@+id/grp4"
-        android:checkableBehavior="single"
+    <group android:checkableBehavior="single"
         >
 
         <item
@@ -86,9 +78,7 @@
 <!--                android:title="Manage Rider" />-->
 <!--        </group>-->
 
-    <group
-        android:id="@+id/grp5"
-        android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
 
         <item
             android:id="@+id/nav_chat"
@@ -136,18 +126,14 @@
 <!--            android:title="FAQs" />-->
 <!--    </group>-->
 
-    <group
-        android:id="@+id/grp10"
-        android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
 
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
             android:title="Logout" />
     </group>
-        <group
-        android:id="@+id/grp11"
-        android:checkableBehavior="single">
+        <group android:checkableBehavior="single">
 
         <item
             android:id="@+id/nav_update_ringtone"

@@ -67,7 +67,6 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/on_off_ll_delivery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -97,7 +96,6 @@
                 android:src="@drawable/off" />
 
             <TextView
-                android:id="@+id/off_textdelivery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -113,7 +111,6 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/on_off_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -140,7 +137,6 @@ android:layout_marginEnd="@dimen/_15sdp"
                 android:src="@drawable/on" />
 
             <TextView
-                android:id="@+id/off_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -155,7 +151,6 @@ android:layout_marginEnd="@dimen/_15sdp"
 
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/on_off_mode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 

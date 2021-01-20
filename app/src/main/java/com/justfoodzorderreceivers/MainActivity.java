@@ -160,8 +160,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sharedPreferences = getSharedPreferences("Order", MODE_PRIVATE);
-
-
         myPref = new MyPref(MainActivity.this);
         parseLanguage = new ParseLanguage(myPref.getBookingData(),MainActivity.this);
         requestQueue = Volley.newRequestQueue(this);
@@ -500,6 +498,7 @@ public class MainActivity extends AppCompatActivity
 
         //player.start();
 //        getorderdetails("82","1");
+        handleIntent(getIntent());
 
     }
     public void getRestroinformation(){
@@ -3969,11 +3968,12 @@ getorderdetails(orderId,"1");
         dialog.show();
 
     }
-    public void Decline(final String a, final String order_id) {
+    public void Decline(final String a, final String order_id, AlertDialog aa) {
         progressDialog = progressDialog.show(this, "", parseLanguage.getParseString("Please_wait"), false, false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.decline, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
+                aa.dismiss();
                 progressDialog.dismiss();
                 Log.e("response", "" + s);
                 try {
@@ -3997,6 +3997,7 @@ getorderdetails(orderId,"1");
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 progressDialog.dismiss();
+                aa.dismiss();
                 Log.e("error", "" + volleyError);
                 Toast.makeText(MainActivity.this, parseLanguage.getParseString("Please_Check_your_network_connection"), Toast.LENGTH_SHORT).show();
             }
@@ -4050,19 +4051,19 @@ getorderdetails(orderId,"1");
         final android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(this);
         alertDialog.setMessage(parseLanguage.getParseString("Are_you_sure_to_decline_order"));
         alertDialog.setPositiveButton(parseLanguage.getParseString("YESText"), new DialogInterface.OnClickListener() {
-            public void onClick(final DialogInterface dialog, int which) {
+            public void onClick(final DialogInterface dialog1, int which) {
                 countDownTimer.cancel();
                 dialog.dismiss();
-                dialog.cancel();
+                dialog1.dismiss();
 
                 // Write your code here to invoke YES event
 //                        Toast.makeText(getApplicationContext(), "You clicked on YES", Toast.LENGTH_SHORT).show();
-                {
-                    final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MainActivity.this);
+AlertDialog alert;
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     LayoutInflater inflater = getLayoutInflater();
                     final View dialogLayout = inflater.inflate(R.layout.custom_alertdialog, null);
                     builder.setView(dialogLayout);
-                    final android.app.AlertDialog aa = builder.create();
+                    final AlertDialog aa = builder.create();
                     final EditText edt_reason = (EditText) dialogLayout.findViewById(R.id.edt_reason);
                     TextView ordernumber = dialogLayout.findViewById(R.id.ordernumber);
                     Button submit_reason = (Button) dialogLayout.findViewById(R.id.submit_reason);
@@ -4081,7 +4082,7 @@ getorderdetails(orderId,"1");
                             } else {
 
                             }
-                            Decline("" + edt_reason.getText().toString(), finalOrderid1);
+                            Decline("" + edt_reason.getText().toString(), finalOrderid1,aa);
                         }
                     });
 
@@ -4098,9 +4099,10 @@ getorderdetails(orderId,"1");
                     });
                     aa.show();
 
+
                 }
 
-            }
+
 
         });
         alertDialog.setNegativeButton(parseLanguage.getParseString("NOText"), new DialogInterface.OnClickListener() {
@@ -4109,6 +4111,7 @@ getorderdetails(orderId,"1");
                 dialog.cancel();
             }
         });
+
 
         // Showing Alert Message
         alertDialog.show();
@@ -4246,6 +4249,10 @@ getorderdetails(orderId,"1");
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        handleIntent(intent);
+
+    }
+    private void handleIntent(Intent intent){
         if(intent.hasExtra("type")){
             String type=intent.getStringExtra("type");
             String orderId=intent.getStringExtra("orderId");
@@ -4255,4 +4262,5 @@ getorderdetails(orderId,"1");
             }
         }
     }
+
 }

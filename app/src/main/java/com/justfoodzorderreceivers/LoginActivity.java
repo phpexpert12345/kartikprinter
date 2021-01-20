@@ -282,6 +282,7 @@ getToken();
                         // Get new FCM registration token
                         String token = task.getResult();
                         if(token!=null){
+                            Log.i("reason",token);
                             getLogin(token);
                         }
 

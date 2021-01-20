@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="red">#7fcb4e</color>
     <color name="white">#ffffff</color>
@@ -9,16 +8,10 @@
     <color name="lightgrey">#D3D3D3</color>
     <color name="lightgrey_new">#A4E7E7E7</color>
     <color name="darkgrey">#808080</color>
-    <color name="silvergrey">#C0C0C0</color>
     <color name="green">#FC0D3C</color>
     <color name="green2">#7fcb4e</color>
-    <color name="greenAccent">#9fd836</color>
-    <color name="orange">#FF9100</color>
-    <color name="orangeDark">#FF3300</color>
-    <color name="orangeLite">#fe4c3a</color>
     <color name="yellow">#ffa500</color>
     <color name="darkred">#000000</color>
     <color name="headwallet">#4a4f83</color>
-    <color name="viewgrey">#C0BFBF</color>
 
 </resources>

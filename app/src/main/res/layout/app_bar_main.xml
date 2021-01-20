@@ -40,7 +40,6 @@
                     android:background="@color/white" />
 
                 <View
-                    android:id="@+id/a3"
                     android:layout_width="40dp"
                     android:layout_height="5dp"
                     android:layout_below="@+id/a2"
