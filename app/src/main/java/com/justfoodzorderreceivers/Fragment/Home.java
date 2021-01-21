@@ -849,7 +849,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
     // Pending Orders Tab API Call//
     public void PendingOrderList() {
 //        orderLists.clear();
-        progressDialog = progressDialog.show(getActivity(), "", parseLanguage.getParseString("Please_wait"), false, false);
+        progressDialog = progressDialog.show(getActivity(), "", parseLanguage.getParseString("Please_wait"), false, true);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.pending_order_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -997,7 +997,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 
     // All Orders Tab API Call//
     public void AllOrderList() {
-        progressDialog = progressDialog.show(getActivity(), "", parseLanguage.getParseString("Please_wait"), false, false);
+        progressDialog = progressDialog.show(getActivity(), "", parseLanguage.getParseString("Please_wait"), false, true);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.all_order_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -1287,12 +1287,22 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 
             final OrderSupportList supportList = anujs.get(i);
             viewHolder.tv_issue.setText(supportList.getOrderIssue());
-            viewHolder.tv_namee.setText(supportList.getContact_name());
+            if (!supportList.getContact_name().equalsIgnoreCase("null")) {
+                viewHolder.tv_namee.setText(supportList.getContact_name());
+            }
             viewHolder.tv_orderid.setText(supportList.getOrderIDNumber());
-            viewHolder.tv_reply.setText(supportList.getOrderIssueMessage());
-            viewHolder.txtnumber.setText(supportList.getContact_phone());
-            viewHolder.txtemail.setText(supportList.getContact_email());
-            viewHolder.your_reply.setText(supportList.getRestaurant_order_issue_reply());
+            if (!supportList.getOrderIssueMessage().equalsIgnoreCase("null")){
+                viewHolder.tv_reply.setText(supportList.getOrderIssueMessage());
+        }
+            if(!supportList.getContact_phone().equalsIgnoreCase("null")) {
+                viewHolder.txtnumber.setText(supportList.getContact_phone());
+            }
+            if(!supportList.getContact_email().equalsIgnoreCase("null")) {
+                viewHolder.txtemail.setText(supportList.getContact_email());
+            }
+            if(!supportList.getRestaurant_order_issue_reply().equalsIgnoreCase("null")) {
+                viewHolder.your_reply.setText(supportList.getRestaurant_order_issue_reply());
+            }
             viewHolder.replybutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1357,7 +1367,9 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
                 mobile_title.setText(parseLanguage.getParseString("Mobile_No"));
                 email_title.setText(parseLanguage.getParseString("Email_Id"));
                 comment_title.setText(parseLanguage.getParseString("Issue_Comment"));
-                your_reply_title.setText(parseLanguage.getParseString("Your_Reply"));
+                if(!parseLanguage.getParseString("Your_Reply").equalsIgnoreCase("null")) {
+                    your_reply_title.setText(parseLanguage.getParseString("Your_Reply"));
+                }
 
                 replybutton.setText(parseLanguage.getParseString("Reply"));
                 img_delete = itemView.findViewById(R.id.img_delete);

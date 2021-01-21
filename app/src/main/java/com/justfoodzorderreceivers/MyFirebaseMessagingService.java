@@ -63,11 +63,14 @@ if(remoteMessage.getData()!=null){
             String title=remoteMessage.getData().get("title");
             String text=remoteMessage.getData().get("text");
             Intent intent = new Intent(this, MainActivity.class);
-
+            Random random=new Random();
+            int id=random.nextInt(10000);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("orderId",orderId);
             intent.putExtra("type", "from_notification");
+            intent.putExtra("notification_id",id);
             PendingIntent pendingIntent=PendingIntent.getActivity(this,25,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
             notificationManager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 setupChannels();
@@ -81,7 +84,7 @@ if(remoteMessage.getData()!=null){
                     .setContentIntent(pendingIntent);
 
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+            notificationManager.notify(id /* ID of notification */, notificationBuilder.build());
 
 
 

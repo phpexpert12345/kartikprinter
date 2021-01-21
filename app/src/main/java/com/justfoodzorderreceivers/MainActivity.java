@@ -1,5 +1,6 @@
 package com.justfoodzorderreceivers;
 
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity
     public static MediaPlayer player,player1;
     ImageView lang_button;
       MyPref myPref;
+    int flag = 0;
     ParseLanguage parseLanguage;
     ProgressDialog progressDialog;
 
@@ -153,7 +155,7 @@ public class MainActivity extends AppCompatActivity
             RequestAtDate, RequestAtTime, OrderAcceptedDate, OrderAcceptedTime, order_status_color_code,
             order_reference_number, collectionTime, Table_Booking_Number, DriverFirstName, DriverLastName,
             DriverMobileNo, DriverPhoto, rider_id, PayOptionStatus, restaurant_name, restaurant_address, TotalSavedDiscount,
-            website_copy_right_text, instruction_note, order_confirmed_time, order_kitchen_time, order_delivery_time, number_of_customer_order, discountOfferFreeItems;
+            website_copy_right_text, instruction_note, order_confirmed_time, order_kitchen_time, order_delivery_time, number_of_customer_order, discountOfferFreeItems, CompanyName,customer_city,customer_postcode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -496,9 +498,8 @@ public class MainActivity extends AppCompatActivity
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
       // player.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-        //player.start();
-//        getorderdetails("82","1");
-        handleIntent(getIntent());
+        //player.start()
+                handleIntent(getIntent());;
 
     }
     public void getRestroinformation(){
@@ -513,6 +514,9 @@ public class MainActivity extends AppCompatActivity
                         String home_delivery=json.optString("HomeDelivery");
                         int OrderAcceptanceEnable=json.optInt("OrderAcceptanceEnable");
                         String Language_Enable=json.optString("Language_Enable");
+                        String auto_print_enable=json.optString("auto_print_enable");
+                        myPref.setAuto_print_enable(auto_print_enable);
+
                         myPref.setIsRideAccepted(pickup);
                         myPref.setIsOnline(home_delivery);
                         myPref.setMode(OrderAcceptanceEnable+"");
@@ -545,6 +549,7 @@ public class MainActivity extends AppCompatActivity
                         player = MediaPlayer.create(MainActivity.this, Uri.parse(ringtone_url));
                         player1 = MediaPlayer.create(MainActivity.this, Uri.parse(ringtone_url));
                         myPref.setRingtone_url(ringtone_url);
+//                        getorderdetails("92","1");
 //
                     }
                 } catch (JSONException e) {
@@ -668,11 +673,16 @@ public class MainActivity extends AppCompatActivity
                         DriverMobileNo = jsonObject1.getString("DriverMobileNo");
                         DriverPhoto = jsonObject1.getString("DriverPhoto");
                         rider_id = jsonObject1.getString("rider_id");
+                        TotalSavedDiscount = jsonObject1.getString("TotalSavedDiscount");
                         PayOptionStatus = jsonObject1.getString("PayOptionStatus");
                         restaurant_name = jsonObject1.getString("restaurant_name");
                         restaurant_address = jsonObject1.getString("restaurant_address");
                         website_copy_right_text = jsonObject1.getString("website_copy_right_text");
                         instruction_note = jsonObject1.getString("instruction_note");
+                        CompanyName=jsonObject1.getString("CompanyName");
+                        customer_city=jsonObject1.getString("customer_city");
+                        customer_postcode=jsonObject1.getString("customer_postcode");
+
 //                        rider_idAssign = rider_id;
                         discountOfferFreeItems = jsonObject1.getString("discountOfferFreeItems");
 //                        rider_idAssign = rider_id;
@@ -718,7 +728,7 @@ public class MainActivity extends AppCompatActivity
                             }
                         }
 
-                        JSONArray jsonArray2 = jsonObject.optJSONArray("OrderDrinkItem");
+                        JSONArray jsonArray2 = jsonObject1.optJSONArray("OrderDrinkItem");
                         if(jsonArray2!=null) {
                             if (jsonArray2.length() == 0) {
                                 //     tv_no_drinkItems.setVisibility(View.GONE);
@@ -752,7 +762,7 @@ public class MainActivity extends AppCompatActivity
                         }
 
 
-                        JSONArray OrderMealItem = jsonObject.optJSONArray("OrderMealItem");
+                        JSONArray OrderMealItem = jsonObject1.optJSONArray("OrderMealItem");
                         if(OrderMealItem!=null) {
 
 
@@ -769,9 +779,9 @@ public class MainActivity extends AppCompatActivity
                                     String ItemsName = j2.getString("ItemsName");
                                     String quantity = j2.getString("quantity");
                                     String menuprice = j2.getString("menuprice");
-                                    String item_size = j2.getString("item_size");
-                                    String instructions = j2.getString("instructions");
-                                    String ExtraTopping = j2.getString("ExtraTopping");
+                                    String item_size = j2.optString("item_size");
+                                    String instructions = j2.optString("instructions");
+                                    String ExtraTopping = j2.optString("ExtraTopping");
                                     String Currencyyy = j2.getString("Currency");
 
                                     model_combo.setItemsName(ItemsName);
@@ -1088,7 +1098,10 @@ public class MainActivity extends AppCompatActivity
                         openBT();
                         sendData();
                         doConnect();
-                        PrintOrderReceipt(orderID,error_msg);
+                        if(myPref.getAuto_print_enable().equalsIgnoreCase("1")) {
+                            PrintOrderReceipt(orderID, myPref.getAuto_print_enable());
+                        }
+//                                                PrintOrderReceipt(orderID, myPref.getAuto_print_enable());
 
                     } catch (IOException ex) {
                         ex.printStackTrace();
@@ -2182,7 +2195,13 @@ getorderdetails(orderId,"1");
             escCmd.append(escCmd.getTextCmd(txt_CustomerInfo1, parseLanguage.getParseString("Customer_info")+":"));
             escCmd.append(escCmd.getLFCRCmd());
 
-
+            if(CompanyName!=null){
+                TextSetting txt_company=new TextSetting();
+                txt_company.setAlign(CommonEnum.ALIGN_LEFT);
+                txt_company.setBold(SettingEnum.Enable);
+                escCmd.append(escCmd.getTextCmd(txt_company, CompanyName));
+                escCmd.append(escCmd.getLFCRCmd());
+            }
             TextSetting txt_CustomerInfo = new TextSetting();
             txt_CustomerInfo.setAlign(CommonEnum.ALIGN_LEFT);
             txt_CustomerInfo.setBold(SettingEnum.Enable);
@@ -2194,6 +2213,20 @@ getorderdetails(orderId,"1");
             txt_Customeradd.setBold(SettingEnum.Enable);
             escCmd.append(escCmd.getTextCmd(txt_Customeradd, customer_address));
             escCmd.append(escCmd.getLFCRCmd());
+            if(customer_city!=null){
+                TextSetting city=new TextSetting();
+                city.setAlign(CommonEnum.ALIGN_LEFT);
+                city.setBold(SettingEnum.Enable);
+                escCmd.append(escCmd.getTextCmd(city,customer_city));
+                escCmd.append(escCmd.getLFCRCmd());
+            }
+            if(customer_postcode!=null){
+                TextSetting postcode=new TextSetting();
+                postcode.setAlign(CommonEnum.ALIGN_LEFT);
+                postcode.setBold(SettingEnum.Enable);
+                escCmd.append(escCmd.getTextCmd(postcode,customer_postcode));
+                escCmd.append(escCmd.getLFCRCmd());
+            }
 
             TextSetting txt_CustomerMobile = new TextSetting();
             txt_CustomerMobile.setAlign(CommonEnum.ALIGN_LEFT);
@@ -2454,7 +2487,12 @@ getorderdetails(orderId,"1");
                     Model_Combo model_combo = model_combos.get(m);
                     TextSetting txt_backorders = new TextSetting();
                     txt_backorders.setAlign(CommonEnum.ALIGN_LEFT);
-                    escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName()+ "        "+Currency + model_combo.getMenuprice()));
+                    escCmd.append(escCmd.getTextCmd(txt_backorders, model_combo.getQuantity() + " X " + model_combo.getItemsName()));
+                    escCmd.append(escCmd.getLFCRCmd());
+                    TextSetting txt_price = new TextSetting();
+                    txt_price.setAlign(CommonEnum.ALIGN_RIGHT);
+                    escCmd.append(escCmd.getTextCmd(txt_price, Currency + model_combo.getMenuprice()));
+                    escCmd.append(escCmd.getLFCRCmd());
 //                    TextSetting menu_price=new TextSetting();
 //                    menu_price.setAlign(CommonEnum.ALIGN_RIGHT);
 //                    escCmd.append(escCmd.getTextCmd(menu_price,Currency + model_combo.getMenuprice()));
@@ -2548,19 +2586,21 @@ getorderdetails(orderId,"1");
                     txt_comboDescribe.setAlign(CommonEnum.ALIGN_LEFT);
                     escCmd.append(escCmd.getTextCmd(txt_comboDescribe, model_combo.getItemsDescriptionName()));
                     escCmd.append(escCmd.getLFCRCmd());
+                    escCmd.append(escCmd.getLFCRCmd());
                     TextSetting textSetting31 = new TextSetting();
                     textSetting31.setAlign(CommonEnum.ALIGN_LEFT);
-                    String combo_option_name=model_combo.getOrderComboItemOption().get(0).getComboOptionName();
-                    if(combo_option_name!=null){
-                        if(!combo_option_name.equalsIgnoreCase("null")) {
-                            escCmd.append(escCmd.getTextCmd(textSetting31, combo_option_name));
-                            escCmd.append(escCmd.getLFCRCmd());
-                        }
-                    }
 //
 //                    Toast.makeText(this, model_combo.getOrderComboItemOption().get(0).getComboOptionName(), Toast.LENGTH_SHORT).show();
                     ArrayList<Model_OrderComboItemOption> orderComboItemOption = model_combo.getOrderComboItemOption();
                     for (int i = 0; i < orderComboItemOption.size(); i++) {
+                        String combo_option_name=orderComboItemOption.get(i).getComboOptionName();
+                        if(combo_option_name!=null){
+                            if(!combo_option_name.equalsIgnoreCase("null")) {
+                                escCmd.append(escCmd.getTextCmd(textSetting31, combo_option_name));
+                                escCmd.append(escCmd.getLFCRCmd());
+                                escCmd.append(escCmd.getLFCRCmd());
+                            }
+                        }
                         textSetting3.setAlign(CommonEnum.ALIGN_LEFT);
                         textSetting3.setBold(SettingEnum.Enable);
                         String option_name=orderComboItemOption.get(i).getComboOptionItemName();
@@ -2574,6 +2614,7 @@ getorderdetails(orderId,"1");
                             String option_size=model_orderComboItemOption.getComboOptionItemSizeName();
                             if(!option_size.equalsIgnoreCase("null")) {
                                 escCmd.append(escCmd.getTextCmd(textSetting3, option_size));
+                                escCmd.append(escCmd.getLFCRCmd());
                                 escCmd.append(escCmd.getLFCRCmd());
 //                                escCmd.append(escCmd.getLFCRCmd());
                             }
@@ -2645,6 +2686,8 @@ getorderdetails(orderId,"1");
                             }
                         }
 
+                        escCmd.append(escCmd.getLFCRCmd());
+                        escCmd.append(escCmd.getLFCRCmd());
                         escCmd.append(escCmd.getLFCRCmd());
                     }
                 }
@@ -3895,6 +3938,13 @@ getorderdetails(orderId,"1");
         final TimeAdapter2 timeAdapter2 = new TimeAdapter2(this, stringList, new TimeValuesListener() {
             @Override
             public void onSelectTime(String price) {
+                if(!myPref.getAuto_print_enable().equalsIgnoreCase("1")){
+                    try {
+                        PrintOrderReceipt(orderid,myPref.getAuto_print_enable());
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
                 stime = price;
             }
         });
@@ -3963,6 +4013,23 @@ getorderdetails(orderId,"1");
             @Override
             public void onClick(View v) {
                 ShowDeclineDialog(countDownTimer,finalOrderid);
+            }
+        });
+        flag = 0;
+        rewind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                --flag;
+                time.smoothScrollToPosition(flag);
+            }
+        });
+
+        forward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                flag++;
+                time.smoothScrollToPosition(((timeAdapter2.getItemCount() * flag) / 2) + 1);
             }
         });
         dialog.show();
@@ -4257,6 +4324,10 @@ AlertDialog alert;
             String type=intent.getStringExtra("type");
             String orderId=intent.getStringExtra("orderId");
             if(type.equalsIgnoreCase("from_notification")){
+                int id=intent.getIntExtra("notification_id",0);
+                init();
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.cancel(id);
                 getorderdetails(orderId,"1");
 
             }

@@ -44,7 +44,27 @@ public class MyPref {
     private String userName,mailid,bankDetail,ridetype,profileImage;
     private String city,state,startDate,stopDate,bookingData,rideStatus,rideCurrentStatus;
     private String vehicleCate,vehicleImage,lat,lng,emergency,vecdetail,total_balance;
-    private String cateId,bookId,docCode,isRideAccepted,bookType,multiCatId,newCatID,approvalstatus,customer_default_langauge;
+    private String cateId;
+    private String bookId;
+    private String docCode;
+    private String isRideAccepted;
+    private String bookType;
+    private String multiCatId;
+    private String newCatID;
+    private String approvalstatus;
+    private String customer_default_langauge;
+
+    public String getAuto_print_enable() {
+        auto_print_enable=sharedPreferences.getString("auto_print_enable","");
+        return auto_print_enable;
+    }
+
+    public void setAuto_print_enable(String auto_print_enable) {
+        this.auto_print_enable = auto_print_enable;
+        sharedPreferences.edit().putString("auto_print_enable",auto_print_enable).apply();
+    }
+
+    private String auto_print_enable;
 
 
 
