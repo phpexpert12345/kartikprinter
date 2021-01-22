@@ -69,12 +69,10 @@ if(remoteMessage.getData()!=null){
             intent.putExtra("orderId",orderId);
             intent.putExtra("type", "from_notification");
             intent.putExtra("notification_id",id);
-            PendingIntent pendingIntent=PendingIntent.getActivity(this,25,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent=PendingIntent.getActivity(this,25,intent,PendingIntent.FLAG_CANCEL_CURRENT);
 
             notificationManager =(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                setupChannels();
-            }
+
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ADMIN_CHANNEL_ID);
 
                     notificationBuilder.setSmallIcon(R.mipmap.ic_launcher)
@@ -82,8 +80,16 @@ if(remoteMessage.getData()!=null){
                     .setContentText(text)
                     .setAutoCancel(true)
                     .setContentIntent(pendingIntent);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                NotificationChannel channel = new NotificationChannel("task",
+                        "Task Notification",
+                        NotificationManager.IMPORTANCE_HIGH);
+                notificationBuilder.setChannelId("task");
+                notificationManager.createNotificationChannel(channel);
 
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            }
+
+
             notificationManager.notify(id /* ID of notification */, notificationBuilder.build());
 
 
@@ -112,20 +118,7 @@ if(remoteMessage.getData()!=null){
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O_MR1)
-    private void setupChannels(){
-        CharSequence adminChannelName = getString(R.string.app_name);
-        String adminChannelDescription = getString(R.string.app_name);
-        NotificationChannel adminChannel;
-        adminChannel = new NotificationChannel(ADMIN_CHANNEL_ID, adminChannelName, NotificationManager.IMPORTANCE_LOW);
-        adminChannel.setDescription(adminChannelDescription);
-        adminChannel.enableLights(true);
-        //adminChannel.setLightCo#F123);
-        adminChannel.enableVibration(true);
-        if (notificationManager != null) {
-            notificationManager.createNotificationChannel(adminChannel);
-        }
-    }
+
 
 
 }
