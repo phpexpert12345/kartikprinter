@@ -1,5 +1,6 @@
 package com.justfoodzorderreceivers;
 
+import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -389,8 +390,7 @@ public class MainActivity extends AppCompatActivity
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(intent);
+               refreshView();
             }
         });
 
@@ -1553,8 +1553,7 @@ public class MainActivity extends AppCompatActivity
                     dialog.cancel();
                     dialog.dismiss();
                     myPref.setBookingData(response);
-                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                    startActivity(intent);
+                   refreshView();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -3902,14 +3901,21 @@ getorderdetails(orderId,"1");
 
 //
             }
+        refreshView();
+
+
 
     }
-    AppCompatDialog dialog;
+    private void refreshView(){
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(intent);
+    }
+    Dialog dialog;
     private String sCity = "", stime = "", sDate = "";
     String[] aa = {" 30 ", " 45 ", " 60 ", " 75 ", " 90 ", " 105 "};
     ArrayList<TimeModel> stringList;
     public void ShowOrderDialog(String BookingID,String order_date, String customer_name,String ordPrice,String payment_mode,String orderid){
-        dialog = new AppCompatDialog(this);
+        dialog = new Dialog(MainActivity.this);
         dialog.setContentView(R.layout.order_dialog);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
