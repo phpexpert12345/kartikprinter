@@ -281,9 +281,9 @@
     <ImageView
         android:visibility="visible"
         android:layout_centerHorizontal="true"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:id="@+id/back"
         android:src="@drawable/cancel"
         />
