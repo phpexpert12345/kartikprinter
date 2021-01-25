@@ -180,6 +180,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
     AppCompatDialog dialog;
     private String mChartsetName = "UTF-8";
     ArrayList<Model_Combo> model_combos;
+
     public static ArrayList<String> item_size, item_name, item_price, item_quant, extra_toping,
             drink_item_name, drink_item_price, drink_item_quant, drink_extra_toping,
             meal_item_name, meal_item_price, meal_item_quant, meal_extra_toping, item_instruction, drink_instruction, meal_instruction;
@@ -369,7 +370,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 
     // Today Orders Tab API Call//
     public void TodayOrderList() {
-        progressDialog = progressDialog.show(getActivity(), "", parseLanguage.getParseString("Please_wait"), false, false);
+        progressDialog = progressDialog.show(getActivity(), "", parseLanguage.getParseString("Please_wait"), false, true);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.today_order_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -422,307 +423,307 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
                     linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
                     rchome.setLayoutManager(linearLayoutManager);
                     rchome.setAdapter(orderListViewToday);
-                    SwipeHelper swipeHelper = new SwipeHelper(getContext()) {
-                        @Override
-                        public void instantiateUnderlayButton(RecyclerView.ViewHolder viewHolder, List<UnderlayButton> underlayButtons, int pos) {
-                            final OrderList item = orderListViewToday.getData().get(pos);
-                            if (item.getOrder_status_msg().equalsIgnoreCase("Kitchen")) {
-                                underlayButtons.add(new SwipeHelper.UnderlayButton(
-                                        parseLanguage.getParseString("Complete"),
-                                        0,
-                                        Color.parseColor("#9fd836"),
-                                        new SwipeHelper.UnderlayButtonClickListener() {
-                                            @Override
-                                            public void onClick(final int pos) {
-                                                Log.e("SliderClick", "dd");
-                                                final OrderList item = orderListViewToday.getData().get(pos);
-                                                player.stop();
-                                                //    final OrderList item = orderListViewPending.getData().get(pos);
-
-
-                                                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-
-                                                // Setting Dialog Title
+//                    SwipeHelper swipeHelper = new SwipeHelper(getContext()) {
+//                        @Override
+//                        public void instantiateUnderlayButton(RecyclerView.ViewHolder viewHolder, List<UnderlayButton> underlayButtons, int pos) {
+//                            final OrderList item = orderListViewToday.getData().get(pos);
+//                            if (item.getOrder_status_msg().equalsIgnoreCase("Kitchen")) {
+//                                underlayButtons.add(new SwipeHelper.UnderlayButton(
+//                                        parseLanguage.getParseString("Complete"),
+//                                        0,
+//                                        Color.parseColor("#9fd836"),
+//                                        new SwipeHelper.UnderlayButtonClickListener() {
+//                                            @Override
+//                                            public void onClick(final int pos) {
+//                                                Log.e("SliderClick", "dd");
+//                                                final OrderList item = orderListViewToday.getData().get(pos);
+//                                                player.stop();
+//                                                //    final OrderList item = orderListViewPending.getData().get(pos);
+//
+//
+//                                                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+//
+//                                                // Setting Dialog Title
+////                                                alertDialog.setTitle("Harperskebab Order Receiver");
+//
+//                                                // Setting Dialog Message
+//                                                alertDialog.setMessage(parseLanguage.getParseString("Order_Complete_Alert"));
+//
+//                                                alertDialog.setPositiveButton(parseLanguage.getParseString("YESText"), new DialogInterface.OnClickListener() {
+//                                                    public void onClick(final DialogInterface dialog, int which) {
+//
+//                                                        ordermark_complete(item.getOrderid());
+//
+//
+//                                                    }
+//
+//                                                });
+//                                                alertDialog.setNegativeButton(parseLanguage.getParseString("NOText"), new DialogInterface.OnClickListener() {
+//                                                    public void onClick(DialogInterface dialog, int which) {
+//
+//                                                        dialog.cancel();
+//                                                    }
+//                                                });
+//                                                // Showing Alert Message
+//                                                alertDialog.show();
+//
+//                                            }
+//                                        }
+//                                ));
+//
+//                                underlayButtons.add(new SwipeHelper.UnderlayButton(
+//                                        parseLanguage.getParseString("Change_Time"),
+//                                        0,
+//                                        Color.parseColor("#ffa500"),
+//                                        new SwipeHelper.UnderlayButtonClickListener() {
+//                                            @Override
+//                                            public void onClick(final int pos) {
+//                                                Log.e("SliderClick", "dd");
+//                                                final OrderList item = orderListViewToday.getData().get(pos);
+//                                                player.stop();
+//                                                //    final OrderList item = orderListViewPending.getData().get(pos);
+//                                                Intent i = new Intent(getContext(), AcceptButton_activity1.class);
+//                                                i.putExtra("orderid", "" + item.getOrderid());
+//                                                startActivity(i);
+//                                            }
+//                                        }
+//                                ));
+//
+//
+//                            }
+//                            if (item.getOrder_status_msg().equalsIgnoreCase("Confirmed")) {
+//
+//
+//                                underlayButtons.add(new SwipeHelper.UnderlayButton(
+//                                        parseLanguage.getParseString("Processing"),
+//                                        0,
+//                                        Color.parseColor("#ffa500"),
+//                                        new SwipeHelper.UnderlayButtonClickListener() {
+//                                            @Override
+//                                            public void onClick(final int pos) {
+//                                                final OrderList item = orderListViewToday.getData().get(pos);
+//                                                player.stop();
+//                                                changestatus(item.getOrderid(), "1");
+//                                            }
+//                                        }
+//                                ));
+//
+//                                underlayButtons.add(new SwipeHelper.UnderlayButton(
+//                                        parseLanguage.getParseString("Complete"),
+//                                        0,
+//                                        Color.parseColor("#9fd836"),
+//                                        new SwipeHelper.UnderlayButtonClickListener() {
+//                                            @Override
+//                                            public void onClick(final int pos) {
+//                                                final OrderList item = orderListViewToday.getData().get(pos);
+//                                                player.stop();
+//                                                changestatus(item.getOrderid(), "2");
+//                                            }
+//                                        }
+//                                ));
+//
+//
+//                                underlayButtons.add(new SwipeHelper.UnderlayButton(
+//                                        parseLanguage.getParseString("DeclineButton"),
+//                                        0,
+//                                        Color.parseColor("#fe4c3a"),
+//                                        new SwipeHelper.UnderlayButtonClickListener() {
+//                                            @Override
+//                                            public void onClick(final int pos) {
+//                                                final OrderList item = orderListViewToday.getData().get(pos);
+//
+//
+//                                                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+//
+//                                                // Setting Dialog Title
 //                                                alertDialog.setTitle("Harperskebab Order Receiver");
-
-                                                // Setting Dialog Message
-                                                alertDialog.setMessage(parseLanguage.getParseString("Order_Complete_Alert"));
-
-                                                alertDialog.setPositiveButton(parseLanguage.getParseString("YESText"), new DialogInterface.OnClickListener() {
-                                                    public void onClick(final DialogInterface dialog, int which) {
-
-                                                        ordermark_complete(item.getOrderid());
-
-
-                                                    }
-
-                                                });
-                                                alertDialog.setNegativeButton(parseLanguage.getParseString("NOText"), new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int which) {
-
-                                                        dialog.cancel();
-                                                    }
-                                                });
-                                                // Showing Alert Message
-                                                alertDialog.show();
-
-                                            }
-                                        }
-                                ));
-
-                                underlayButtons.add(new SwipeHelper.UnderlayButton(
-                                        parseLanguage.getParseString("Change_Time"),
-                                        0,
-                                        Color.parseColor("#ffa500"),
-                                        new SwipeHelper.UnderlayButtonClickListener() {
-                                            @Override
-                                            public void onClick(final int pos) {
-                                                Log.e("SliderClick", "dd");
-                                                final OrderList item = orderListViewToday.getData().get(pos);
-                                                player.stop();
-                                                //    final OrderList item = orderListViewPending.getData().get(pos);
-                                                Intent i = new Intent(getContext(), AcceptButton_activity1.class);
-                                                i.putExtra("orderid", "" + item.getOrderid());
-                                                startActivity(i);
-                                            }
-                                        }
-                                ));
-
-
-                            }
-                            if (item.getOrder_status_msg().equalsIgnoreCase("Confirmed")) {
-
-
-                                underlayButtons.add(new SwipeHelper.UnderlayButton(
-                                        parseLanguage.getParseString("Processing"),
-                                        0,
-                                        Color.parseColor("#ffa500"),
-                                        new SwipeHelper.UnderlayButtonClickListener() {
-                                            @Override
-                                            public void onClick(final int pos) {
-                                                final OrderList item = orderListViewToday.getData().get(pos);
-                                                player.stop();
-                                                changestatus(item.getOrderid(), "1");
-                                            }
-                                        }
-                                ));
-
-                                underlayButtons.add(new SwipeHelper.UnderlayButton(
-                                        parseLanguage.getParseString("Complete"),
-                                        0,
-                                        Color.parseColor("#9fd836"),
-                                        new SwipeHelper.UnderlayButtonClickListener() {
-                                            @Override
-                                            public void onClick(final int pos) {
-                                                final OrderList item = orderListViewToday.getData().get(pos);
-                                                player.stop();
-                                                changestatus(item.getOrderid(), "2");
-                                            }
-                                        }
-                                ));
-
-
-                                underlayButtons.add(new SwipeHelper.UnderlayButton(
-                                        parseLanguage.getParseString("DeclineButton"),
-                                        0,
-                                        Color.parseColor("#fe4c3a"),
-                                        new SwipeHelper.UnderlayButtonClickListener() {
-                                            @Override
-                                            public void onClick(final int pos) {
-                                                final OrderList item = orderListViewToday.getData().get(pos);
-
-
-                                                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-
-                                                // Setting Dialog Title
-                                                alertDialog.setTitle("Harperskebab Order Receiver");
-
-
-                                                // Setting Dialog Message
-                                                alertDialog.setMessage(parseLanguage.getParseString("Are_you_sure_to_decline_order"));
-
-                                                alertDialog.setPositiveButton(parseLanguage.getParseString("YESText"), new DialogInterface.OnClickListener() {
-                                                    public void onClick(final DialogInterface dialog, int which) {
-
-                                                        dialog.dismiss();
-                                                        dialog.cancel();
-
-                                                        // Write your code here to invoke YES event
-//                        Toast.makeText(getApplicationContext(), "You clicked on YES", Toast.LENGTH_SHORT).show();
-                                                        {
-                                                            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                                            LayoutInflater inflater = getLayoutInflater();
-                                                            final View dialogLayout = inflater.inflate(R.layout.custom_alertdialog, null);
-                                                            builder.setView(dialogLayout);
-                                                            final AlertDialog aa = builder.create();
-                                                            final EditText edt_reason = (EditText) dialogLayout.findViewById(R.id.edt_reason);
-                                                            TextView ordernumber = dialogLayout.findViewById(R.id.ordernumber);
-                                                            Button submit_reason = (Button) dialogLayout.findViewById(R.id.submit_reason);
-                                                            submit_reason.setText(parseLanguage.getParseString("Submit"));
-                                                            Button btn_cancel = (Button) dialogLayout.findViewById(R.id.btn_cancel);
-                                                            if (myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
-                                                                edt_reason.setHint(getString(R.string.write_notes_customer));
-                                                                ordernumber.setText(getString(R.string.decline_reason));
-                                                                submit_reason.setText(getString(R.string.submit_german));
-                                                            }
-
-                                                            submit_reason.setOnClickListener(new View.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(View v) {
-                                                                    if (player.isPlaying() == true) {
-                                                                        player.stop();
-                                                                    } else {
-
-                                                                    }
-//                                    Toast.makeText(Activity_Booking.this, "asakhdsakhdgs", Toast.LENGTH_SHORT).show();
-                                                                    Decline("" + edt_reason.getText().toString(), item.getOrderid());
-                                                                }
-                                                            });
-
-                                                            btn_cancel.setOnClickListener(new View.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(View v) {
-//                                    finish();
-                                                                    player.start();
-
-                                                                    aa.dismiss();
-
-                                                                }
-                                                            });
-                                                            aa.show();
-
-                                                        }
-
-                                                    }
-
-                                                });
-                                                alertDialog.setNegativeButton(parseLanguage.getParseString("NOText"), new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int which) {
-
-                                                        dialog.cancel();
-                                                    }
-                                                });
-
-                                                // Showing Alert Message
-                                                alertDialog.show();
-
-
-                                            }
-                                        }
-                                ));
-
-                            } else {
-
-                                underlayButtons.add(new SwipeHelper.UnderlayButton(
-                                        parseLanguage.getParseString("AcceptButton"),
-                                        0,
-                                        Color.parseColor("#9fd836"),
-                                        new SwipeHelper.UnderlayButtonClickListener() {
-                                            @Override
-                                            public void onClick(final int pos) {
-                                                final OrderList item = orderListViewToday.getData().get(pos);
-                                                player.stop();
-                                                Intent i = new Intent(getContext(), AcceptButton_activity.class);
-                                                i.putExtra("orderid", "" + item.getOrderid());
-                                                startActivity(i);
-                                            }
-                                        }
-                                ));
-
-
-                                underlayButtons.add(new SwipeHelper.UnderlayButton(
-                                        parseLanguage.getParseString("DeclineButton"),
-                                        0,
-                                        Color.parseColor("#fe4c3a"),
-                                        new SwipeHelper.UnderlayButtonClickListener() {
-                                            @Override
-                                            public void onClick(final int pos) {
-                                                final OrderList item = orderListViewToday.getData().get(pos);
-
-
-                                                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-
-                                                // Setting Dialog Title
-                                                alertDialog.setTitle("Harperskebab Order Receiver");
-
-
-                                                // Setting Dialog Message
-                                                alertDialog.setMessage(parseLanguage.getParseString("Are_you_sure_to_decline_order"));
-
-                                                alertDialog.setPositiveButton(parseLanguage.getParseString("YESText"), new DialogInterface.OnClickListener() {
-                                                    public void onClick(final DialogInterface dialog, int which) {
-
-                                                        dialog.dismiss();
-                                                        dialog.cancel();
-
-                                                        // Write your code here to invoke YES event
-//                        Toast.makeText(getApplicationContext(), "You clicked on YES", Toast.LENGTH_SHORT).show();
-                                                        {
-                                                            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                                            LayoutInflater inflater = getLayoutInflater();
-                                                            final View dialogLayout = inflater.inflate(R.layout.custom_alertdialog, null);
-                                                            builder.setView(dialogLayout);
-                                                            final AlertDialog aa = builder.create();
-                                                            final EditText edt_reason = (EditText) dialogLayout.findViewById(R.id.edt_reason);
-                                                            TextView ordernumber = dialogLayout.findViewById(R.id.ordernumber);
-                                                            Button submit_reason = (Button) dialogLayout.findViewById(R.id.submit_reason);
-                                                            submit_reason.setText(parseLanguage.getParseString("Submit"));
-                                                            Button btn_cancel = (Button) dialogLayout.findViewById(R.id.btn_cancel);
-
-                                                            if (myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
-                                                                edt_reason.setHint(getString(R.string.write_notes_customer));
-                                                                ordernumber.setText(getString(R.string.decline_reason));
-                                                                submit_reason.setText(getString(R.string.submit_german));
-                                                            }
-                                                            submit_reason.setOnClickListener(new View.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(View v) {
-                                                                    if (player.isPlaying() == true) {
-                                                                        player.stop();
-                                                                    } else {
-
-                                                                    }
-//                                    Toast.makeText(Activity_Booking.this, "asakhdsakhdgs", Toast.LENGTH_SHORT).show();
-                                                                    Decline("" + edt_reason.getText().toString(), item.getOrderid());
-                                                                }
-                                                            });
-
-                                                            btn_cancel.setOnClickListener(new View.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(View v) {
-//                                    finish();
-                                                                    player.start();
-
-                                                                    aa.dismiss();
-
-                                                                }
-                                                            });
-                                                            aa.show();
-
-                                                        }
-
-                                                    }
-
-                                                });
-                                                alertDialog.setNegativeButton(parseLanguage.getParseString("NOText"), new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int which) {
-
-                                                        dialog.cancel();
-                                                    }
-                                                });
-
-                                                // Showing Alert Message
-                                                alertDialog.show();
-
-
-                                            }
-                                        }
-                                ));
-                            }
-
-                        }
-                    };
-                    swipeHelper.attachToRecyclerView(rchome);
+//
+//
+//                                                // Setting Dialog Message
+//                                                alertDialog.setMessage(parseLanguage.getParseString("Are_you_sure_to_decline_order"));
+//
+//                                                alertDialog.setPositiveButton(parseLanguage.getParseString("YESText"), new DialogInterface.OnClickListener() {
+//                                                    public void onClick(final DialogInterface dialog, int which) {
+//
+//                                                        dialog.dismiss();
+//                                                        dialog.cancel();
+//
+//                                                        // Write your code here to invoke YES event
+////                        Toast.makeText(getApplicationContext(), "You clicked on YES", Toast.LENGTH_SHORT).show();
+//                                                        {
+//                                                            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//                                                            LayoutInflater inflater = getLayoutInflater();
+//                                                            final View dialogLayout = inflater.inflate(R.layout.custom_alertdialog, null);
+//                                                            builder.setView(dialogLayout);
+//                                                            final AlertDialog aa = builder.create();
+//                                                            final EditText edt_reason = (EditText) dialogLayout.findViewById(R.id.edt_reason);
+//                                                            TextView ordernumber = dialogLayout.findViewById(R.id.ordernumber);
+//                                                            Button submit_reason = (Button) dialogLayout.findViewById(R.id.submit_reason);
+//                                                            submit_reason.setText(parseLanguage.getParseString("Submit"));
+//                                                            Button btn_cancel = (Button) dialogLayout.findViewById(R.id.btn_cancel);
+//                                                            if (myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
+//                                                                edt_reason.setHint(getString(R.string.write_notes_customer));
+//                                                                ordernumber.setText(getString(R.string.decline_reason));
+//                                                                submit_reason.setText(getString(R.string.submit_german));
+//                                                            }
+//
+//                                                            submit_reason.setOnClickListener(new View.OnClickListener() {
+//                                                                @Override
+//                                                                public void onClick(View v) {
+//                                                                    if (player.isPlaying() == true) {
+//                                                                        player.stop();
+//                                                                    } else {
+//
+//                                                                    }
+////                                    Toast.makeText(Activity_Booking.this, "asakhdsakhdgs", Toast.LENGTH_SHORT).show();
+//                                                                    Decline("" + edt_reason.getText().toString(), item.getOrderid());
+//                                                                }
+//                                                            });
+//
+//                                                            btn_cancel.setOnClickListener(new View.OnClickListener() {
+//                                                                @Override
+//                                                                public void onClick(View v) {
+////                                    finish();
+//                                                                    player.start();
+//
+//                                                                    aa.dismiss();
+//
+//                                                                }
+//                                                            });
+//                                                            aa.show();
+//
+//                                                        }
+//
+//                                                    }
+//
+//                                                });
+//                                                alertDialog.setNegativeButton(parseLanguage.getParseString("NOText"), new DialogInterface.OnClickListener() {
+//                                                    public void onClick(DialogInterface dialog, int which) {
+//
+//                                                        dialog.cancel();
+//                                                    }
+//                                                });
+//
+//                                                // Showing Alert Message
+//                                                alertDialog.show();
+//
+//
+//                                            }
+//                                        }
+//                                ));
+//
+//                            } else {
+//
+//                                underlayButtons.add(new SwipeHelper.UnderlayButton(
+//                                        parseLanguage.getParseString("AcceptButton"),
+//                                        0,
+//                                        Color.parseColor("#9fd836"),
+//                                        new SwipeHelper.UnderlayButtonClickListener() {
+//                                            @Override
+//                                            public void onClick(final int pos) {
+//                                                final OrderList item = orderListViewToday.getData().get(pos);
+//                                                player.stop();
+//                                                Intent i = new Intent(getContext(), AcceptButton_activity.class);
+//                                                i.putExtra("orderid", "" + item.getOrderid());
+//                                                startActivity(i);
+//                                            }
+//                                        }
+//                                ));
+//
+//
+//                                underlayButtons.add(new SwipeHelper.UnderlayButton(
+//                                        parseLanguage.getParseString("DeclineButton"),
+//                                        0,
+//                                        Color.parseColor("#fe4c3a"),
+//                                        new SwipeHelper.UnderlayButtonClickListener() {
+//                                            @Override
+//                                            public void onClick(final int pos) {
+//                                                final OrderList item = orderListViewToday.getData().get(pos);
+//
+//
+//                                                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+//
+//                                                // Setting Dialog Title
+//                                                alertDialog.setTitle("Harperskebab Order Receiver");
+//
+//
+//                                                // Setting Dialog Message
+//                                                alertDialog.setMessage(parseLanguage.getParseString("Are_you_sure_to_decline_order"));
+//
+//                                                alertDialog.setPositiveButton(parseLanguage.getParseString("YESText"), new DialogInterface.OnClickListener() {
+//                                                    public void onClick(final DialogInterface dialog, int which) {
+//
+//                                                        dialog.dismiss();
+//                                                        dialog.cancel();
+//
+//                                                        // Write your code here to invoke YES event
+////                        Toast.makeText(getApplicationContext(), "You clicked on YES", Toast.LENGTH_SHORT).show();
+//                                                        {
+//                                                            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//                                                            LayoutInflater inflater = getLayoutInflater();
+//                                                            final View dialogLayout = inflater.inflate(R.layout.custom_alertdialog, null);
+//                                                            builder.setView(dialogLayout);
+//                                                            final AlertDialog aa = builder.create();
+//                                                            final EditText edt_reason = (EditText) dialogLayout.findViewById(R.id.edt_reason);
+//                                                            TextView ordernumber = dialogLayout.findViewById(R.id.ordernumber);
+//                                                            Button submit_reason = (Button) dialogLayout.findViewById(R.id.submit_reason);
+//                                                            submit_reason.setText(parseLanguage.getParseString("Submit"));
+//                                                            Button btn_cancel = (Button) dialogLayout.findViewById(R.id.btn_cancel);
+//
+//                                                            if (myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
+//                                                                edt_reason.setHint(getString(R.string.write_notes_customer));
+//                                                                ordernumber.setText(getString(R.string.decline_reason));
+//                                                                submit_reason.setText(getString(R.string.submit_german));
+//                                                            }
+//                                                            submit_reason.setOnClickListener(new View.OnClickListener() {
+//                                                                @Override
+//                                                                public void onClick(View v) {
+//                                                                    if (player.isPlaying() == true) {
+//                                                                        player.stop();
+//                                                                    } else {
+//
+//                                                                    }
+////                                    Toast.makeText(Activity_Booking.this, "asakhdsakhdgs", Toast.LENGTH_SHORT).show();
+//                                                                    Decline("" + edt_reason.getText().toString(), item.getOrderid());
+//                                                                }
+//                                                            });
+//
+//                                                            btn_cancel.setOnClickListener(new View.OnClickListener() {
+//                                                                @Override
+//                                                                public void onClick(View v) {
+////                                    finish();
+//                                                                    player.start();
+//
+//                                                                    aa.dismiss();
+//
+//                                                                }
+//                                                            });
+//                                                            aa.show();
+//
+//                                                        }
+//
+//                                                    }
+//
+//                                                });
+//                                                alertDialog.setNegativeButton(parseLanguage.getParseString("NOText"), new DialogInterface.OnClickListener() {
+//                                                    public void onClick(DialogInterface dialog, int which) {
+//
+//                                                        dialog.cancel();
+//                                                    }
+//                                                });
+//
+//                                                // Showing Alert Message
+//                                                alertDialog.show();
+//
+//
+//                                            }
+//                                        }
+//                                ));
+//                            }
+//
+//                        }
+//                    };
+//                    swipeHelper.attachToRecyclerView(rchome);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -792,7 +793,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 
 
     public void changestatus(final String order_id, final String status) {
-        progressDialog = progressDialog.show(getContext(), "", parseLanguage.getParseString("Please_wait"), false, false);
+        progressDialog = progressDialog.show(getContext(), "", parseLanguage.getParseString("Please_wait"), false, true);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.Order_Status, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
@@ -2032,7 +2033,6 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
             Button status_change;
             TextView pending, order_id, Booking_instruction;
 
-
             public ViewHolder(View itemView) {
                 super(itemView);
                 tv_bookingno = (TextView) itemView.findViewById(R.id.tv_bookingno);
@@ -2260,7 +2260,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 
 
     public void orderconfirm(final String Order_id) {
-        progressDialog = progressDialog.show(getContext(), "", parseLanguage.getParseString("Please_wait"), false, false);
+        progressDialog = progressDialog.show(getContext(), "", parseLanguage.getParseString("Please_wait"), false, true);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.order_Accept, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
@@ -2366,31 +2366,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
         alertDialog.show();
 
     }
-    void setAutoPrintOff(String orderid, String auto_print_enable){
-        progressDialog = progressDialog.show(getActivity(), "", parseLanguage.getParseString("Please_wait"), false, false);
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.auto_off_url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String s) {
-                progressDialog.dismiss();
-Log.i("logic",s);
-//                TodayOrderRepeatList();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-progressDialog.dismiss();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> params=new HashMap<>();
-                params.put("orderid",orderid);
-                params.put("auto_print_enable",auto_print_enable);
-                return params;
-            }
-        };
-        requestQueue.add(stringRequest);
-    }
+
 
 
 
@@ -2832,7 +2808,7 @@ progressDialog.dismiss();
 
 
     public void Decline(final String a, final String order_id) {
-        progressDialog = progressDialog.show(getContext(), "", parseLanguage.getParseString("Please_wait"), false, false);
+        progressDialog = progressDialog.show(getContext(), "", parseLanguage.getParseString("Please_wait"), false, true);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.decline, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
@@ -2900,7 +2876,7 @@ progressDialog.dismiss();
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                progressDialog = progressDialog.show(getContext(), "", parseLanguage.getParseString("Please_wait"), false, false);
+                progressDialog = progressDialog.show(getContext(), "", parseLanguage.getParseString("Please_wait"), false, true);
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.delete_complaint_url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {

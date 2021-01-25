@@ -60,13 +60,18 @@ if(remoteMessage.getData()!=null){
             broadcastIntent(orderId);
         }
         else {
+            Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+            resultIntent.putExtra("orderId",orderId);
+            resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            startActivity(resultIntent);
+//            startActivity(new Intent(this,MainActivity.class));
             String title=remoteMessage.getData().get("title");
             String text=remoteMessage.getData().get("text");
             Intent intent = new Intent(this, MainActivity.class);
             Random random=new Random();
             int id=random.nextInt(10000);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("orderId",orderId);
             intent.putExtra("type", "from_notification");
             intent.putExtra("notification_id",id);
             PendingIntent pendingIntent=PendingIntent.getActivity(this,25,intent,PendingIntent.FLAG_CANCEL_CURRENT);

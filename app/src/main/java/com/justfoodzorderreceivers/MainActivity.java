@@ -99,6 +99,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
@@ -144,7 +145,9 @@ public class MainActivity extends AppCompatActivity
     InputStream mmInputStream;
     Thread workerThread;
     byte[] readBuffer;
+    String orderId="";
     int printed=-1;
+    List<String> new_orders=new ArrayList<>();
     String Currency = Activity_Splash.currency_symbol;
     ArrayList<FoodItemList> foodItemLists, drinkItemLists, meallist;
     public static ArrayList<String> item_size, item_name, item_price, item_quant, extra_toping,
@@ -167,6 +170,9 @@ public class MainActivity extends AppCompatActivity
         myPref = new MyPref(MainActivity.this);
         parseLanguage = new ParseLanguage(myPref.getBookingData(),MainActivity.this);
         requestQueue = Volley.newRequestQueue(this);
+        IntentFilter intentFilter=new IntentFilter("newOrder");
+        latestOrder = new LatestOrder();
+        this.registerReceiver(latestOrder, intentFilter);
         //getRestroinformation();
 //        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
 //        player.setLooping(true);
@@ -275,6 +281,7 @@ public class MainActivity extends AppCompatActivity
         else {
             text_mode.setText(mode_text);
         }
+
 
 
 //        if(myPref.getIsOnline().equalsIgnoreCase("")){
@@ -576,14 +583,15 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
     @Override
     protected void onResume() {
         super.onResume();
         isNet=isNetworkConnected();
         getRestroinformation();
-        IntentFilter intentFilter=new IntentFilter("newOrder");
-        latestOrder = new LatestOrder();
-        this.registerReceiver(latestOrder, intentFilter);
+        BaseApplication.activityResumed();
+        getNewOrders();
+
     }
     public void getorderdetails(final String orderID, final String error_msg) {
         item_name = new ArrayList<>();
@@ -700,6 +708,24 @@ public class MainActivity extends AppCompatActivity
                             } else {
                                 //tv_no_foodItems.setText("Food Menu");
                                 //tv_no_foodItems.setTextColor(getResources().getColor(R.color.green));
+                                if(item_name.size()>0){
+                                    item_name.clear();
+                                }
+                                if(item_size.size()>0){
+                                    item_size.clear();
+                                }
+                                if(item_price.size()>0){
+                                    item_price.clear();
+                                }
+                                if(item_quant.size()>0){
+                                    item_quant.clear();
+                                }
+                                if(item_instruction.size()>0){
+                                    item_instruction.clear();
+                                }
+                                if(extra_toping.size()>0){
+                                    extra_toping.clear();
+                                }
 
                                 for (int ii = 0; ii < jsonArray1.length(); ii++) {
                                     JSONObject jsonObject12 = jsonArray1.getJSONObject(ii);
@@ -1098,12 +1124,12 @@ public class MainActivity extends AppCompatActivity
                         sendData();
                         doConnect();
                         if(myPref.getAuto_print_enable().equalsIgnoreCase("1")) {
-                            PrintOrderReceipt(orderID, myPref.getAuto_print_enable());
+                            PrintOrderReceipt(orderID,error_msg );
                         }
                         else{
                             ShowOrderDialog(orderID,RequestAtDate,name_customer,OrderPrice,PaymentMethod,orderID);
                         }
-                        printed=0;
+
 //                                                PrintOrderReceipt(orderID, myPref.getAuto_print_enable());
 
                     } catch (IOException ex) {
@@ -2045,6 +2071,7 @@ ShowlogoutDialog();
     public void onPause() {
         super.onPause();
 
+
     }
 
     @Override
@@ -2076,11 +2103,21 @@ ShowlogoutDialog();
             Bundle bundle = intent.getExtras();
             String orderId= (String) bundle.get("orderId");
             if(orderId!=null){
-getorderdetails(orderId,"1");
+                new_orders.add(orderId);
+
+
+
+            }
+            if(new_orders.size()>0){
+                getorderdetails(new_orders.get(0), new_orders.get(0));
             }
         }
     }
     private void PrintOrderReceipt(String orderid, String auto_print_enable) throws UnsupportedEncodingException {
+        if(myPref.getAuto_print_enable().equalsIgnoreCase("1")){
+           home.TodayOrderList();
+        }
+        myPref.setDocCode("1");
 
         if (rtPrinter != null) {
 
@@ -3901,9 +3938,19 @@ getorderdetails(orderId,"1");
 
 //
             }
-        refreshView();
+//        refreshView();
+int index=new_orders.indexOf(orderid);
+        if(orderId.equalsIgnoreCase(orderid)){
+            orderId="";
+        }
+        setAutoPrintOff(orderid,"2");
+        if(index>=0){
+            new_orders.remove(index);
+            if(new_orders.size()>0){
 
-
+                getorderdetails(new_orders.get(0),new_orders.get(0));
+            }
+        }
 
     }
     private void refreshView(){
@@ -3919,15 +3966,25 @@ getorderdetails(orderId,"1");
         dialog.setContentView(R.layout.order_dialog);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         ImageView back = dialog.findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int index=new_orders.indexOf(orderid);
+                if(orderId.equalsIgnoreCase(orderid)){
+                    orderId="";
+                }
+                if(index>=0){
+                    new_orders.remove(index);
+                }
                 dialog.dismiss();
                 dialog.cancel();
                 player.stop();
                 myPref.setDocCode("1");
+                if(new_orders.size()>0){
+                    getorderdetails(new_orders.get(0),new_orders.get(0));
+                }
             }
         });
         final RecyclerView time = dialog.findViewById(R.id.time);
@@ -3947,8 +4004,10 @@ getorderdetails(orderId,"1");
                 if(!myPref.getAuto_print_enable().equalsIgnoreCase("1")){
                     try {
                         PrintOrderReceipt(orderid,myPref.getAuto_print_enable());
-                        dialog.cancel();
                         dialog.dismiss();
+                        dialog.cancel();
+                        player.stop();
+                        myPref.setDocCode("1");
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
@@ -4042,7 +4101,9 @@ getorderdetails(orderId,"1");
                 time.smoothScrollToPosition(((timeAdapter2.getItemCount() * flag) / 2) + 1);
             }
         });
-        dialog.show();
+       if(!myPref.getAuto_print_enable().equalsIgnoreCase("1")){
+          home.TodayOrderList();
+       }
 
     }
     public void Decline(final String a, final String order_id, AlertDialog aa) {
@@ -4331,18 +4392,127 @@ AlertDialog alert;
 
     }
     private void handleIntent(Intent intent){
-        if(intent.hasExtra("type")){
-            String type=intent.getStringExtra("type");
-            String orderId=intent.getStringExtra("orderId");
-            if(type.equalsIgnoreCase("from_notification")){
-                int id=intent.getIntExtra("notification_id",0);
-                init();
-                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.cancel(id);
-                getorderdetails(orderId,"1");
+        if(intent.hasExtra("orderId")){
+            orderId=intent.getStringExtra("orderId");
+
+
+        }
+//        if(intent.hasExtra("type")){
+//            String type=intent.getStringExtra("type");
+//            String orderId=intent.getStringExtra("orderId");
+//            if(type.equalsIgnoreCase("from_notification")){
+//                int id=intent.getIntExtra("notification_id",0);
+//                init();
+//                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//                notificationManager.cancel(id);
+//                getorderdetails(orderId,"1");
+//
+//            }
+//        }
+    }
+    private void getNewOrders(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.today_order_url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    JSONArray jsonArray = jsonObject.getJSONArray("NewOrdersHistory");
+                    if(new_orders.size()>0){
+                        new_orders.clear();
+                    }
+                    if(jsonArray!=null &&jsonArray.length()>0){
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject j = jsonArray.getJSONObject(i);
+                            String error1 = j.getString("error");
+                            if (error1.equals("0")) {
+                                String orderid = j.getString("orderid");
+                                String order_status_msg = j.getString("order_status_msg");
+                                String auto_print_enable=j.getString("auto_print_enable");
+                                if(auto_print_enable.equals("1")){
+                                    new_orders.add(orderid);
+                                }
+//                                if(myPref.getAuto_print_enable().equals("1")){
+//                                    if(auto_print_enable.equals("1")){
+//                                        new_orders.add(orderid);
+//                                    }
+//                                }
+//                                else {
+//                                    if(order_status_msg.equalsIgnoreCase("Pending")) {
+//                                        new_orders.add(orderid);
+//                                    }
+//                                }
+
+                            }
+
+                        }
+                        boolean is_added=false;
+                        if(new_orders.size()>0){
+                            for(int i=0;i<new_orders.size();i++){
+                                if(!orderId.equalsIgnoreCase("")){
+                                    if(orderId.equalsIgnoreCase(new_orders.get(i))){
+                                        is_added=true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if(!is_added){
+                            if(!orderId.equalsIgnoreCase("")){
+                                new_orders.add(orderId);
+                            }
+                        }
+
+
+                        if(new_orders.size()>0){
+                            getorderdetails(new_orders.get(0),new_orders.get(0));
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
 
             }
-        }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<>();
+                param.put("restaurant_id", "" + sharedPreferences.getString("restaurant_id", ""));
+                param.put("lang_code", myPref.getCustomer_default_langauge());
+                Log.e("param", "" + param);
+                return param;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }
+    void setAutoPrintOff(String orderid, String auto_print_enable){
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, Url.auto_off_url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+               Log.i("reason",s.toString());
+
+//                TodayOrderRepeatList();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                progressDialog.dismiss();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params=new HashMap<>();
+                params.put("orderid",orderid);
+                params.put("auto_print_enable",auto_print_enable);
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
     }
 
 }

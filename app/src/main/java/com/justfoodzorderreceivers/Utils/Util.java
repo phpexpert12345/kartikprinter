@@ -1,5 +1,8 @@
 package com.justfoodzorderreceivers.Utils;
 
+import android.app.ActivityManager;
+import android.content.Context;
+
 import com.justfoodzorderreceivers.Model.PrinterElements;
 import com.justfoodzorderreceivers.Model_OrderComboItemExtra;
 import com.rt.printerlibrary.cmd.Cmd;
@@ -12,6 +15,7 @@ import com.rt.printerlibrary.setting.TextSetting;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Util {
     public void PrintorderReceipt(RTPrinter rtPrinter, PrinterElements printerElements) throws UnsupportedEncodingException {
@@ -179,5 +183,18 @@ public class Util {
 
 
         }
+    public static boolean isAppRunning(final Context context, final String packageName) {
+        final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        final List<ActivityManager.RunningAppProcessInfo> procInfos = activityManager.getRunningAppProcesses();
+        if (procInfos != null)
+        {
+            for (final ActivityManager.RunningAppProcessInfo processInfo : procInfos) {
+                if (processInfo.processName.equals(packageName)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 }
