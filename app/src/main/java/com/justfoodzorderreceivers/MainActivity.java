@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity
     RequestQueue requestQueue;
     ImageView refresh;
     LatestOrder latestOrder;
+    boolean is_paused=false;
     ArrayList<Model_Combo> model_combos;
     public static int orderidd;
     BluetoothAdapter mBluetoothAdapter;
@@ -590,7 +591,13 @@ public class MainActivity extends AppCompatActivity
         isNet=isNetworkConnected();
         getRestroinformation();
         BaseApplication.activityResumed();
-        getNewOrders();
+        if(!is_paused) {
+            is_paused=false;
+            getNewOrders();
+        }
+        else {
+            Log.i("reason", "paused ");
+        }
 
     }
     public void getorderdetails(final String orderID, final String error_msg) {
@@ -2070,6 +2077,8 @@ ShowlogoutDialog();
     @Override
     public void onPause() {
         super.onPause();
+        is_paused=true;
+
 
 
     }
@@ -4394,6 +4403,7 @@ AlertDialog alert;
     private void handleIntent(Intent intent){
         if(intent.hasExtra("orderId")){
             orderId=intent.getStringExtra("orderId");
+
 
 
         }
