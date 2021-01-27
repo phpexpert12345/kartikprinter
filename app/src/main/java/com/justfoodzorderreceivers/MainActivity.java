@@ -1,5 +1,6 @@
 package com.justfoodzorderreceivers;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
@@ -22,6 +23,7 @@ import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.os.CountDownTimer;
@@ -75,6 +77,7 @@ import com.rt.printerlibrary.cmd.EscFactory;
 import com.rt.printerlibrary.connect.PrinterInterface;
 import com.rt.printerlibrary.enumerate.CommonEnum;
 import com.rt.printerlibrary.enumerate.SettingEnum;
+import com.rt.printerlibrary.exception.SdkException;
 import com.rt.printerlibrary.factory.cmd.CmdFactory;
 import com.rt.printerlibrary.factory.connect.PIFactory;
 import com.rt.printerlibrary.factory.connect.SerailPortFactory;
@@ -83,6 +86,7 @@ import com.rt.printerlibrary.factory.printer.ThermalPrinterFactory;
 import com.rt.printerlibrary.observer.PrinterObserver;
 import com.rt.printerlibrary.observer.PrinterObserverManager;
 import com.rt.printerlibrary.printer.RTPrinter;
+import com.rt.printerlibrary.setting.BitmapSetting;
 import com.rt.printerlibrary.setting.TextSetting;
 import com.rt.printerlibrary.utils.PrinterPowerUtil;
 import com.squareup.picasso.Picasso;
@@ -92,10 +96,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -106,6 +112,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.UUID;
+import java.util.concurrent.Executors;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -118,6 +125,7 @@ public class MainActivity extends AppCompatActivity
     About_us about = new About_us();
     Faq faq = new Faq();
     Terms terms = new Terms();
+    String company_logo;
     public static boolean isNet=true;  
     Privacy privacy = new Privacy();
     public static  String webUrl;
@@ -152,6 +160,31 @@ public class MainActivity extends AppCompatActivity
     int printed=-1;
     List<String> new_orders=new ArrayList<>();
     String Currency = Activity_Splash.currency_symbol;
+    byte [] company_image=new byte[1024];
+    Bitmap bitmap;
+
+    @SuppressLint("StaticFieldLeak")
+    public class recoverImageFromUrl extends AsyncTask<String,Integer,Bitmap> {
+
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+
+            try
+            {
+                URL url = new URL(strings[0]);
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                InputStream inputStream = url.openStream();
+                bitmap=BitmapFactory.decodeStream(inputStream);
+
+
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
     ArrayList<FoodItemList> foodItemLists, drinkItemLists, meallist;
     public static ArrayList<String> item_size, item_name, item_price, item_quant, extra_toping,
             drink_item_name, drink_item_price, drink_item_quant, drink_extra_toping,
@@ -698,11 +731,18 @@ public class MainActivity extends AppCompatActivity
                         CompanyName=jsonObject1.getString("CompanyName");
                         customer_city=jsonObject1.getString("customer_city");
                         customer_postcode=jsonObject1.getString("customer_postcode");
+                        company_logo=jsonObject1.getString("company_logo");
+
 
 //                        rider_idAssign = rider_id;
                         discountOfferFreeItems = jsonObject1.getString("discountOfferFreeItems");
 //                        rider_idAssign = rider_id;
                         customer_email = jsonObject1.getString("customer_email");
+                        if(company_logo!=null){
+                            if(company_logo.length()>0) {
+                                new recoverImageFromUrl().execute(company_logo);
+                            }
+                        }
 
 //                        authPreference.setDriverFirstName(DriverFirstName);
 //                        authPreference.setDriverLastName(DriverLastName);
@@ -2139,6 +2179,15 @@ ShowlogoutDialog();
                 escCmd.append(escCmd.getHeaderCmd());//初始化, Initial
 
                 escCmd.setChartsetName(mChartsetName);// "UTF-8"
+            if(bitmap!=null) {
+                BitmapSetting bitmapSetting = new BitmapSetting();
+                try {
+                    escCmd.append(escCmd.getBitmapCmd(bitmapSetting,bitmap));
+                } catch (SdkException e) {
+                    e.printStackTrace();
+                }
+                escCmd.append(escCmd.getLFCRCmd());
+            }
 
                 TextSetting textSetting = new TextSetting();
                 textSetting.setAlign(CommonEnum.ALIGN_MIDDLE);
@@ -2736,8 +2785,6 @@ ShowlogoutDialog();
                                 }
                             }
 
-                            escCmd.append(escCmd.getLFCRCmd());
-                            escCmd.append(escCmd.getLFCRCmd());
                             escCmd.append(escCmd.getLFCRCmd());
                         }
                     }

@@ -1,5 +1,6 @@
  package com.justfoodzorderreceivers;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -13,6 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 
 import android.os.Bundle;
@@ -47,12 +49,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.justfoodzorderreceivers.Model.FoodItemList;
+import com.rt.printerlibrary.bean.Position;
 import com.rt.printerlibrary.bean.SerialPortConfigBean;
 import com.rt.printerlibrary.cmd.Cmd;
 import com.rt.printerlibrary.cmd.EscFactory;
 import com.rt.printerlibrary.connect.PrinterInterface;
+import com.rt.printerlibrary.enumerate.BmpPrintMode;
 import com.rt.printerlibrary.enumerate.CommonEnum;
 import com.rt.printerlibrary.enumerate.SettingEnum;
+import com.rt.printerlibrary.exception.SdkException;
 import com.rt.printerlibrary.factory.cmd.CmdFactory;
 import com.rt.printerlibrary.factory.connect.PIFactory;
 import com.rt.printerlibrary.factory.connect.SerailPortFactory;
@@ -61,6 +66,7 @@ import com.rt.printerlibrary.factory.printer.ThermalPrinterFactory;
 import com.rt.printerlibrary.observer.PrinterObserver;
 import com.rt.printerlibrary.observer.PrinterObserverManager;
 import com.rt.printerlibrary.printer.RTPrinter;
+import com.rt.printerlibrary.setting.BitmapSetting;
 import com.rt.printerlibrary.setting.TextSetting;
 import com.rt.printerlibrary.utils.PrinterPowerUtil;
 import com.squareup.picasso.Picasso;
@@ -71,10 +77,12 @@ import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -95,6 +103,8 @@ import java.util.jar.Pack200;
             totaldiscount_price, tv_instructions, tv_accpetdate,
             drivertip, food_costprice, tv_discount, tv_subtotal, tv_deliveryfee, tv_packagingfee,
             vat, total, tv_ready, dyiningtale, tv_no_drinkItems, tv_meal, total_txt,tv_city,tv_postcode,tv_company;
+     byte [] company_image=new byte[1024];
+     Bitmap bitmap;
     RelativeLayout rl_ins;
     ProgressDialog progressDialog;
     RequestQueue requestQueue;
@@ -168,6 +178,39 @@ import java.util.jar.Pack200;
     TextView food_cost, total_discount, redeem_point, pay_by_wallet, gift_card, sub_total, delivery_charge,
             service_cost, package_cost, service_tax, vat_text, rider_tipt, printTextwithsmall, printTextwithbig;
     private ExecutorService service = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 20);
+     @SuppressLint("StaticFieldLeak")
+     public class recoverImageFromUrl extends AsyncTask<String,Integer,Bitmap>{
+
+         @Override
+         protected Bitmap doInBackground(String... strings) {
+
+             try
+             {
+                 URL url = new URL(strings[0]);
+                 ByteArrayOutputStream output = new ByteArrayOutputStream();
+                 InputStream inputStream = url.openStream();
+                 bitmap=BitmapFactory.decodeStream(inputStream);
+
+
+
+
+             }
+             catch (Exception e){
+                 e.printStackTrace();
+             }
+
+             return bitmap;
+         }
+
+         @Override
+         protected void onPostExecute(Bitmap bitmap) {
+             super.onPostExecute(bitmap);
+             if(bitmap!=null){
+
+             }
+         }
+     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -388,7 +431,7 @@ import java.util.jar.Pack200;
                     sendData();
                     doConnect();
                     PrintOrderReceipt();
-                } catch (IOException ex) {
+                } catch (IOException | SdkException ex) {
                     ex.printStackTrace();
                 }
 
@@ -1034,6 +1077,7 @@ import java.util.jar.Pack200;
 
 if(company_logo!=null){
     if(company_logo.length()>0){
+            new recoverImageFromUrl().execute(company_logo);
         Picasso.get().load(company_logo).placeholder(R.drawable.life_logo).into(img_logo);
     }
 }
@@ -1495,6 +1539,8 @@ if(company_logo!=null){
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("qwerty", "" + e);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
             }
@@ -2597,7 +2643,7 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
     }
 
 
-    private void PrintOrderReceipt() throws UnsupportedEncodingException {
+    private void PrintOrderReceipt() throws UnsupportedEncodingException, SdkException {
 
         if (rtPrinter != null) {
             Log.i("reas","isidePriter");
@@ -2606,6 +2652,11 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
             escCmd.append(escCmd.getHeaderCmd());//初始化, Initial
 
             escCmd.setChartsetName(mChartsetName);// "UTF-8"
+            if(bitmap!=null) {
+                BitmapSetting bitmapSetting = new BitmapSetting();
+                escCmd.append(escCmd.getBitmapCmd(bitmapSetting,bitmap));
+                escCmd.append(escCmd.getLFCRCmd());
+            }
 
             TextSetting textSetting = new TextSetting();
             textSetting.setAlign(CommonEnum.ALIGN_MIDDLE);
@@ -3206,8 +3257,7 @@ if(CompanyName!=null){
                             }
                         }
 
-                        escCmd.append(escCmd.getLFCRCmd());
-                        escCmd.append(escCmd.getLFCRCmd());
+
                         escCmd.append(escCmd.getLFCRCmd());
                     }
                 }
