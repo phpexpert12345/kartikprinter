@@ -33,6 +33,8 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -1122,15 +1124,14 @@ public class MainActivity extends AppCompatActivity
                     }
                     try {
                         Log.i("reas","orderdetails");
-                        if(player!=null) {
-                            player.stop();
-                        }
+
 
                         findBT();
                         openBT();
                         sendData();
                         doConnect();
                         if(myPref.getAuto_print_enable().equalsIgnoreCase("1")) {
+                            player.start();
                             PrintOrderReceipt(orderID,error_msg );
                         }
                         else{
@@ -3960,7 +3961,9 @@ int index=new_orders.indexOf(orderid);
                 getorderdetails(new_orders.get(0),new_orders.get(0));
             }
         }
-
+if(player!=null && player.isPlaying()){
+    player.stop();
+}
     }
     private void refreshView(){
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
@@ -3977,6 +3980,7 @@ int index=new_orders.indexOf(orderid);
         dialog.show();
         dialog.setCancelable(true);
         ImageView back = dialog.findViewById(R.id.back);
+        player.start();
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -4403,6 +4407,7 @@ AlertDialog alert;
     private void handleIntent(Intent intent){
         if(intent.hasExtra("orderId")){
             orderId=intent.getStringExtra("orderId");
+            unlockScreen();
 
 
 
@@ -4523,6 +4528,12 @@ AlertDialog alert;
             }
         };
         requestQueue.add(stringRequest);
+    }
+    private void unlockScreen() {
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
     }
 
 }
