@@ -218,9 +218,6 @@ public class MainActivity extends AppCompatActivity
         final RelativeLayout sidebar_rl = (RelativeLayout)findViewById(R.id.sidebar_rl);
         RelativeLayout music_rl = (RelativeLayout)findViewById(R.id.music_rl);
         Button notification_rl = (Button) findViewById(R.id.notification_rl);
-
-
-
         isNet=isNetworkConnected();
 
         home_title = findViewById(R.id.home_title);
@@ -4063,10 +4060,11 @@ if(player!=null && player.isPlaying()){
             public void onSelectTime(String price) {
                 if(!myPref.getAuto_print_enable().equalsIgnoreCase("1")){
                     try {
+                            player.stop();
                         PrintOrderReceipt(orderid,myPref.getAuto_print_enable());
                         dialog.dismiss();
                         dialog.cancel();
-                        player.stop();
+
                         myPref.setDocCode("1");
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();

@@ -55,7 +55,7 @@
 
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity"
-            android:noHistory="true"/>
+            />
         <activity android:name=".Activity_Booking" />
         <activity android:name=".ActivityOrderStatus" />
         <activity android:name=".Status_Change_Activity" />

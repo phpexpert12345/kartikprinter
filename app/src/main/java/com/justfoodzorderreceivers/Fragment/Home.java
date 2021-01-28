@@ -292,14 +292,15 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
                 TodayOrderList();
             }
         });
+        rl_booking.setVisibility(View.GONE);
 
 
-        if (myPref.getBookType().equals("1")) {
-            rl_booking.setVisibility(View.VISIBLE);
-        }
-        if (myPref.getBookType().equals("0")) {
-            rl_booking.setVisibility(View.GONE);
-        }
+//        if (myPref.getBookType().equals("1")) {
+//            rl_booking.setVisibility(View.VISIBLE);
+//        }
+//        if (myPref.getBookType().equals("0")) {
+//            rl_booking.setVisibility(View.GONE);
+//        }
         rl_pendingorder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

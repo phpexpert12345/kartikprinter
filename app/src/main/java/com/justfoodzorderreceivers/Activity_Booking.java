@@ -2714,7 +2714,7 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
             if(!collectionTime.equalsIgnoreCase("null")) {
                 TextSetting textcollection = new TextSetting();
                 textcollection.setAlign(CommonEnum.ALIGN_MIDDLE);
-                escCmd.append(escCmd.getTextCmd(textcollection,collectionTime));
+                escCmd.append(escCmd.getTextCmd(textcollection,RequestAtTime));
                 escCmd.append(escCmd.getLFCRCmd());
             }
             escCmd.append(escCmd.getLFCRCmd());
