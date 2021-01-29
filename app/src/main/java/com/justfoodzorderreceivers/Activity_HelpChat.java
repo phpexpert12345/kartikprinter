@@ -3,8 +3,14 @@ package com.justfoodzorderreceivers;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -56,6 +63,11 @@ public class Activity_HelpChat extends AppCompatActivity {
         tv_rates = (TextView)findViewById(R.id.tv_rates);
         tv_email = (TextView)findViewById(R.id.tv_email);
         tv_terms = (TextView)findViewById(R.id.tv_terms);
+        if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
+            tv_text.setText(getString(R.string.help_txt));
+        }
+        SetSpan("info@lieferadeal.de","www.Lieferadeal.de");
+
 
         tv_privacy = (TextView)findViewById(R.id.tv_privacy);
         email_ll = findViewById(R.id.email_ll);
@@ -78,7 +90,7 @@ public class Activity_HelpChat extends AppCompatActivity {
    else {
        tv_privacy.setText(privacy);
    }
-        tv_text.setText(parseLanguage.getParseString("Happy_to_hear_you_thoughts_assist_you_Add"));
+        //tv_text.setText(parseLanguage.getParseString("Happy_to_hear_you_thoughts_assist_you_Add"));
 
 
         tv_whatsappshare.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +162,55 @@ public class Activity_HelpChat extends AppCompatActivity {
             }
         });
         Helpandchat();
+    }
+    public void SetSpan(String text1,String text2){
+        SpannableString ss=new SpannableString(tv_text.getText().toString());
+        String whole=tv_text.getText().toString();
+        int index=whole.indexOf(text1);
+        int index2=whole.indexOf(text2);
+        ClickableSpan clickableSpan=new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                String choose_email="choose an email client";
+                if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
+                    choose_email=getString(R.string.choose_email);
+                }
+Intent email=new Intent(Intent.ACTION_SEND);
+email.putExtra(Intent.EXTRA_EMAIL,new String[]{text1});
+email.putExtra(Intent.EXTRA_SUBJECT,"");
+email.putExtra(Intent.EXTRA_TEXT,"");
+email.setType("message/rfc822");
+startActivity(Intent.createChooser(email,choose_email));
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(false);
+                ds.setColor(Color.parseColor("#7fcb4e"));
+            }
+        };
+        ClickableSpan span=new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View widget) {
+                Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse("http://"+text2));
+                startActivity(intent);
+
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(false);
+                ds.setColor(Color.parseColor("#7fcb4e"));
+            }
+        };
+
+        ss.setSpan(clickableSpan,index,index+text1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(span,index2,index2+text2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        tv_text.setText(ss);
+        tv_text.setMovementMethod(new LinkMovementMethod());
     }
 
 

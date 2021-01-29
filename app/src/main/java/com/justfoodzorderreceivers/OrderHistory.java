@@ -101,6 +101,7 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
                     JSONObject jsonObject =new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("NewOrdersHistory");
                     orderLists.clear();
+                    String error_msg="";
                     for (int i = 0;i<jsonArray.length();i++)
                     {
                         JSONObject j = jsonArray.getJSONObject(i);
@@ -117,7 +118,7 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
                             orderLists.add(new HistoryModel(BookingID,payment_mode,order_date,order_time,Currency,ordPrice));
                             }
                         else {
-                            String error_msg = j.getString("error_msg");
+                             error_msg = j.getString("error_msg");
 //                            Toast.makeText(getActivity(), error_msg, Toast.LENGTH_SHORT).show();
                             }
 
@@ -129,10 +130,8 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
                         order_history_recycler.setAdapter(bookingListView);
                         no_item.setVisibility(View.GONE);
                         order_history_recycler.setVisibility(View.VISIBLE);
-                        String error_msg = jsonObject.getString("error_msg");
-                        no_item.setText(error_msg);
+
                     }else {
-                        String error_msg = jsonObject.getString("error_msg");
                         no_item.setText(error_msg);
                         no_item.setVisibility(View.VISIBLE);
                         order_history_recycler.setVisibility(View.GONE);

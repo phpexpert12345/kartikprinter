@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity_HelpChat"
     android:orientation="vertical">
+
 
     <LinearLayout
         android:id="@+id/liner_back"
@@ -59,11 +60,25 @@
     </LinearLayout>
 
 
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="info@lieferadeal.de for help or visit www.Lieferadeal.de"
+        android:paddingStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        tools:ignore="RtlCompat"
+        android:layout_below="@+id/liner_back"
 
+        android:layout_marginTop="15dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="15dp"
+        android:visibility="gone"
         android:orientation="vertical">
 
 
@@ -75,19 +90,7 @@
             app:cardElevation="10dp">
 
 
-            <TextView
-                android:id="@+id/tv_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Happy to hear you thoughts,assist you.Add"
-                android:paddingStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:textSize="15sp"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                tools:ignore="RtlCompat"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="15dp"/>
+
 
             <TextView
                 android:id="@+id/tv_text3"
@@ -307,4 +310,4 @@
 
 
 
-</LinearLayout>
+</RelativeLayout>

@@ -63,5 +63,7 @@
     <string name="okay">in Ordnung</string>
     <string name="cancel">Stornieren</string>
     <string name="are_you_sure_delete">Sind Sie sicher, dass Sie diese Beschwerde löschen möchten?</string>
+    <string name="help_txt">info@lieferadeal.de für Hilfe oder besuchen  www.Lieferadeal.de</string>
+    <string name="choose_email">Wählen Sie einen E-Mail-Client</string>
 
 </resources>
