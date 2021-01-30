@@ -1016,7 +1016,7 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
                         if (error1.equals("0")) {
                             String id = j.getString("id");
                             String restaurant_Logo = j.getString("restaurant_Logo");
-                            String order_type_img = j.getString("order_type_img");
+                            String order_type_img = j.optString("order_type_img");
                             String customer_name = j.getString("customer_name");
                             String orderid = j.getString("orderid");
                             String BookingID = j.getString("BookingID");
@@ -1739,7 +1739,9 @@ public class Home extends Fragment implements SwipeRefreshLayout.OnRefreshListen
 //            holder.tv_amount.setText(Activity_Splash.currency_symbol + pp.get(position).getordPrice());
             holder.tv_time.setText(pp.get(position).getOrder_time());
             holder.foodtype.setText(pp.get(position).getPayment_mode());
-            Picasso.get().load(pp.get(position).getorder_type_img()).into(holder.iv_order);
+            if(!pp.get(position).getorder_type_img().equalsIgnoreCase("")) {
+                Picasso.get().load(pp.get(position).getorder_type_img()).into(holder.iv_order);
+            }
             if (pp.get(position).getRestaurant_address() != null && !pp.get(position).getRestaurant_address().equalsIgnoreCase("null")) {
                 holder.tv_address.setVisibility(View.VISIBLE);
                 holder.tv_address.setText(pp.get(position).getRestaurant_address());

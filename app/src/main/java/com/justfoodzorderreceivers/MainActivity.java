@@ -2962,7 +2962,7 @@ ShowlogoutDialog();
 //
 //            }
 
-                if (!(PayByLoyality.equals("") || PayByLoyality.equals(null) || PayByLoyality.equals("Null") || PayByLoyality.equals("null") || PayByLoyality.equals("0.00"))) {
+                if (!(PayByLoyality.equals("") || PayByLoyality.equals(null) || PayByLoyality.equals("Null") || PayByLoyality.equals("null") || PayByLoyality.equals("0.00")||PayByLoyality.equalsIgnoreCase("0"))) {
 
                     TextSetting textSetting4 = new TextSetting();
                     textSetting4.setAlign(CommonEnum.ALIGN_LEFT);
@@ -3007,7 +3007,7 @@ ShowlogoutDialog();
 
                 }
 
-                if (!(WalletPay.equals("") || WalletPay.equals(null) || WalletPay.equals("Null") || WalletPay.equals("null") || WalletPay.equals("0.00"))) {
+                if (!(WalletPay.equals("") || WalletPay.equals(null) || WalletPay.equals("Null") || WalletPay.equals("null") || WalletPay.equals("0.00")||WalletPay.equalsIgnoreCase("0"))) {
 
                     TextSetting textSetting4 = new TextSetting();
                     textSetting4.setAlign(CommonEnum.ALIGN_LEFT);
@@ -3067,7 +3067,7 @@ ShowlogoutDialog();
 
                 }
                 if (GiftCardPay != null) {
-                    if (!(GiftCardPay.equalsIgnoreCase("") || GiftCardPay.equalsIgnoreCase("null") || GiftCardPay.equalsIgnoreCase("0.00"))) {
+                    if (!(GiftCardPay.equalsIgnoreCase("") || GiftCardPay.equalsIgnoreCase("null") || GiftCardPay.equalsIgnoreCase("0.00")||GiftCardPay.equalsIgnoreCase("0"))) {
 
                         TextSetting textSetting4 = new TextSetting();
                         textSetting4.setAlign(CommonEnum.ALIGN_LEFT);
@@ -3131,7 +3131,7 @@ ShowlogoutDialog();
 
 
                 if (DiscountPrice != null) {
-                    if (!(DiscountPrice.equalsIgnoreCase("") || DiscountPrice.equalsIgnoreCase("null") || DiscountPrice.equalsIgnoreCase("0.00"))) {
+                    if (!(DiscountPrice.equalsIgnoreCase("") || DiscountPrice.equalsIgnoreCase("null") || DiscountPrice.equalsIgnoreCase("0.00")||DiscountPrice.equalsIgnoreCase("0"))) {
                         TextSetting textSetting4 = new TextSetting();
                         textSetting4.setAlign(CommonEnum.ALIGN_LEFT);
                         if (myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
@@ -3190,7 +3190,7 @@ ShowlogoutDialog();
 
 
                     if (CouponPrice != null) {
-                        if (!(CouponPrice.equalsIgnoreCase("") || CouponPrice.equalsIgnoreCase("null") || CouponPrice.equalsIgnoreCase("0.00"))) {
+                        if (!(CouponPrice.equalsIgnoreCase("") || CouponPrice.equalsIgnoreCase("null") || CouponPrice.equalsIgnoreCase("0.00")||CouponPrice.equalsIgnoreCase("0"))) {
                             TextSetting textSetting4 = new TextSetting();
                             textSetting4.setAlign(CommonEnum.ALIGN_LEFT);
                             if (myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
@@ -3300,7 +3300,7 @@ ShowlogoutDialog();
 //            escCmd.append(escCmd.getLFCRCmd());
 
 
-                if (!(extraTipAddAmount.equals("") || extraTipAddAmount.equals(null) || extraTipAddAmount.equals("Null") || extraTipAddAmount.equals("null") || extraTipAddAmount.equals("0.00"))) {
+                if (!(extraTipAddAmount.equals("") || extraTipAddAmount.equals(null) || extraTipAddAmount.equals("Null") || extraTipAddAmount.equals("null") || extraTipAddAmount.equals("0.00")||extraTipAddAmount.equalsIgnoreCase("0"))) {
                     TextSetting textextratip = new TextSetting();
                     textextratip.setAlign(CommonEnum.ALIGN_LEFT);
                     if (myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
@@ -3369,7 +3369,7 @@ ShowlogoutDialog();
 
                     escCmd.append(escCmd.getLFCRCmd());
                 }
-                if (!(DeliveryCharge.equals("") || DeliveryCharge.equals(null) || DeliveryCharge.equals("Null") || DeliveryCharge.equals("null") || DeliveryCharge.equals("0.00"))) {
+                if (!(DeliveryCharge.equals("") || DeliveryCharge.equals(null) || DeliveryCharge.equals("Null") || DeliveryCharge.equals("null") || DeliveryCharge.equals("0.00")||DeliveryCharge.equalsIgnoreCase("0"))) {
                     TextSetting textextratip = new TextSetting();
                     textextratip.setAlign(CommonEnum.ALIGN_LEFT);
                     if (myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
@@ -3425,7 +3425,7 @@ ShowlogoutDialog();
                 }
 
 
-                if (!(ServiceFees.equals("") || ServiceFees.equals(null) || ServiceFees.equals("Null") || ServiceFees.equals("null") || ServiceFees.equals("0.00"))) {
+                if (!(ServiceFees.equals("") || ServiceFees.equals(null) || ServiceFees.equals("Null") || ServiceFees.equals("null") || ServiceFees.equals("0.00")||ServiceFees.equalsIgnoreCase("0"))) {
                     TextSetting textextratip = new TextSetting();
                     textextratip.setAlign(CommonEnum.ALIGN_LEFT);
                     String service_cost = parseLanguage.getParseString("Service_Cost");
@@ -3482,7 +3482,7 @@ ShowlogoutDialog();
 
                     escCmd.append(escCmd.getLFCRCmd());
                 }
-                if (!(PackageFees.equals("") || PackageFees.equals(null) || PackageFees.equals("Null") || PackageFees.equals("null") || PackageFees.equals("0.00"))) {
+                if (!(PackageFees.equals("") || PackageFees.equals(null) || PackageFees.equals("Null") || PackageFees.equals("null") || PackageFees.equals("0.00")||PackageFees.equalsIgnoreCase("0"))) {
                     TextSetting textextratip = new TextSetting();
                     textextratip.setAlign(CommonEnum.ALIGN_LEFT);
                     if (myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
@@ -3539,7 +3539,7 @@ ShowlogoutDialog();
 
 
                 }
-                if (!(SalesTaxAmount.equals("") || SalesTaxAmount.equals(null) || SalesTaxAmount.equals("Null") || SalesTaxAmount.equals("null") || SalesTaxAmount.equals("0.00"))) {
+                if (!(SalesTaxAmount.equals("") || SalesTaxAmount.equals(null) || SalesTaxAmount.equals("Null") || SalesTaxAmount.equals("null") || SalesTaxAmount.equals("0.00")||SalesTaxAmount.equalsIgnoreCase("0"))) {
                     TextSetting textextratip = new TextSetting();
                     textextratip.setAlign(CommonEnum.ALIGN_LEFT);
                     String service_tax = parseLanguage.getParseString("Service_Tax");
@@ -3697,7 +3697,7 @@ ShowlogoutDialog();
 //
 //            }
                 if (getFoodTaxTotal7 != null) {
-                    if (!(getFoodTaxTotal7.equalsIgnoreCase("") || getFoodTaxTotal7.equalsIgnoreCase("null") || getFoodTaxTotal7.equalsIgnoreCase("0.00"))) {
+                    if (!(getFoodTaxTotal7.equalsIgnoreCase("") || getFoodTaxTotal7.equalsIgnoreCase("null") || getFoodTaxTotal7.equalsIgnoreCase("0.00")||getFoodTaxTotal7.equalsIgnoreCase("0"))) {
                         TextSetting textextratip = new TextSetting();
                         textextratip.setAlign(CommonEnum.ALIGN_LEFT);
                         String drink_tax = parseLanguage.getParseString("Inkl_MwSt_7");
@@ -3744,7 +3744,7 @@ ShowlogoutDialog();
                     }
                 }
                 if (getFoodTaxTotal19 != null) {
-                    if ((getFoodTaxTotal19.equalsIgnoreCase("") || getFoodTaxTotal19.equalsIgnoreCase("null") || getFoodTaxTotal19.equalsIgnoreCase("0.00"))) {
+                    if ((getFoodTaxTotal19.equalsIgnoreCase("") || getFoodTaxTotal19.equalsIgnoreCase("null") || getFoodTaxTotal19.equalsIgnoreCase("0.00")||getFoodTaxTotal19.equalsIgnoreCase("0"))) {
                         TextSetting textextratip = new TextSetting();
                         textextratip.setAlign(CommonEnum.ALIGN_LEFT);
                         String food_tax = parseLanguage.getParseString("Inkl_MwSt_19");

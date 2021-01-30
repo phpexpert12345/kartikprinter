@@ -265,7 +265,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-
                     android:paddingBottom="30dp"
                     android:text="msg"
                     android:textSize="17sp" />

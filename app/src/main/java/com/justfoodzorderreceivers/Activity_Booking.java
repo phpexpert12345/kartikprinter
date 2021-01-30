@@ -1000,7 +1000,7 @@ import java.util.jar.Pack200;
                         PaymentMethod = jsonObject1.getString("PaymentMethod");
                         name_customer = jsonObject1.getString("name_customer");
                         customer_phone = jsonObject1.getString("customer_phone");
-                        OrderType = jsonObject1.getString("OrderType");
+                        OrderType = jsonObject1.optString("OrderType");
                         customer_address = jsonObject1.getString("customer_address");
                         customer_instruction = jsonObject1.getString("customer_instruction");
                         number_of_items_order = jsonObject1.getString("number_of_items_order");
@@ -1249,13 +1249,17 @@ if(company_logo!=null){
                         if (DiscountPrice.equals("") || DiscountPrice.equals(null) || DiscountPrice.equals("Null") || DiscountPrice.equals("null") || DiscountPrice.equals("0.00")) {
                             rl_totol_discount.setVisibility(View.GONE);
                         } else {
-                            rl_totol_discount.setVisibility(View.VISIBLE);
-                            if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
-                                DiscountPrice = DiscountPrice.replace(".", ",");
-                                totaldiscount_price.setText("-" + Currency + " " + DiscountPrice);
+                            if(DiscountPrice.equalsIgnoreCase("0")){
+                                rl_totol_discount.setVisibility(View.GONE);
                             }
                             else {
-                                totaldiscount_price.setText("-" + Currency + " " + DiscountPrice);
+                                rl_totol_discount.setVisibility(View.VISIBLE);
+                                if (myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
+                                    DiscountPrice = DiscountPrice.replace(".", ",");
+                                    totaldiscount_price.setText("-" + Currency + " " + DiscountPrice);
+                                } else {
+                                    totaldiscount_price.setText("-" + Currency + " " + DiscountPrice);
+                                }
                             }
                         }
 
@@ -1263,23 +1267,38 @@ if(company_logo!=null){
                         if (PayByLoyality.equals("") || PayByLoyality.equals(null) || PayByLoyality.equals("Null") || PayByLoyality.equals("null") || PayByLoyality.equals("0.00")) {
                             rl_redeem.setVisibility(View.GONE);
                         } else {
-                            rl_redeem.setVisibility(View.VISIBLE);
-                            regardpoint.setText("-" + Currency + " " + PayByLoyality);
+                            if(PayByLoyality.equalsIgnoreCase("0")){
+                                rl_redeem.setVisibility(View.GONE);
+                            }
+                            else {
+                                rl_redeem.setVisibility(View.VISIBLE);
+                                regardpoint.setText("-" + Currency + " " + PayByLoyality);
+                            }
                         }
 
                         if (WalletPay.equals("") || WalletPay.equals(null) || WalletPay.equals("Null") || WalletPay.equals("null") || WalletPay.equals("0.00")) {
                             rl_paywallet.setVisibility(View.GONE);
                         } else {
-                            rl_paywallet.setVisibility(View.VISIBLE);
-                            paybywallet.setText("-" + Currency + " " + WalletPay);
+                            if(WalletPay.equalsIgnoreCase("0")){
+                                rl_paywallet.setVisibility(View.GONE);
+                            }
+                            else {
+                                rl_paywallet.setVisibility(View.VISIBLE);
+                                paybywallet.setText("-" + Currency + " " + WalletPay);
+                            }
                         }
 
 
                         if (GiftCardPay.equals("") || GiftCardPay.equals(null) || GiftCardPay.equals("Null") || GiftCardPay.equals("null") || GiftCardPay.equals("0.00")) {
                             rl_giftpay.setVisibility(View.GONE);
                         } else {
-                            rl_giftpay.setVisibility(View.VISIBLE);
-                            gifcardprice.setText("-" + Currency + " " + GiftCardPay);
+                            if(GiftCardPay.equalsIgnoreCase("0")){
+                                rl_giftpay.setVisibility(View.GONE);
+                            }
+                            else {
+                                rl_giftpay.setVisibility(View.VISIBLE);
+                                gifcardprice.setText("-" + Currency + " " + GiftCardPay);
+                            }
                         }
 
                         if (collectionTime.equals("") || collectionTime.equals(null) || collectionTime.equals("Null") || collectionTime.equals("null") || collectionTime.equals("0.00")) {
@@ -1348,7 +1367,7 @@ if(company_logo!=null){
                             btn_status.setText(parseLanguage.getParseString("Pending"));
                             btn_accept.setVisibility(View.VISIBLE);
                             btn_decline.setVisibility(View.VISIBLE);
-                            btn_change_orderstatus.setVisibility(View.GONE);
+                            btn_change_orderstatus.setVisibility(View.VISIBLE);
                             btn_track_order.setVisibility(View.GONE);
                             btn_markComplete.setVisibility(View.GONE);
                             orderclosed.setVisibility(View.GONE);
@@ -1425,8 +1444,15 @@ if(company_logo!=null){
                                 ex.printStackTrace();
                             }
 
-                        } else {
+                        } else if(status.equalsIgnoreCase("Waiting")) {
+                            btn_status.setVisibility(View.GONE);
+                            btn_accept.setVisibility(View.GONE);
+                            btn_decline.setVisibility(View.GONE);
 
+                            btn_change_orderstatus.setVisibility(View.VISIBLE);
+                            btn_track_order.setVisibility(View.GONE);
+                            btn_markComplete.setVisibility(View.VISIBLE);
+                            orderclosed.setVisibility(View.GONE);
                         }
 
                         btn_status.setBackgroundColor(Color.parseColor(order_status_color_code));
@@ -1483,13 +1509,17 @@ if(company_logo!=null){
                         if (extraTipAddAmount.equals("") || extraTipAddAmount.equals(null) || extraTipAddAmount.equals("Null") || extraTipAddAmount.equals("null") || extraTipAddAmount.equals("0.00")) {
                             rl_ridertrip.setVisibility(View.GONE);
                         } else {
-                            rl_ridertrip.setVisibility(View.VISIBLE);
-                            if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
-                                extraTipAddAmount = extraTipAddAmount.replace(".", ",");
-                                drivertip.setText("+" + Currency + " " + extraTipAddAmount);
+                            if(extraTipAddAmount.equalsIgnoreCase("0")){
+                                rl_ridertrip.setVisibility(View.GONE);
                             }
                             else {
-                                drivertip.setText("+" + Currency + " " + extraTipAddAmount);
+                                rl_ridertrip.setVisibility(View.VISIBLE);
+                                if (myPref.getCustomer_default_langauge().equalsIgnoreCase("de")) {
+                                    extraTipAddAmount = extraTipAddAmount.replace(".", ",");
+                                    drivertip.setText("+" + Currency + " " + extraTipAddAmount);
+                                } else {
+                                    drivertip.setText("+" + Currency + " " + extraTipAddAmount);
+                                }
                             }
                         }
 
@@ -3546,7 +3576,7 @@ if(CompanyName!=null){
 
             }
             if(GiftCardPay!=null){
-                if(!(GiftCardPay.equalsIgnoreCase("")||GiftCardPay.equalsIgnoreCase("null")||GiftCardPay.equalsIgnoreCase("0.00"))){
+                if(!(GiftCardPay.equalsIgnoreCase("")||GiftCardPay.equalsIgnoreCase("null")||GiftCardPay.equalsIgnoreCase("0.00")||GiftCardPay.equalsIgnoreCase("0"))){
 
                     TextSetting textSetting4 = new TextSetting();
                     textSetting4.setAlign(CommonEnum.ALIGN_LEFT);
@@ -3610,7 +3640,7 @@ if(CompanyName!=null){
 
 
             if(DiscountPrice!=null) {
-                if(!(DiscountPrice.equalsIgnoreCase("")||DiscountPrice.equalsIgnoreCase("null")||DiscountPrice.equalsIgnoreCase("0.00"))){
+                if(!(DiscountPrice.equalsIgnoreCase("")||DiscountPrice.equalsIgnoreCase("null")||DiscountPrice.equalsIgnoreCase("0.00")||DiscountPrice.equalsIgnoreCase("0"))){
                     TextSetting textSetting4 = new TextSetting();
                     textSetting4.setAlign(CommonEnum.ALIGN_LEFT);
                     if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
@@ -3669,7 +3699,7 @@ if(CompanyName!=null){
 
 
                 if(CouponPrice!=null){
-                    if(!(CouponPrice.equalsIgnoreCase("")||CouponPrice.equalsIgnoreCase("null")||CouponPrice.equalsIgnoreCase("0.00"))){
+                    if(!(CouponPrice.equalsIgnoreCase("")||CouponPrice.equalsIgnoreCase("null")||CouponPrice.equalsIgnoreCase("0.00")||CouponPrice.equalsIgnoreCase("0"))){
                         TextSetting textSetting4 = new TextSetting();
                         textSetting4.setAlign(CommonEnum.ALIGN_LEFT);
                         if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
@@ -3779,7 +3809,7 @@ if(CompanyName!=null){
 //            escCmd.append(escCmd.getLFCRCmd());
 
 
-            if (!(extraTipAddAmount.equals("") || extraTipAddAmount.equals(null) || extraTipAddAmount.equals("Null") || extraTipAddAmount.equals("null") || extraTipAddAmount.equals("0.00"))) {
+            if (!(extraTipAddAmount.equals("") || extraTipAddAmount.equals(null) || extraTipAddAmount.equals("Null") || extraTipAddAmount.equals("null") || extraTipAddAmount.equals("0.00")||extraTipAddAmount.equalsIgnoreCase("0"))) {
                 TextSetting textextratip = new TextSetting();
                 textextratip.setAlign(CommonEnum.ALIGN_LEFT);
                 if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
@@ -3848,7 +3878,7 @@ if(CompanyName!=null){
 
                 escCmd.append(escCmd.getLFCRCmd());
             }
-            if (!(DeliveryCharge.equals("") || DeliveryCharge.equals(null) || DeliveryCharge.equals("Null") || DeliveryCharge.equals("null") || DeliveryCharge.equals("0.00"))) {
+            if (!(DeliveryCharge.equals("") || DeliveryCharge.equals(null) || DeliveryCharge.equals("Null") || DeliveryCharge.equals("null") || DeliveryCharge.equals("0.00")||DeliveryCharge.equalsIgnoreCase("0"))) {
                 TextSetting textextratip = new TextSetting();
                 textextratip.setAlign(CommonEnum.ALIGN_LEFT);
                 if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
@@ -3904,7 +3934,7 @@ if(CompanyName!=null){
             }
 
 
-            if (!(ServiceFees.equals("") || ServiceFees.equals(null) || ServiceFees.equals("Null") || ServiceFees.equals("null") || ServiceFees.equals("0.00"))) {
+            if (!(ServiceFees.equals("") || ServiceFees.equals(null) || ServiceFees.equals("Null") || ServiceFees.equals("null") || ServiceFees.equals("0.00")||ServiceFees.equalsIgnoreCase("0"))) {
                 TextSetting textextratip = new TextSetting();
                 textextratip.setAlign(CommonEnum.ALIGN_LEFT);
                 String service_cost=parseLanguage.getParseString("Service_Cost");
@@ -3961,7 +3991,7 @@ if(CompanyName!=null){
 
                 escCmd.append(escCmd.getLFCRCmd());
             }
-            if (!(PackageFees.equals("") || PackageFees.equals(null) || PackageFees.equals("Null") || PackageFees.equals("null") || PackageFees.equals("0.00"))) {
+            if (!(PackageFees.equals("") || PackageFees.equals(null) || PackageFees.equals("Null") || PackageFees.equals("null") || PackageFees.equals("0.00")||PackageFees.equalsIgnoreCase("0"))) {
                 TextSetting textextratip = new TextSetting();
                 textextratip.setAlign(CommonEnum.ALIGN_LEFT);
                 if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
@@ -4018,7 +4048,7 @@ if(CompanyName!=null){
 
 
             }
-            if (!(SalesTaxAmount.equals("") || SalesTaxAmount.equals(null) || SalesTaxAmount.equals("Null") || SalesTaxAmount.equals("null") || SalesTaxAmount.equals("0.00"))) {
+            if (!(SalesTaxAmount.equals("") || SalesTaxAmount.equals(null) || SalesTaxAmount.equals("Null") || SalesTaxAmount.equals("null") || SalesTaxAmount.equals("0.00")||SalesTaxAmount.equalsIgnoreCase("0"))) {
                 TextSetting textextratip = new TextSetting();
                 textextratip.setAlign(CommonEnum.ALIGN_LEFT);
                 String service_tax=parseLanguage.getParseString("Service_Tax");
@@ -4176,7 +4206,7 @@ if(CompanyName!=null){
 //
 //            }
             if(getFoodTaxTotal7!=null){
-                if(!(getFoodTaxTotal7.equalsIgnoreCase("")||getFoodTaxTotal7.equalsIgnoreCase("null")||getFoodTaxTotal7.equalsIgnoreCase("0.00"))){
+                if(!(getFoodTaxTotal7.equalsIgnoreCase("")||getFoodTaxTotal7.equalsIgnoreCase("null")||getFoodTaxTotal7.equalsIgnoreCase("0.00")||getFoodTaxTotal7.equalsIgnoreCase("0"))){
                     TextSetting textextratip = new TextSetting();
                     textextratip.setAlign(CommonEnum.ALIGN_LEFT);
                     String drink_tax=parseLanguage.getParseString("Inkl_MwSt_7");
@@ -4223,7 +4253,7 @@ if(CompanyName!=null){
                 }
             }
             if(getFoodTaxTotal19!=null){
-                if((getFoodTaxTotal19.equalsIgnoreCase("")||getFoodTaxTotal19.equalsIgnoreCase("null")||getFoodTaxTotal19.equalsIgnoreCase("0.00"))){
+                if((getFoodTaxTotal19.equalsIgnoreCase("")||getFoodTaxTotal19.equalsIgnoreCase("null")||getFoodTaxTotal19.equalsIgnoreCase("0.00")||getFoodTaxTotal19.equalsIgnoreCase("0"))){
                     TextSetting textextratip = new TextSetting();
                     textextratip.setAlign(CommonEnum.ALIGN_LEFT);
                     String food_tax=parseLanguage.getParseString("Inkl_MwSt_19");
