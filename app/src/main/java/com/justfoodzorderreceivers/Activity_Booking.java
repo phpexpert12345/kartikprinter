@@ -1,6 +1,7 @@
  package com.justfoodzorderreceivers;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -33,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -439,7 +441,7 @@ import java.util.jar.Pack200;
             }
         });
 
-        getorderdetails();
+        getorderdetails(getIntent().getStringExtra("orderid"),0);
 
 
         tv_number.setOnClickListener(new View.OnClickListener() {
@@ -464,7 +466,7 @@ import java.util.jar.Pack200;
                     }
                     Intent i = new Intent(Activity_Booking.this, AcceptButton_activity.class);
                     i.putExtra("orderid", "" + getIntent().getStringExtra("orderid"));
-                    startActivity(i);
+                    startActivityForResult(i,30);
                 } catch (Exception e) {
 
                 }
@@ -963,7 +965,7 @@ import java.util.jar.Pack200;
         }
     };
 
-    public void getorderdetails() {
+    public void getorderdetails(String orderid,int type) {
 
         item_size.clear();
         item_name.clear();
@@ -1445,7 +1447,8 @@ if(company_logo!=null){
                             }
 
                         } else if(status.equalsIgnoreCase("Waiting")) {
-                            btn_status.setVisibility(View.GONE);
+                            btn_status.setText(parseLanguage.getParseString("Pending"));
+                            btn_status.setVisibility(View.VISIBLE);
                             btn_accept.setVisibility(View.VISIBLE);
                             btn_decline.setVisibility(View.VISIBLE);
 
@@ -1565,6 +1568,19 @@ if(company_logo!=null){
 
 
                     }
+                    if(type==1){
+                        try {
+                            findBT();
+                            openBT();
+                            sendData();
+                            doConnect();
+                            PrintOrderReceipt();
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        } catch (SdkException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1592,7 +1608,7 @@ if(company_logo!=null){
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("orderid", "" + getIntent().getStringExtra("orderid"));
+                params.put("orderid", "" + orderid);
                 params.put("lang_code", myPref.getCustomer_default_langauge());
                 Log.e("pa", "" + params);
                 return params;
@@ -4504,6 +4520,22 @@ if(CompanyName!=null){
 //
         }
     }
-}
+
+     @Override
+     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+         super.onActivityResult(requestCode, resultCode, data);
+         if(resultCode== Activity.RESULT_OK){
+             if(requestCode==30){
+                 if(data!=null){
+                     int type=data.getIntExtra("type",-1);
+                     String orderid=data.getStringExtra("orderid");
+                     getorderdetails(orderid,type);
+
+                 }
+             }
+         }
+
+     }
+ }
 
 

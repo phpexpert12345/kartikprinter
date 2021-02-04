@@ -1,5 +1,6 @@
 package com.justfoodzorderreceivers;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -253,17 +254,18 @@ public class AcceptButton_activity extends AppCompatActivity implements TimeValu
     private void showCustomDialog (String s)
     {
            AlertDialog alertDialog = new AlertDialog.Builder(AcceptButton_activity.this).create();
-           alertDialog.setTitle("Alert");
+           alertDialog.setTitle(parseLanguage.getParseString("AlertText"));
            alertDialog.setMessage(""+s);
 
         alertDialog.setIcon(R.drawable.tick);
 
-        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+        alertDialog.setButton(parseLanguage.getParseString("OKText"), new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(AcceptButton_activity.this,Activity_Booking.class);
+                        Intent intent = new Intent();
+                        intent.putExtra("type",1);
                         intent.putExtra("orderid",""+getIntent().getStringExtra("orderid"));
-                        startActivity(intent);
+                        setResult(Activity.RESULT_OK,intent);
                         finish();
 
 //                        Toast.makeText(getApplicationContext(),"You clicked on OK", Toast.LENGTH_SHORT).show();
