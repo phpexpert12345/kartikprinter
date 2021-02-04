@@ -1446,12 +1446,12 @@ if(company_logo!=null){
 
                         } else if(status.equalsIgnoreCase("Waiting")) {
                             btn_status.setVisibility(View.GONE);
-                            btn_accept.setVisibility(View.GONE);
-                            btn_decline.setVisibility(View.GONE);
+                            btn_accept.setVisibility(View.VISIBLE);
+                            btn_decline.setVisibility(View.VISIBLE);
 
-                            btn_change_orderstatus.setVisibility(View.VISIBLE);
+                            btn_change_orderstatus.setVisibility(View.GONE);
                             btn_track_order.setVisibility(View.GONE);
-                            btn_markComplete.setVisibility(View.VISIBLE);
+                            btn_markComplete.setVisibility(View.GONE);
                             orderclosed.setVisibility(View.GONE);
                         }
 
