@@ -1031,6 +1031,7 @@ import java.util.jar.Pack200;
                         order_status_color_code = jsonObject1.getString("order_status_color_code");
                         order_reference_number = jsonObject1.getString("order_reference_number");
                         collectionTime = jsonObject1.getString("collectionTime");
+                        Log.e("time",jsonObject1.toString());
                         Table_Booking_Number = jsonObject1.getString("Table_Booking_Number");
                         DriverFirstName = jsonObject1.getString("DriverFirstName");
                         DriverLastName = jsonObject1.getString("DriverLastName");
@@ -2710,6 +2711,7 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
                 escCmd.append(escCmd.getTextCmd(textSetting, RequestAtDate));
             }
             else {
+                Log.i("time",collectionTime);
                 escCmd.append(escCmd.getTextCmd(textSetting, RequestAtDate + "  " + collectionTime));
             }
             escCmd.append(escCmd.getLFCRCmd());

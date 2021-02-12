@@ -1169,7 +1169,8 @@ public class MainActivity extends AppCompatActivity
                         doConnect();
                         if(myPref.getAuto_print_enable().equalsIgnoreCase("1")) {
                             player.start();
-                            PrintOrderReceipt(orderID,error_msg );
+                            orderconfirm(orderID);
+//                            PrintOrderReceipt(orderID,error_msg );
                         }
                         else{
                             ShowOrderDialog(orderID,RequestAtDate,name_customer,OrderPrice,PaymentMethod,orderID);
@@ -4061,12 +4062,12 @@ if(player!=null && player.isPlaying()){
                 if(!myPref.getAuto_print_enable().equalsIgnoreCase("1")){
                     try {
                             player.stop();
-                        PrintOrderReceipt(orderid,myPref.getAuto_print_enable());
+                        orderconfirm(orderid);
                         dialog.dismiss();
                         dialog.cancel();
 
                         myPref.setDocCode("1");
-                    } catch (UnsupportedEncodingException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -4319,12 +4320,16 @@ AlertDialog alert;
             @Override
             public void onResponse(String s) {
                 progressDialog.dismiss();
+
                 Log.e("response", "" + s);
                 try {
+                    collectionTime=stime;
+                    PrintOrderReceipt(orderId,myPref.getAuto_print_enable());
                     JSONObject jsonObject = new JSONObject(s);
                     int error = jsonObject.getInt("error");
                     if (error == 0) {
                         String error_msg = jsonObject.getString("error_msg");
+
                         try {
                             dialog.dismiss();
                             dialog.cancel();
@@ -4345,10 +4350,12 @@ AlertDialog alert;
                         String error_msg = jsonObject.getString("error_msg");
 //                        Toast.makeText(AcceptButton_activity.this, error_msg, Toast.LENGTH_SHORT).show();
                         //   finish();
-                        showCustomDialog1(error_msg);
+//                        showCustomDialog1(error_msg);
 //                        finish();
                     }
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
             }
@@ -4369,9 +4376,9 @@ AlertDialog alert;
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("orderid", "" + Order_id);
+                params.put("orderid", orderId);
                 params.put("collectionTime", stime);
-                params.put("DriverComment", "No Comments");
+                params.put("DriverComment", "");
                 params.put("DriverID", "0");
                 params.put("lang_code", myPref.getCustomer_default_langauge());
                 Log.e("qwqw", "" + params);
