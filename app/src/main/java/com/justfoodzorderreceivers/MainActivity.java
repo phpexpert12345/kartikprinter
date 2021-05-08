@@ -1167,8 +1167,12 @@ public class MainActivity extends AppCompatActivity
                         openBT();
                         sendData();
                         doConnect();
+                        final AudioManager mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+                        final int originalVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
+                        player.start();
                         if(myPref.getAuto_print_enable().equalsIgnoreCase("1")) {
-                            player.start();
+
                             orderconfirm(orderID);
 //                            PrintOrderReceipt(orderID,error_msg );
                         }
@@ -4025,7 +4029,6 @@ if(player!=null && player.isPlaying()){
         dialog.show();
         dialog.setCancelable(true);
         ImageView back = dialog.findViewById(R.id.back);
-        player.start();
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

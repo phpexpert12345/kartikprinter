@@ -51,6 +51,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.justfoodzorderreceivers.Model.FoodItemList;
+import com.justfoodzorderreceivers.Utils.Socketmanager;
+import com.justfoodzorderreceivers.Utils.UsbAdmin;
 import com.rt.printerlibrary.bean.Position;
 import com.rt.printerlibrary.bean.SerialPortConfigBean;
 import com.rt.printerlibrary.cmd.Cmd;
@@ -86,7 +88,9 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -99,6 +103,8 @@ import java.util.jar.Pack200;
 
     ArrayList<Model_Combo> model_combos;
     private TextSetting textSetting;
+     public UsbAdmin mUsbAdmin;
+     private Socketmanager mSockManager;
     private String mChartsetName = "UTF-8";
     TextView name, tv_number, tv_delivery, tv_address, tv_payment_type, tv_deliveryon, tv_asap, tvDilerveryinstructions, ordernumber,
             deleiveryaddress, tv_no_foodItems, steak2, regardpoint, gifcardprice, tv_Servicecost, tv_servicetax_price, paybywallet,
@@ -167,7 +173,26 @@ import java.util.jar.Pack200;
     private PrinterPowerUtil printerPowerUtil;//To switch AP02 printer power.
      ImageView img_logo;
 
-
+     public boolean conTest() {
+         mUsbAdmin.Openusb();
+         if(!mUsbAdmin.GetUsbStatus())
+         {
+             return false;
+         }
+         else
+         {
+             return true;
+         }
+     }
+     public boolean PrintfData(byte[]data) {
+         if(!mUsbAdmin.sendCommand(data))
+         {
+             return false;
+         }
+         else {
+             return true;
+         }
+     }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -392,16 +417,23 @@ import java.util.jar.Pack200;
 
         // rl_dyingtable = (RelativeLayout) findViewById(R.id.rl_dyingtable);
         authPreference = new AuthPreference(this);
-        printwithbig.setVisibility(View.GONE);
+        printwithbig.setVisibility(View.VISIBLE);
 
 
-        printwithbig.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
+                printwithbig.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showPrintPopup();
+//                        if(conTest()){
+//                            String order_=ordernumber.getText().toString();
+//                            PrintfData(order_.getBytes());
+//                        }
                 /*    findBT();
                     openBT();
                     sendDataWithSmallPrinter();*/
-                Toast.makeText(Activity_Booking.this, "This feature is still under development", Toast.LENGTH_SHORT).show();
+
+//                Toast.makeText(Activity_Booking.this, "This feature is still under development", Toast.LENGTH_SHORT).show();
 
 
             }
@@ -649,6 +681,43 @@ import java.util.jar.Pack200;
 
         configObj = new SerialPortConfigBean().getDefaultConfig();
         printerPowerUtil = new PrinterPowerUtil(this);
+        mUsbAdmin=new UsbAdmin(this);
+        mSockManager=new Socketmanager(this);
+    }
+    private void showPrintPopup(){
+        androidx.appcompat.app.AlertDialog.Builder builder=new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setMessage("Please Select an option");
+        View view=LayoutInflater.from(this).inflate(R.layout.printer_popup,null);
+        builder.setView(view);
+        List<String> titles= Arrays.asList(getResources().getStringArray(R.array.print_popup));
+        RecyclerView recyclerView=view.findViewById(R.id.recyler_popup);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        PopupAdapter popupAdapter=new PopupAdapter(titles);
+        recyclerView.setAdapter(popupAdapter);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        builder.setPositiveButton("Yes",(dialog, which) -> {
+            if(popupAdapter.selected_position>=0){
+               switch (popupAdapter.selected_position){
+                   case 0:
+                       if(conTest()){
+                            String order_=ordernumber.getText().toString();
+                            PrintfData(order_.getBytes());
+                        }
+                       break;
+                   case 1:
+                       Toast.makeText(Activity_Booking.this,titles.get(popupAdapter.selected_position),Toast.LENGTH_SHORT).show();
+                       break;
+
+               }
+               dialog.dismiss();
+            }
+            else{
+                Toast.makeText(Activity_Booking.this, "Please select an option", Toast.LENGTH_SHORT).show();
+            }
+
+        }).setNegativeButton("no",(dialog, which) -> {
+            dialog.dismiss();
+        }).create().show();
     }
 
     private void sendDataWithSmallPrinter() {
@@ -1109,7 +1178,7 @@ if(company_logo!=null){
                                 Log.i("name", ItemsName+" item");
                                 String quantity = jsonObject12.getString("quantity");
                                 String menuprice = jsonObject12.getString("menuprice");
-                                String item_sizea = jsonObject12.getString("item_size");
+                                String item_sizea = jsonObject12.optString("item_size");
                                 String instructions = jsonObject12.getString("instructions");
                                 String ExtraTopping = jsonObject12.getString("ExtraTopping");
                                 Log.i("name", ExtraTopping+" topping");

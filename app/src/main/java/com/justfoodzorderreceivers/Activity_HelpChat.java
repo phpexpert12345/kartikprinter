@@ -50,7 +50,6 @@ public class Activity_HelpChat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__help_chat);
-
         requestQueue = Volley.newRequestQueue(this);
         myPref = new MyPref(Activity_HelpChat.this);
         parseLanguage = new ParseLanguage(myPref.getBookingData(),Activity_HelpChat.this);
@@ -66,6 +65,7 @@ public class Activity_HelpChat extends AppCompatActivity {
         if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
             tv_text.setText(getString(R.string.help_txt));
         }
+
         SetSpan("info@lieferadeal.de","www.Lieferadeal.de");
 
 
