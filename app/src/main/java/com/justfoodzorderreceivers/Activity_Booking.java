@@ -417,8 +417,7 @@ import java.util.jar.Pack200;
 
         // rl_dyingtable = (RelativeLayout) findViewById(R.id.rl_dyingtable);
         authPreference = new AuthPreference(this);
-        printwithbig.setVisibility(View.VISIBLE);
-
+        printwithbig.setVisibility(View.GONE);
 
 
                 printwithbig.setOnClickListener(new View.OnClickListener() {
