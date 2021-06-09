@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:paddingTop="5dp"
         android:paddingBottom="5dp">
@@ -18,7 +18,7 @@
             android:id="@+id/back"
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
-            android:layout_centerVertical="true"
+           android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_5sdp"
             android:src="@drawable/ic_back_black"
              />
@@ -34,11 +34,11 @@
             android:textSize="16dp"
             android:textStyle="bold" />
         <ImageView
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_15sdp"
             android:src="@drawable/life_logo"
             android:background="@color/black"
@@ -48,7 +48,7 @@
             android:id="@+id/tv_deliveryon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ordernumber"
+            android:layout_below="@+id/img_logo"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/opensans"
             android:gravity="center_horizontal"

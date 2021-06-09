@@ -729,7 +729,9 @@ public class MainActivity extends AppCompatActivity
                         customer_city=jsonObject1.getString("customer_city");
                         customer_postcode=jsonObject1.getString("customer_postcode");
                         company_logo=jsonObject1.getString("company_logo");
-
+if(RequestAtTime.contains("%20")){
+    RequestAtTime=RequestAtTime.replaceAll("%20"," ");
+}
 
 //                        rider_idAssign = rider_id;
                         discountOfferFreeItems = jsonObject1.getString("discountOfferFreeItems");
@@ -781,18 +783,26 @@ public class MainActivity extends AppCompatActivity
                                     String menuprice = jsonObject12.getString("menuprice");
                                     String instructions = jsonObject12.getString("instructions");
                                     String item_sizea = jsonObject12.getString("item_size");
-                                    String ExtraTopping = jsonObject12.getString("ExtraTopping");
+                                    String ExtraTopping="";
+                                    if(jsonObject12.get("ExtraTopping") instanceof JSONArray){
+                                        JSONArray extra_tops=jsonObject12.getJSONArray("ExtraTopping");
+                                        ExtraTopping=extra_tops.toString();
+
+                                    }
+
 
                                     String Currencyy = jsonObject12.getString("Currency");
 
-
-                                    item_size.add(item_sizea);
-                                    item_name.add(ItemsName);
-                                    item_price.add(menuprice);
-                                    item_quant.add(quantity);
-                                    item_instruction.add(instructions);
-                                    extra_toping.add(ExtraTopping);
-                                    foodItemLists.add(new FoodItemList(ItemsName, quantity, menuprice, item_sizea, ExtraTopping, Currency));
+                                    int quantity_no= Integer.parseInt(quantity);
+                                    if(quantity_no>0) {
+                                        item_size.add(item_sizea);
+                                        item_name.add(ItemsName);
+                                        item_price.add(menuprice);
+                                        item_quant.add(quantity);
+                                        item_instruction.add(instructions);
+                                        extra_toping.add(ExtraTopping);
+                                        foodItemLists.add(new FoodItemList(ItemsName, quantity, menuprice, item_sizea, ExtraTopping, Currency));
+                                    }
                                 }
 
                                 // Activity_Booking.FooditemListView fooditemListView = new Activity_Booking.FooditemListView(Activity_Booking.this, foodItemLists);

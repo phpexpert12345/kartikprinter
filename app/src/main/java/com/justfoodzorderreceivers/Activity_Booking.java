@@ -1171,6 +1171,7 @@ if(company_logo!=null){
                             tv_no_foodItems.setVisibility(View.GONE);
                             tv_no_foodItems.setTextColor(getResources().getColor(R.color.green));
                             ArrayList<FoodItemList> foodItemLists = new ArrayList<>();
+                            StringBuilder extraTopping=new StringBuilder();
                             for (int ii = 0; ii < jsonArray1. length(); ii++) {
                                 JSONObject jsonObject12 = jsonArray1.getJSONObject(ii);
                                 String ItemsName = jsonObject12.getString("ItemsName");
@@ -1179,23 +1180,39 @@ if(company_logo!=null){
                                 String menuprice = jsonObject12.getString("menuprice");
                                 String item_sizea = jsonObject12.optString("item_size");
                                 String instructions = jsonObject12.getString("instructions");
-                                String ExtraTopping = jsonObject12.getString("ExtraTopping");
-                                Log.i("name", ExtraTopping+" topping");
+                                String ExtraTopping="";
+                                if(jsonObject12.get("ExtraTopping") instanceof JSONArray){
+                                    JSONArray extra_tops=jsonObject12.getJSONArray("ExtraTopping");
+                                    ExtraTopping=extra_tops.toString();
+
+                                }
+                                else {
+                                     ExtraTopping = jsonObject12.getString("ExtraTopping");
+
+                                    extraTopping.append(extraTopping);
+                                    Log.i("name", ExtraTopping+" topping");
+                                }
+
                                 String Currencyy = jsonObject12.getString("Currency");
-                                item_name.add(ItemsName);
-                                item_price.add(menuprice);
-                                item_quant.add(quantity);
-                                item_instruction.add(instructions);
-                                extra_toping.add(ExtraTopping);
-                                item_size.add(item_sizea);
+                                int quantity_no= Integer.parseInt(quantity);
+                                if(quantity_no>0) {
+                                    item_name.add(ItemsName);
+                                    item_price.add(menuprice);
+                                    item_quant.add(quantity);
+                                    item_instruction.add(instructions);
+                                    extra_toping.add(ExtraTopping);
+                                    item_size.add(item_sizea);
 
-                                foodItemLists.add(new FoodItemList(ItemsName, quantity, menuprice, item_sizea, ExtraTopping, Currency));
+                                    foodItemLists.add(new FoodItemList(ItemsName, quantity, menuprice, item_sizea, ExtraTopping, Currency));
+                                }
                             }
+                            if(foodItemLists.size()>0) {
 
-                            FooditemListView fooditemListView = new FooditemListView(Activity_Booking.this, foodItemLists);
-                            linearLayoutManager = new LinearLayoutManager(Activity_Booking.this, LinearLayoutManager.VERTICAL, false);
-                            recycler_fooditem.setLayoutManager(linearLayoutManager);
-                            recycler_fooditem.setAdapter(fooditemListView);
+                                FooditemListView fooditemListView = new FooditemListView(Activity_Booking.this, foodItemLists);
+                                linearLayoutManager = new LinearLayoutManager(Activity_Booking.this, LinearLayoutManager.VERTICAL, false);
+                                recycler_fooditem.setLayoutManager(linearLayoutManager);
+                                recycler_fooditem.setAdapter(fooditemListView);
+                            }
                         }
 
 
@@ -1393,6 +1410,9 @@ if(company_logo!=null){
 
                             tv_accpetdate.setVisibility(View.VISIBLE);
 
+                        }
+                        if(RequestAtTime.contains("%20")){
+                            RequestAtTime=RequestAtTime.replaceAll("%20", " ");
                         }
                         if (myPref.getCustomer_default_langauge().equals("en")) {
                             tv_deliveryon.setText("Order Placed at : " + RequestAtDate + "/" + RequestAtTime);
@@ -1889,7 +1909,8 @@ if(myPref.getCustomer_default_langauge().equalsIgnoreCase("de")){
 
                 viewHolder.txt_comboname.setText(model_combos.get(0).getQuantity() + " × " + model_combos.get(0).getItemsName());
                 viewHolder.txt_combodiscription.setText(model_combos.get(0).getItemsDescriptionName());
-                viewHolder.txt_comboprince.setText(model_combos.get(0).getCurrency() + " " + model_combos.get(0).getMenuprice());
+                String menuprice=model_combos.get(0).getMenuprice().replace(".",",");
+                viewHolder.txt_comboprince.setText(model_combos.get(0).getCurrency() + " " + menuprice);
             }
             else{
                 viewHolder.rel_combodetails.setVisibility(View.GONE);
